@@ -6,8 +6,7 @@ favicon        = "img/avatar.png"
     since = 2025
 
 [sidebar]
-    emoji    = "🚀"
-    subtitle = "记录技术、学习与生活"
+    subtitle = "产品 on the way ～"
     avatar   = "img/avatar.png"
 
 [article]

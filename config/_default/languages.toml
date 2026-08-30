@@ -1,15 +1,7 @@
 [zh]
     label  = "简体中文"
-    title  = "Yinwwwwww 的作品集"
+    title  = "lejia zhang"
     weight = 1
 
     [zh.params.sidebar]
-        subtitle = "记录技术、学习与生活"
-
-[en]
-    label  = "English"
-    title  = "Yinwwwwww's Portfolio"
-    weight = 2
-
-    [en.params.sidebar]
-        subtitle = "Notes on tech, learning and life"
+        subtitle = "产品 on the way ～"

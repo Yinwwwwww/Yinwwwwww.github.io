@@ -49,3 +49,62 @@
         }
     }
 }
+
+/* 联系方式弹层 */
+.contact-dialog {
+    width: min(320px, calc(100vw - 40px));
+    padding: 0;
+    color: var(--card-text-color-main);
+    background: var(--card-background);
+    border: 0;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--shadow-l2);
+
+    &::backdrop {
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(2px);
+    }
+
+    .contact-dialog__content {
+        position: relative;
+        padding: var(--spacing-xl);
+        text-align: center;
+    }
+
+    .contact-dialog__close {
+        position: absolute;
+        top: var(--spacing-sm);
+        right: var(--spacing-sm);
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        color: var(--body-text-color);
+        font-size: 1.8rem;
+        line-height: 1;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        border-radius: 50%;
+
+        &:hover {
+            background: var(--body-background);
+        }
+    }
+
+    .contact-dialog__label {
+        margin: 0 0 var(--spacing-sm);
+        color: var(--body-text-color);
+        font-size: 1.4rem;
+    }
+
+    .contact-dialog__value {
+        margin: 0;
+        color: var(--accent-color);
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+}
+
+.menu-social a[href^="#"] {
+    cursor: pointer;
+}

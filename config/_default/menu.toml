@@ -2,6 +2,25 @@
     identifier = "github"
     name       = "GitHub"
     url        = "https://github.com/Yinwwwwww"
+    weight     = 1
 
     [social.params]
         icon = "brand-github"
+
+[[social]]
+    identifier = "wechat"
+    name       = "微信"
+    url        = "#wechat-contact"
+    weight     = 2
+
+    [social.params]
+        icon = "brand-wechat"
+
+[[social]]
+    identifier = "phone"
+    name       = "电话"
+    url        = "#phone-contact"
+    weight     = 3
+
+    [social.params]
+        icon = "phone"

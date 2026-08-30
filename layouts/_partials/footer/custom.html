@@ -1,0 +1,47 @@
+<dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-dialog-label">
+    <div class="contact-dialog__content">
+        <button class="contact-dialog__close" type="button" aria-label="关闭联系方式弹层">&times;</button>
+        <p class="contact-dialog__label" id="contact-dialog-label"></p>
+        <p class="contact-dialog__value"></p>
+    </div>
+</dialog>
+
+<script>
+    (() => {
+        const contacts = {
+            "#wechat-contact": { label: "微信号", value: "Yinw_955" },
+            "#phone-contact": { label: "手机号", value: "186 8651 2320" }
+        };
+        const dialog = document.querySelector("#contact-dialog");
+
+        if (!dialog) return;
+
+        const label = dialog.querySelector(".contact-dialog__label");
+        const value = dialog.querySelector(".contact-dialog__value");
+        const closeButton = dialog.querySelector(".contact-dialog__close");
+
+        document.querySelectorAll(".menu-social a").forEach((link) => {
+            const contact = contacts[link.getAttribute("href")];
+            if (!contact) return;
+
+            link.setAttribute("role", "button");
+            link.setAttribute("aria-haspopup", "dialog");
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
+                label.textContent = contact.label;
+                value.textContent = contact.value;
+
+                if (typeof dialog.showModal === "function") {
+                    dialog.showModal();
+                } else {
+                    window.alert(`${contact.label}：${contact.value}`);
+                }
+            });
+        });
+
+        closeButton.addEventListener("click", () => dialog.close());
+        dialog.addEventListener("click", (event) => {
+            if (event.target === dialog) dialog.close();
+        });
+    })();
+</script>
