@@ -52,7 +52,8 @@
 
 /* 联系方式弹层 */
 .contact-dialog {
-    width: min(320px, calc(100vw - 40px));
+    width: 320px;
+    max-width: calc(100vw - 40px);
     padding: 0;
     color: var(--card-text-color-main);
     background: var(--card-background);
