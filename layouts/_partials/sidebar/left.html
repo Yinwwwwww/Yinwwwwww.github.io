@@ -1,0 +1,101 @@
+<aside class="sidebar left-sidebar portfolio-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="{{ T `toggleMenu` }}">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        {{ with .Site.Params.sidebar.avatar }}
+            {{- $avatar := partial "helper/image" (dict "Image" . "Resources" resources "Context" $) -}}
+            <figure class="site-avatar">
+                <a href="{{ $.Site.Home.RelPermalink }}">
+                    <img src="{{ $avatar.Permalink }}"
+                        width="{{ $avatar.Width }}"
+                        height="{{ $avatar.Height }}"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+            </figure>
+        {{ end }}
+
+        <div class="site-meta">
+            <p class="portfolio-sidebar__eyebrow">PORTFOLIO</p>
+            <h1 class="site-name"><a href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a></h1>
+            <h2 class="site-description">{{ .Site.Params.sidebar.subtitle }}</h2>
+        </div>
+    </header>
+
+    {{- with .Site.Menus.social -}}
+        <ol class="menu-social" aria-label="社交与联系方式">
+            {{ range . }}
+                <li>
+                    <a
+                        href='{{ .URL }}'
+                        {{ if .Params.newTab }}target="_blank"{{ end }}
+                        {{ with .Name }}title="{{ . }}" aria-label="{{ . }}"{{ end }}
+                        rel="me"
+                    >
+                        {{ $icon := default "link" .Params.Icon }}
+                        {{ with $icon }}
+                            {{ partial "helper/icon" . }}
+                        {{ end }}
+                    </a>
+                </li>
+            {{ end }}
+        </ol>
+    {{- end -}}
+
+    <nav class="portfolio-nav" id="main-menu" aria-label="作品集目录">
+        <details open>
+            <summary><span class="portfolio-nav__index">01</span><span>About me</span></summary>
+            <div class="portfolio-nav__links">
+                <a href="{{ .Site.Home.RelPermalink }}#about-intro">个人简介</a>
+                <a href="{{ .Site.Home.RelPermalink }}#about-resume">简历 PDF</a>
+            </div>
+        </details>
+
+        <details open>
+            <summary><span class="portfolio-nav__index">02</span><span>Internship</span></summary>
+            <div class="portfolio-nav__links">
+                <a href="{{ .Site.Home.RelPermalink }}#internship-tencent">腾讯</a>
+                <a href="{{ .Site.Home.RelPermalink }}#internship-bytedance">字节跳动</a>
+                <a href="{{ .Site.Home.RelPermalink }}#internship-jilin">吉大正元</a>
+                <a href="{{ .Site.Home.RelPermalink }}#internship-dongyun">东云数据</a>
+            </div>
+        </details>
+
+        <details open>
+            <summary><span class="portfolio-nav__index">03</span><span>AI × idea</span></summary>
+            <div class="portfolio-nav__links">
+                <a href="{{ .Site.Home.RelPermalink }}#idea-excerpt">摘录中转站</a>
+                <a href="{{ .Site.Home.RelPermalink }}#idea-memo">智慧备忘录</a>
+            </div>
+        </details>
+
+        <details open>
+            <summary><span class="portfolio-nav__index">04</span><span>AI × work</span></summary>
+            <div class="portfolio-nav__links">
+                <a href="{{ .Site.Home.RelPermalink }}#work-skill">Skill</a>
+                <a href="{{ .Site.Home.RelPermalink }}#work-workflow">Workflow</a>
+                <a href="{{ .Site.Home.RelPermalink }}#work-script">脚本</a>
+            </div>
+        </details>
+
+        <details open>
+            <summary><span class="portfolio-nav__index">05</span><span>AI × learning</span></summary>
+            <div class="portfolio-nav__links">
+                <a href="{{ .Site.Home.RelPermalink }}#learning-project">复现项目</a>
+            </div>
+        </details>
+
+        {{ if .Site.Params.colorScheme.toggle }}
+            <button class="portfolio-sidebar__theme" id="dark-mode-toggle" type="button">
+                {{ partial "helper/icon" "toggle-left" }}
+                {{ partial "helper/icon" "toggle-right" }}
+                <span>{{ T "darkMode" }}</span>
+            </button>
+        {{ end }}
+    </nav>
+</aside>
