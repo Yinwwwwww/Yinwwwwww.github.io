@@ -8,3 +8,44 @@
         --left-sidebar-max-width: 24%;
     }
 }
+
+/* 左侧栏内容居中 */
+.left-sidebar {
+    header {
+        align-items: center;
+        text-align: center;
+
+        .site-meta {
+            align-items: center;
+        }
+    }
+
+    .menu-social {
+        justify-content: center;
+    }
+
+    #main-menu {
+        text-align: center;
+
+        > li:not(.menu-bottom-section) > a,
+        .menu-bottom-section > .menu > li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: var(--menu-icon-separation);
+        }
+
+        > li:not(.menu-bottom-section) > a > span,
+        #dark-mode-toggle > span,
+        #i18n-switch > select {
+            flex: 0 0 auto;
+            width: auto;
+            text-align: center;
+        }
+
+        #i18n-switch > select {
+            text-align-last: center;
+        }
+    }
+}
