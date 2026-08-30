@@ -1,7 +1,7 @@
 <div class="skill-diagram" role="group" aria-label="{{ .label }}">
     <header class="skill-diagram__header">
         <span>HORIZONTAL PROCESS</span>
-        <span class="skill-diagram__live"><em>左右滑动查看完整流程</em><i></i> LIVE</span>
+        <span class="skill-diagram__live"><em>初始全览 · 放大查看细节</em><i></i> LIVE</span>
     </header>
     <div class="skill-diagram__viewport">
         {{ if eq .type "manual" }}
@@ -137,7 +137,14 @@
         </svg>
         {{ end }}
     </div>
-    <div class="skill-diagram__legend" aria-hidden="true">
-        <span class="is-script">确定性处理</span><span class="is-ai">AI 判断</span><span class="is-human">人工闸门</span><span class="is-output">交付 / 写回</span>
+    <div class="skill-diagram__legend">
+        <div class="skill-diagram__legend-items" aria-hidden="true">
+            <span class="is-script">确定性处理</span><span class="is-ai">AI 判断</span><span class="is-human">人工闸门</span><span class="is-output">交付 / 写回</span>
+        </div>
+        <div class="skill-diagram__zoom" aria-label="流程图缩放控制">
+            <button type="button" data-diagram-zoom="out" aria-label="缩小{{ .label }}" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6"></path></svg></button>
+            <output aria-live="polite">适配</output>
+            <button type="button" data-diagram-zoom="in" aria-label="放大{{ .label }}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6M10.5 7.5v6"></path></svg></button>
+        </div>
     </div>
 </div>

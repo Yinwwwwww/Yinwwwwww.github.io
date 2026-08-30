@@ -1096,10 +1096,11 @@ html {
 
     svg {
         display: block;
-        width: auto;
+        width: 100%;
         min-width: 100%;
         max-width: none;
         height: auto;
+        transition: width 180ms ease;
     }
 
     marker path {
@@ -1214,11 +1215,19 @@ html {
 .skill-diagram__legend {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 18px;
+    gap: 10px 24px;
+    align-items: center;
+    justify-content: space-between;
     padding: 10px 14px;
     color: var(--portfolio-muted);
     font-size: 0.85rem;
     border-top: 1px solid var(--portfolio-border);
+}
+
+.skill-diagram__legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
 
     span {
         display: inline-flex;
@@ -1244,6 +1253,61 @@ html {
         &.is-output::before {
             background: var(--portfolio-ink);
         }
+    }
+}
+
+.skill-diagram__zoom {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    margin-left: auto;
+
+    button {
+        display: inline-grid;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        color: var(--portfolio-muted);
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        border-radius: 6px;
+        place-items: center;
+        transition: color 160ms ease, background-color 160ms ease, opacity 160ms ease;
+
+        &:hover:not(:disabled),
+        &:focus-visible {
+            color: var(--portfolio-accent);
+            background: color-mix(in srgb, var(--portfolio-accent) 9%, transparent);
+        }
+
+        &:focus-visible {
+            outline: 2px solid color-mix(in srgb, var(--portfolio-accent) 52%, transparent);
+            outline-offset: 1px;
+        }
+
+        &:disabled {
+            cursor: default;
+            opacity: 0.28;
+        }
+    }
+
+    svg {
+        width: 18px;
+        height: 18px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    output {
+        min-width: 42px;
+        color: var(--portfolio-muted);
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-align: center;
     }
 }
 
@@ -1286,41 +1350,69 @@ html {
 .skill-metrics {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
+    gap: 0;
+    padding: 18px 0;
+    border-top: 1px solid var(--portfolio-border);
+    border-bottom: 1px solid var(--portfolio-border);
 
     > div {
-        position: relative;
-        min-height: 122px;
-        padding: 22px 20px 18px;
-        overflow: hidden;
-        background: color-mix(in srgb, var(--portfolio-accent) 7%, var(--portfolio-panel));
-        border: 1px solid color-mix(in srgb, var(--portfolio-accent) 22%, var(--portfolio-border));
-        border-radius: 10px;
+        display: grid;
+        grid-template-columns: 42px minmax(0, 1fr);
+        gap: 12px;
+        align-items: center;
+        padding: 2px 22px;
+        border-right: 1px solid var(--portfolio-border);
 
-        &::before {
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            height: 3px;
-            background: var(--portfolio-accent);
-            content: "";
+        &:first-child {
+            padding-left: 0;
+        }
+
+        &:last-child {
+            padding-right: 0;
+            border-right: 0;
         }
     }
 
-    strong {
-        display: block;
+    .skill-metric__icon {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        margin: 0;
         color: var(--portfolio-accent);
-        font-size: clamp(1.9rem, 2.5vw, 2.6rem);
-        line-height: 1.15;
-        letter-spacing: -0.03em;
+        background: color-mix(in srgb, var(--portfolio-accent) 9%, var(--portfolio-panel));
+        border: 1px solid color-mix(in srgb, var(--portfolio-accent) 22%, var(--portfolio-border));
+        border-radius: 50%;
+        place-items: center;
+
+        svg {
+            width: 21px;
+            height: 21px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.7;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    }
+}
+
+.skill-metric__copy {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 7px;
+    align-items: baseline;
+
+    strong {
+        color: var(--portfolio-ink);
+        font-size: 1.5rem;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
     }
 
     span {
-        display: block;
-        margin-top: 10px;
+        margin: 0;
         color: var(--portfolio-muted);
-        font-size: 1rem;
+        font-size: 0.95rem;
         line-height: 1.45;
     }
 }
@@ -1465,9 +1557,16 @@ html {
 
     .skill-metrics {
         grid-template-columns: 1fr;
+        padding: 0;
 
         > div {
-            min-height: 104px;
+            padding: 16px 0;
+            border-right: 0;
+            border-bottom: 1px solid var(--portfolio-border);
+
+            &:last-child {
+                border-bottom: 0;
+            }
         }
     }
 
@@ -1482,7 +1581,9 @@ html {
     }
 
     .diagram-edges path,
-    .skill-diagram__live i::after {
+    .skill-diagram__live i::after,
+    .skill-diagram__viewport svg {
         animation: none;
+        transition: none;
     }
 }
