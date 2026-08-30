@@ -198,26 +198,239 @@
             </div>
         </header>
 
-        <div class="work-grid">
-            <article class="portfolio-card work-card" id="work-skill">
-                <header><span class="portfolio-label">TOOL 01</span><h3>Skill</h3></header>
-                <section><h4>设计背景</h4><div class="text-placeholder"><span></span><span class="medium"></span></div><div class="flow-placeholder" aria-label="设计背景动态流程图占位"><i></i><b>节点</b><i></i><b>节点</b><i></i><b>节点</b></div></section>
-                <section><h4>Skill 解决的事情</h4><div class="text-placeholder"><span></span><span class="short"></span></div><div class="flow-placeholder" aria-label="Skill 解决方案动态流程图占位"><i></i><b>输入</b><i></i><b>处理</b><i></i><b>输出</b></div></section>
-                <span class="placeholder-button">GitHub 链接 · 待补充</span>
+        <div class="skill-library" id="work-skill">
+            <header class="skill-library__intro portfolio-card">
+                <div>
+                    <span class="portfolio-label">8 BUSINESS SKILLS</span>
+                    <h3>把个人经验变成可执行的业务流程</h3>
+                    <p>围绕反馈治理、发版运营、知识沉淀、资产盘点与行业研究，将高频工作固化为有输入输出、有人工闸门、有结果校验的 Skill。</p>
+                </div>
+                <aside>
+                    <strong>展示口径</strong>
+                    <p>仅呈现可迁移的方法与聚合数据；没有可靠记录的工时和提升比例不作估算，内部源码与系统信息不公开。</p>
+                </aside>
+            </header>
+
+            <nav class="skill-directory" aria-label="Skill 快速导航">
+                <a href="#skill-feedback"><span>01</span>反馈自动入池</a>
+                <a href="#skill-release-match"><span>02</span>发布反馈对账</a>
+                <a href="#skill-failure-match"><span>03</span>失败缺陷对账</a>
+                <a href="#skill-changelog"><span>04</span>更新日志生成</a>
+                <a href="#skill-sharing"><span>05</span>分享案例沉淀</a>
+                <a href="#skill-assets"><span>06</span>AI 资产盘点</a>
+                <a href="#skill-weekly"><span>07</span>行业周报生产</a>
+                <a href="#skill-guide"><span>08</span>新功能手册生成</a>
+            </nav>
+
+            <article class="portfolio-card skill-card" id="skill-feedback">
+                <header class="skill-card__header">
+                    <span class="skill-card__index">01</span>
+                    <div><span class="portfolio-label">FEEDBACK GOVERNANCE</span><h3>反馈自动入池</h3><code>atap-feedback-to-tapd</code></div>
+                    <span class="skill-status is-live">持续运营</span>
+                </header>
+                <section class="skill-block">
+                    <header><span>01</span><h4>任务背景</h4></header>
+                    <div class="skill-facts">
+                        <div><small>要解决的事</small><p>将每天新增的需求与缺陷完整、规范地沉淀到 TAPD，并与已有事项或已上线能力建立关联。</p></div>
+                        <div><small>原流程与成本</small><p>反馈散落在共享表格、访谈材料和旧 Bot/TAPD；人工需要逐条拆解、查重、补字段、搬图片，且旧 Bot 直接理解对话建单，存在漏录和幻觉风险。</p></div>
+                    </div>
+                </section>
+                <section class="skill-block skill-solution">
+                    <header><span>02</span><h4>实现方案</h4></header>
+                    <p class="skill-summary">以多维表格保存不可丢失的原始事实，再由脚本、LLM 与 TAPD MCP 分工完成解析、判重、分流和写回。</p>
+                    <ol class="skill-flow" aria-label="反馈自动入池实现流程">
+                        <li><span>01</span><strong>解析反馈表</strong></li><li><span>02</span><strong>检索多源记录</strong></li><li><span>03</span><strong>三类分流</strong></li><li><span>04</span><strong>追加或建单</strong></li><li><span>05</span><strong>回读校验</strong></li>
+                    </ol>
+                    <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>原始反馈先确定性落库，AI 不决定事实是否被保存。</li><li>已有项只追加评论与证据、不覆盖正文；“已实现”必须有发布或知识来源佐证。</li><li>疑似重复和图片归属保留人工确认，跨系统写入后回读真实字段。</li></ul></div>
+                </section>
+                <section class="skill-block skill-result">
+                    <header><span>03</span><h4>达成效果</h4></header>
+                    <div class="skill-metrics"><div><strong>每日 2 次</strong><span>定时增量处理</span></div><div><strong>约 2 个月</strong><span>持续运行</span></div><div><strong>90+ 条</strong><span>原始反馈全部进入处理结果</span></div></div>
+                    <p>新增、重复、已实现三类结果均可追踪，原始记录无遗漏。历史阶段另以同一方法完成 100+ 条录入及 200+ → 120+ 主单治理，三组数据不合并计算。</p>
+                </section>
             </article>
 
+            <article class="portfolio-card skill-card" id="skill-release-match">
+                <header class="skill-card__header">
+                    <span class="skill-card__index">02</span>
+                    <div><span class="portfolio-label">RELEASE TRACEABILITY</span><h3>发布反馈对账</h3><code>atap-release-feedback-matcher</code></div>
+                    <span class="skill-status">流程沉淀</span>
+                </header>
+                <section class="skill-block">
+                    <header><span>01</span><h4>任务背景</h4></header>
+                    <div class="skill-facts"><div><small>要解决的事</small><p>回答“本期发布承接了哪些用户反馈”，为版本复盘、反馈关闭和用户回访提供依据。</p></div><div><small>原流程与成本</small><p>研发向发布计划与用户向反馈池长期分离；产品需要凭记忆跨两套系统逐项核对，关系无法追溯、复核。</p></div></div>
+                </section>
+                <section class="skill-block skill-solution">
+                    <header><span>02</span><h4>实现方案</h4></header>
+                    <p class="skill-summary">输入发布计划链接，拉全双侧数据，先识别明确来源引用，再进行从严语义匹配，输出需求与缺陷对照表。</p>
+                    <ol class="skill-flow" aria-label="发布反馈对账实现流程">
+                        <li><span>01</span><strong>解析发布链接</strong></li><li><span>02</span><strong>双侧分页拉全</strong></li><li><span>03</span><strong>父子需求聚合</strong></li><li><span>04</span><strong>来源与语义匹配</strong></li><li><span>05</span><strong>三档结果</strong></li>
+                    </ol>
+                    <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>严格区分发布计划的 release_id 与反馈池 iteration_id，异常条数立即停止。</li><li>显式来源引用优先；语义匹配比较功能模块和操作对象，不只看标题关键词。</li><li>结果分为高置信、疑似、未找到，疑似项不硬判并交由人工复核。</li></ul></div>
+                </section>
+                <section class="skill-block skill-result">
+                    <header><span>03</span><h4>达成效果</h4></header>
+                    <p>将依赖个人记忆的对账变成两张 7 列可追溯对照表和命中小结，支持一对多、多对一关系，为回访与反馈闭环提供统一入口。</p>
+                </section>
+            </article>
+
+            <article class="portfolio-card skill-card" id="skill-failure-match">
+                <header class="skill-card__header">
+                    <span class="skill-card__index">03</span>
+                    <div><span class="portfolio-label">FAILURE DIAGNOSIS</span><h3>失败缺陷对账</h3><code>atap-poster-failure-matcher</code></div>
+                    <span class="skill-status">流程沉淀</span>
+                </header>
+                <section class="skill-block">
+                    <header><span>01</span><h4>任务背景</h4></header>
+                    <div class="skill-facts"><div><small>要解决的事</small><p>判断运营海报中的 Error Run、Failed Task 是否已有对应缺陷，连接系统监控与用户问题。</p></div><div><small>原流程与成本</small><p>失败归因海报和反馈池互不相通；运营或产品需逐项阅读报错、再人工搜索缺陷，同一故障可能反复出现却无法识别。</p></div></div>
+                </section>
+                <section class="skill-block skill-solution">
+                    <header><span>02</span><h4>实现方案</h4></header>
+                    <p class="skill-summary">输入海报 HTML 与截止日，自动推算观察窗，逐条匹配失败项，最后按 TAPD 缺陷单聚合交付。</p>
+                    <ol class="skill-flow" aria-label="失败缺陷对账实现流程">
+                        <li><span>01</span><strong>解析失败海报</strong></li><li><span>02</span><strong>推算 10 天窗口</strong></li><li><span>03</span><strong>筛选候选缺陷</strong></li><li><span>04</span><strong>逐条语义匹配</strong></li><li><span>05</span><strong>按缺陷单聚合</strong></li>
+                    </ol>
+                    <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>只要求截止日，统一推算左闭右开的 10 天窗口，减少沟通并固定口径。</li><li>匹配时同时比较模块、操作对象和报错现象，每条失败保留独立置信度。</li><li>输出按缺陷单一单一行；未匹配项不强行入表，但必须披露数量。</li></ul></div>
+                </section>
+                <section class="skill-block skill-result">
+                    <header><span>03</span><h4>达成效果</h4></header>
+                    <p>形成“失败项—缺陷单”标准化入口，既支持异常归因和重复问题识别，也通过总量对账与一单一行避免漏项和重复统计。</p>
+                </section>
+            </article>
+
+            <article class="portfolio-card skill-card" id="skill-changelog">
+                <header class="skill-card__header">
+                    <span class="skill-card__index">04</span>
+                    <div><span class="portfolio-label">RELEASE COMMUNICATION</span><h3>更新日志生成</h3><code>atap-changelog-updater</code></div>
+                    <span class="skill-status">流程沉淀</span>
+                </header>
+                <section class="skill-block">
+                    <header><span>01</span><h4>任务背景</h4></header>
+                    <div class="skill-facts"><div><small>要解决的事</small><p>将产品与技术信息合并为面向用户的周度平台更新日志，并安全写入 iWiki。</p></div><div><small>原流程与成本</small><p>产品信息在周例会、技术信息在发布计划，人工拼合容易漏周、写错周；修改时还可能覆盖历史条目。</p></div></div>
+                </section>
+                <section class="skill-block skill-solution">
+                    <header><span>02</span><h4>实现方案</h4></header>
+                    <p class="skill-summary">以周例会上线能力为主、TAPD 缺陷为辅，校验周期后生成用户语言，经确认再执行新增或定点修改。</p>
+                    <ol class="skill-flow" aria-label="更新日志生成实现流程">
+                        <li><span>01</span><strong>定位目标周</strong></li><li><span>02</span><strong>采集双源信息</strong></li><li><span>03</span><strong>周期一致性校验</strong></li><li><span>04</span><strong>生成用户日志</strong></li><li><span>05</span><strong>确认后写入</strong></li><li><span>06</span><strong>回读验证</strong></li>
+                    </ol>
+                    <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>双源周期不一致立即暂停，避免把不同周的信息拼在一起。</li><li>写入前必须人工确认；先读旧页面，再决定新增或修改。</li><li>新增只追加并按日期排序，修改只替换目标周，防止覆盖历史。</li></ul></div>
+                </section>
+                <section class="skill-block skill-result">
+                    <header><span>03</span><h4>达成效果</h4></header>
+                    <p>把双源拼合、用户化表达和 iWiki 写入收敛为可校验流程，降低错周、漏项及误覆盖风险，形成可持续维护的更新日志。</p>
+                </section>
+            </article>
+
+            <article class="portfolio-card skill-card" id="skill-sharing">
+                <header class="skill-card__header">
+                    <span class="skill-card__index">05</span>
+                    <div><span class="portfolio-label">KNOWLEDGE REUSE</span><h3>分享案例沉淀</h3><code>atap-share-to-iwiki</code></div>
+                    <span class="skill-status">流程沉淀</span>
+                </header>
+                <section class="skill-block">
+                    <header><span>01</span><h4>任务背景</h4></header>
+                    <div class="skill-facts"><div><small>要解决的事</small><p>把产品落地经验分享转化为其他项目组可直接复用的结构化案例。</p></div><div><small>原流程与成本</small><p>展示文档与会议录制“讲过即消失”；人工整理结构不一，智能纪要又常缺少踩坑、真实数据和问答边界。</p></div></div>
+                </section>
+                <section class="skill-block skill-solution">
+                    <header><span>02</span><h4>实现方案</h4></header>
+                    <p class="skill-summary">脚本拉取逐字稿，LLM 交叉理解逐字稿与展示材料，识别口径差异并按模板成文，经用户确认后新建 iWiki 页面。</p>
+                    <ol class="skill-flow" aria-label="分享案例沉淀实现流程">
+                        <li><span>01</span><strong>读取展示材料</strong></li><li><span>02</span><strong>拉取会议逐字稿</strong></li><li><span>03</span><strong>两源交叉核对</strong></li><li><span>04</span><strong>按模板成文</strong></li><li><span>05</span><strong>用户确认</strong></li><li><span>06</span><strong>新建并回读</strong></li>
+                    </ol>
+                    <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>逐字稿是一手事实，展示材料提供结构；数字冲突以展示材料口径为准并标注。</li><li>通过主题、日期、正文三点核对录制，匹配不上就停止，不用相似内容凑数。</li><li>敏感信息中性化；每期新建页面不覆盖历史，写后检查章节、表格和父页面。</li></ul></div>
+                </section>
+                <section class="skill-block skill-result">
+                    <header><span>03</span><h4>达成效果</h4></header>
+                    <p>将一次性分享转化为结构统一、口径可追溯的案例资产，并保留现场问答与可照搬清单，让经验从“听过”变为“可复用”。</p>
+                </section>
+            </article>
+
+            <article class="portfolio-card skill-card" id="skill-assets">
+                <header class="skill-card__header">
+                    <span class="skill-card__index">06</span>
+                    <div><span class="portfolio-label">DATA GOVERNANCE</span><h3>AI 资产盘点</h3><code>atap-ai-asset-inventory</code></div>
+                    <span class="skill-status">流程沉淀</span>
+                </header>
+                <section class="skill-block">
+                    <header><span>01</span><h4>任务背景</h4></header>
+                    <div class="skill-facts"><div><small>要解决的事</small><p>回答平台有哪些 AI 资产、谁创建、何时发布、权限如何，以及是否被引用或使用。</p></div><div><small>原流程与成本</small><p>Skill、MCP、知识库、测试专家、工作流分散在 3 个数据库；人工临时 SQL 依赖个人口径，错误不会报错却会直接进入汇报。</p></div></div>
+                </section>
+                <section class="skill-block skill-solution">
+                    <header><span>02</span><h4>实现方案</h4></header>
+                    <p class="skill-summary">先定义口径与可观测边界，再由用户执行标准 SQL，脚本还原工作流用量、合并结果，最终完成五项对账和台账输出。</p>
+                    <ol class="skill-flow" aria-label="AI 资产盘点实现流程">
+                        <li><span>01</span><strong>定义统计口径</strong></li><li><span>02</span><strong>结构预检</strong></li><li><span>03</span><strong>五类资产取数</strong></li><li><span>04</span><strong>三跳还原用量</strong></li><li><span>05</span><strong>五项对账</strong></li><li><span>06</span><strong>台账与局限披露</strong></li>
+                    </ol>
+                    <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>工作流用量按 Run → Session/Task → Workflow 还原，并拆分主任务与子节点。</li><li>知识库挂载不等于检索命中；Skill 缺少真实调用日志，不以安装或绑定冒充用量。</li><li>人工执行 SQL 既适应合规限制，也是一道权限闸门；“无记录”与数值 0 分开表述。</li></ul></div>
+                </section>
+                <section class="skill-block skill-result">
+                    <header><span>03</span><h4>达成效果</h4></header>
+                    <div class="skill-metrics"><div><strong>5 类资产</strong><span>统一明细口径</span></div><div><strong>3 个数据库</strong><span>跨库取数</span></div><div><strong>7 Sheet</strong><span>总览与明细台账</span></div></div>
+                    <p>通过结构预检、构成加和、覆盖率和跨周交叉验证，避免“看起来合理”的静默错数，并将所有数据局限写入交付物。</p>
+                </section>
+            </article>
+
+            <article class="portfolio-card skill-card" id="skill-weekly">
+                <header class="skill-card__header">
+                    <span class="skill-card__index">07</span>
+                    <div><span class="portfolio-label">INDUSTRY INTELLIGENCE</span><h3>行业周报生产</h3><code>weekly-report</code></div>
+                    <span class="skill-status is-live">持续运营</span>
+                </header>
+                <section class="skill-block">
+                    <header><span>01</span><h4>任务背景</h4></header>
+                    <div class="skill-facts"><div><small>要解决的事</small><p>为游戏品质管理团队提供稳定、可信、可转化为产品机会的游戏测试与 AI 情报窗口。</p></div><div><small>原流程与成本</small><p>临时检索式生产依赖个人状态：来源不可考、链接失效、板块跑偏、同一事件重复，大厂官方动态也容易漏跟。</p></div></div>
+                </section>
+                <section class="skill-block skill-solution">
+                    <header><span>02</span><h4>实现方案</h4></header>
+                    <p class="skill-summary">将选题、检索、来源核验、事件去重、技术拆解和 HTML 输出固化为周度生产线，最终由人工复核发布。</p>
+                    <ol class="skill-flow" aria-label="行业周报生产实现流程">
+                        <li><span>01</span><strong>确认期号周期</strong></li><li><span>02</span><strong>四板块检索</strong></li><li><span>03</span><strong>官方源逐条核验</strong></li><li><span>04</span><strong>事件去重归类</strong></li><li><span>05</span><strong>技术三段式拆解</strong></li><li><span>06</span><strong>HTML 与人工复核</strong></li>
+                    </ol>
+                    <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>只使用可访问、内容与日期相符的官方一手深链，不确定信息直接剔除。</li><li>一个事件只进入一个板块；重点技术按“是什么—关键机制—适用边界”表达。</li><li>固定板块与内容配额，引用编号全文连续，避免每期结构和质量随状态波动。</li></ul></div>
+                </section>
+                <section class="skill-block skill-result">
+                    <header><span>03</span><h4>达成效果</h4></header>
+                    <div class="skill-metrics"><div><strong>10 期</strong><span>独立完成周报</span></div><div><strong>200+ 成员</strong><span>部门覆盖</span></div><div><strong>2 个方向</strong><span>转化为内部产品机会</span></div></div>
+                    <p>周报不止做资讯搬运，行业线索进一步转化为团队共享上下文与“零侵入自动报 Bug”等产品规划输入；后两项仍处规划或待评审状态。</p>
+                </section>
+            </article>
+
+            <article class="portfolio-card skill-card" id="skill-guide">
+                <header class="skill-card__header">
+                    <span class="skill-card__index">08</span>
+                    <div><span class="portfolio-label">USER EDUCATION</span><h3>新功能手册生成</h3><code>atap-release-poster</code></div>
+                    <span class="skill-status">流程沉淀</span>
+                </header>
+                <section class="skill-block">
+                    <header><span>01</span><h4>任务背景</h4></header>
+                    <div class="skill-facts"><div><small>要解决的事</small><p>把研发向发布计划翻译成最终用户“一看就懂、照着能用”的图文新功能手册。</p></div><div><small>原流程与成本</small><p>原发版内容只列需求与缺陷，用户需要自行理解价值、入口和步骤；产品需人工筛选功能、确认路径、整理截图并重复排版。</p></div></div>
+                </section>
+                <section class="skill-block skill-solution">
+                    <header><span>02</span><h4>实现方案</h4></header>
+                    <p class="skill-summary">从发布计划中筛出用户可感知能力，按模块生成“价值、入口、步骤、配图”四件套，经截图与入口确认后输出统一 HTML。</p>
+                    <ol class="skill-flow" aria-label="新功能手册生成实现流程">
+                        <li><span>01</span><strong>拉取当期需求</strong></li><li><span>02</span><strong>剔除无感知项</strong></li><li><span>03</span><strong>模块分组</strong></li><li><span>04</span><strong>生成四件套卡片</strong></li><li><span>05</span><strong>截图与入口确认</strong></li><li><span>06</span><strong>HTML 预览交付</strong></li>
+                    </ol>
+                    <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>只有存在页面、入口、按钮或可见结果的功能才进入手册。</li><li>操作步骤严格来自需求 description 原文；缺失时留空并提示补充，不自行编造。</li><li>生成前回显保留项、剔除项、入口路径和截图归属，图片使用相对路径并支持灯箱。</li></ul></div>
+                </section>
+                <section class="skill-block skill-result">
+                    <header><span>03</span><h4>达成效果</h4></header>
+                    <div class="skill-metrics"><div><strong>12 期</strong><span>累计负责发版内容</span></div><div><strong>200+ 成员</strong><span>部门覆盖</span></div><div><strong>定性反馈</strong><span>图文步骤更易阅读</span></div></div>
+                    <p>统一了用户价值、功能入口和操作步骤的传播结构。12 期是发版清单与图文手册的总期数，不能表述为全部由该 Skill 自动生成。</p>
+                </section>
+            </article>
+        </div>
+
+        <div class="work-grid work-grid--pending">
             <article class="portfolio-card work-card" id="work-workflow">
-                <header><span class="portfolio-label">TOOL 02</span><h3>Workflow</h3></header>
-                <section><h4>设计背景</h4><div class="text-placeholder"><span></span><span class="medium"></span></div><div class="flow-placeholder" aria-label="Workflow 设计背景动态流程图占位"><i></i><b>节点</b><i></i><b>节点</b><i></i><b>节点</b></div></section>
-                <section><h4>解决的事情</h4><div class="text-placeholder"><span></span><span class="short"></span></div><div class="flow-placeholder" aria-label="Workflow 解决方案动态流程图占位"><i></i><b>触发</b><i></i><b>执行</b><i></i><b>完成</b></div></section>
-                <span class="placeholder-button">GitHub 链接 · 待补充</span>
+                <header><span class="portfolio-label">TOOL 02 · PLACEHOLDER</span><h3>Workflow</h3></header>
+                <section><h4>内容待补充</h4><div class="text-placeholder"><span></span><span class="medium"></span></div></section>
             </article>
 
             <article class="portfolio-card work-card" id="work-script">
-                <header><span class="portfolio-label">TOOL 03</span><h3>脚本</h3></header>
-                <section><h4>设计背景</h4><div class="text-placeholder"><span></span><span class="medium"></span></div><div class="flow-placeholder" aria-label="脚本设计背景动态流程图占位"><i></i><b>节点</b><i></i><b>节点</b><i></i><b>节点</b></div></section>
-                <section><h4>解决的事情</h4><div class="text-placeholder"><span></span><span class="short"></span></div><div class="flow-placeholder" aria-label="脚本解决方案动态流程图占位"><i></i><b>输入</b><i></i><b>脚本</b><i></i><b>结果</b></div></section>
-                <span class="placeholder-button">GitHub 链接 · 待补充</span>
+                <header><span class="portfolio-label">TOOL 03 · PLACEHOLDER</span><h3>脚本</h3></header>
+                <section><h4>内容待补充</h4><div class="text-placeholder"><span></span><span class="short"></span></div></section>
             </article>
         </div>
     </section>
