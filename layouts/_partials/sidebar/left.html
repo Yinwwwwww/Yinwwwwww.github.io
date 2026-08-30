@@ -5,14 +5,6 @@
         </span>
     </button>
 
-    {{ if .Site.Params.colorScheme.toggle }}
-        <button class="portfolio-theme-toggle" id="dark-mode-toggle" type="button" aria-label="{{ T `darkMode` }}">
-            {{ partial "helper/icon" "toggle-left" }}
-            {{ partial "helper/icon" "toggle-right" }}
-            <span>{{ T "darkMode" }}</span>
-        </button>
-    {{ end }}
-
     <header>
         {{ with .Site.Params.sidebar.avatar }}
             {{- $avatar := partial "helper/image" (dict "Image" . "Resources" resources "Context" $) -}}

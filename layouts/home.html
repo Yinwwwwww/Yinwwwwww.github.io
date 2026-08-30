@@ -2,6 +2,14 @@
 
 {{ define "main" }}
 <div class="portfolio-page">
+    {{ if .Site.Params.colorScheme.toggle }}
+        <button class="portfolio-theme-toggle" id="dark-mode-toggle" type="button" aria-label="{{ T `darkMode` }}">
+            {{ partial "helper/icon" "toggle-left" }}
+            {{ partial "helper/icon" "toggle-right" }}
+            <span>{{ T "darkMode" }}</span>
+        </button>
+    {{ end }}
+
     <header class="portfolio-hero" id="top">
         <div>
             <p class="portfolio-kicker">PRODUCT · AI · PRACTICE</p>
