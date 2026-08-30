@@ -5,6 +5,14 @@
         </span>
     </button>
 
+    {{ if .Site.Params.colorScheme.toggle }}
+        <button class="portfolio-theme-toggle" id="dark-mode-toggle" type="button" aria-label="{{ T `darkMode` }}">
+            {{ partial "helper/icon" "toggle-left" }}
+            {{ partial "helper/icon" "toggle-right" }}
+            <span>{{ T "darkMode" }}</span>
+        </button>
+    {{ end }}
+
     <header>
         {{ with .Site.Params.sidebar.avatar }}
             {{- $avatar := partial "helper/image" (dict "Image" . "Resources" resources "Context" $) -}}
@@ -58,10 +66,10 @@
         <details open>
             <summary><span class="portfolio-nav__index">02</span><span>Internship</span></summary>
             <div class="portfolio-nav__links">
-                <a href="{{ .Site.Home.RelPermalink }}#internship-tencent">腾讯 · 产品策划</a>
-                <a href="{{ .Site.Home.RelPermalink }}#internship-bytedance">字节跳动 · HRBP</a>
-                <a href="{{ .Site.Home.RelPermalink }}#internship-jilin">吉大正元 · 产品解决方案</a>
-                <a href="{{ .Site.Home.RelPermalink }}#internship-dongyun">东云数据 · 产品助理</a>
+                <a href="{{ .Site.Home.RelPermalink }}#internship-tencent">腾讯</a>
+                <a href="{{ .Site.Home.RelPermalink }}#internship-bytedance">字节跳动</a>
+                <a href="{{ .Site.Home.RelPermalink }}#internship-jilin">吉大正元</a>
+                <a href="{{ .Site.Home.RelPermalink }}#internship-dongyun">东云数据</a>
             </div>
         </details>
 
@@ -89,12 +97,5 @@
             </div>
         </details>
 
-        {{ if .Site.Params.colorScheme.toggle }}
-            <button class="portfolio-sidebar__theme" id="dark-mode-toggle" type="button">
-                {{ partial "helper/icon" "toggle-left" }}
-                {{ partial "helper/icon" "toggle-right" }}
-                <span>{{ T "darkMode" }}</span>
-            </button>
-        {{ end }}
     </nav>
 </aside>
