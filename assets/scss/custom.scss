@@ -531,6 +531,7 @@ html {
 .about-grid {
     display: grid;
     gap: var(--spacing-lg);
+    align-items: start;
 
     @include respond(lg) {
         grid-template-columns: 1.08fr 0.92fr;
@@ -548,6 +549,153 @@ html {
 
     &:last-child {
         padding-bottom: 0;
+    }
+}
+
+.education-list {
+    display: grid;
+    gap: 22px;
+}
+
+.education-entry {
+    + .education-entry {
+        padding-top: 22px;
+        border-top: 1px solid var(--portfolio-border);
+    }
+
+    header {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 12px;
+
+        @include respond(md) {
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: start;
+        }
+    }
+
+    h5 {
+        margin: 0;
+        color: var(--portfolio-ink);
+        font-size: 1.35rem;
+        line-height: 1.5;
+
+        span {
+            color: var(--portfolio-muted);
+            font-weight: 600;
+        }
+    }
+
+    time {
+        color: var(--portfolio-muted);
+        font-size: 1.05rem;
+        font-weight: 650;
+        line-height: 1.65;
+        white-space: nowrap;
+    }
+
+    p {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 10px;
+        margin: 7px 0 0;
+        color: var(--portfolio-muted);
+        font-size: 1.12rem;
+        line-height: 1.65;
+
+        strong {
+            color: var(--portfolio-ink);
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+    }
+}
+
+.ability-groups {
+    display: grid;
+    gap: 12px;
+
+    article {
+        padding: 18px;
+        background: color-mix(in srgb, var(--portfolio-ink) 3%, var(--portfolio-panel));
+        border: 1px solid var(--portfolio-border);
+        border-radius: 10px;
+    }
+
+    header {
+        display: flex;
+        gap: 9px;
+        align-items: baseline;
+        margin-bottom: 13px;
+
+        span {
+            color: var(--portfolio-accent);
+            font-size: 0.88rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+        }
+
+        h5 {
+            margin: 0;
+            color: var(--portfolio-ink);
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.ability-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    span {
+        padding: 7px 10px;
+        color: var(--portfolio-muted);
+        font-size: 1rem;
+        background: var(--portfolio-panel);
+        border: 1px solid var(--portfolio-border);
+        border-radius: 999px;
+    }
+}
+
+.personal-keywords {
+    display: grid;
+    gap: 8px;
+
+    @include respond(md) {
+        grid-template-columns: 0.65fr 1fr;
+
+        article:last-child {
+            grid-column: 1 / -1;
+        }
+    }
+
+    article {
+        min-width: 0;
+        padding: 16px 18px;
+        background: color-mix(in srgb, var(--portfolio-accent) 6%, var(--portfolio-panel));
+        border-radius: 10px;
+    }
+
+    span {
+        display: block;
+        margin-bottom: 7px;
+        color: var(--portfolio-accent);
+        font-size: 0.88rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+    }
+
+    strong {
+        color: var(--portfolio-ink);
+        font-size: 1.55rem;
+    }
+
+    p {
+        margin: 0;
+        color: var(--portfolio-ink);
+        font-size: 1.12rem;
+        line-height: 1.55;
     }
 }
 
