@@ -1,0 +1,10 @@
+/* 左侧边栏稍微加宽 */
+.container.compact {
+    @include respond(lg) {
+        --left-sidebar-max-width: 22%;
+    }
+
+    @include respond(xl) {
+        --left-sidebar-max-width: 24%;
+    }
+}
