@@ -192,111 +192,164 @@
 
                 <div class="memo-story">
                     <span class="portfolio-label">STORY OPENING</span>
-                    <p class="memo-story__lead">家里的那颗驱虫药，我明明记得还剩一粒，却怎么也找不到。重新买完，才在零食架最底层发现它——这时猫已经长大，原来的剂量也不再适用。</p>
-                    <p>类似的“小事”一直发生：猫砂盆上次是什么时候彻底清洗的？想讲给妈妈的趣事，为什么总等到细节褪色才想起来？每次我都在“这个要记一下”和“算了，应该记得住”之间放弃记录。</p>
+                    <p class="memo-story__lead">“这个要记一下。”——但它后面总跟着另一个念头：“这点小事应该记得住吧，现在记太麻烦了。”</p>
+                    <p>家里明明还剩一颗幼猫驱虫药，我却怎么也找不到，只能重新购买。后来在零食架底层重新发现它时，小猫已经长大，原来的剂量也不再适用。猫砂盆上次何时清洗、想讲给家人的趣事、被收到“肯定不会忘”位置的钥匙，也一次次在需要时消失。</p>
                     <div class="memo-story__scenes" aria-label="问题场景">
-                        <span>一件物品放在哪里</span><span>一件事上次何时做</span><span>一段经历以后想讲</span>
+                        <span>8 人探索性访谈</span><span>5 人无讲解原型测试</span><span>MVP 开发完成</span><span>完整版开发中</span>
                     </div>
-                    <blockquote>我缺的不是更复杂的知识库，而是一个能接住生活碎片、在未来需要时把它送回来的“外置记忆”。</blockquote>
-                    <div class="memo-story__initial"><strong>最初构想</strong><p>像发微信一样说一句，AI 自动拆成原子记录、放进固定生活模块；有日期的进入日程，之后按模块浏览或直接提问。第一版很快证明：技术能实现，但“先替所有人设计一套生活分类法”这个产品假设错了。</p></div>
+                    <blockquote>很多生活信息在产生时，小到不值得专门整理；真正需要时，却又重要到不能丢。</blockquote>
+                    <div class="memo-discovery-flow" aria-label="有备忘从问题发现到 MVP 开发完成的探索流程">
+                        <article><span>01</span><h5>生活问题</h5><p>遗忘持续制造寻找、重复购买与遗憾</p></article><i></i>
+                        <article><span>02</span><h5>初步构想</h5><p>说一句，系统负责保存、整理和找回</p></article><i></i>
+                        <div class="memo-discovery-flow__parallel"><article><b>Demo</b><small>把直觉做出来</small></article><article><b>用户研究</b><small>确认共性与差异</small></article><article><b>竞品研究</b><small>寻找完整闭环空位</small></article></div><i></i>
+                        <article><span>03</span><h5>定位重构</h5><p>从模型友好转向用户心智</p></article><i></i>
+                        <article class="is-current"><span>04</span><h5>V3.2 MVP</h5><p>可靠、可纠正、可验证</p></article>
+                    </div>
                 </div>
 
                 <section class="skill-block memo-section">
-                    <header><span>01</span><h4>用户与场景</h4></header>
-                    <p>现阶段证据来自长期生活场景记录、竞品任务链拆解和多轮产品假设，而非已经完成的大样本调研。以下是<strong>有场景支撑、仍待真实用户验证</strong>的共性判断。</p>
-                    <div class="memo-need-grid">
-                        <article><strong>低准备输入</strong><p>记录前不用先想标题、分类，或判断 AI 能否理解。</p></article>
-                        <article><strong>可靠留存</strong><p>模型失败也不能丢原话；先保存，再理解。</p></article>
-                        <article><strong>多路找回</strong><p>既能按人、宠物、物品浏览，也能按语义和日期搜索。</p></article>
-                        <article><strong>随时纠错</strong><p>看得见系统做了什么，也能编辑、撤销、删除和导出。</p></article>
+                    <header><span>01</span><h4>问题验证</h4></header>
+                    <p>我用<strong>8 人探索性访谈、用户心理拆解和社媒研究</strong>回答三个问题：遗忘是否跨人群存在、已有工具为什么没解决、共性问题背后为何产生不同需求。这是定性探索，不代表总体人口比例。</p>
+                    <div class="memo-research-metrics"><div><strong>8 人</strong><span>跨年龄与生活状态访谈</span></div><div><strong>3 种</strong><span>访谈 · 心理分析 · 社媒研究</span></div><div><strong>20 个</strong><span>用于展开边界的典型场景</span></div></div>
+                    <div class="memo-table-wrap" tabindex="0" aria-label="代表性用户访谈结论，可横向滚动">
+                        <table class="memo-product-table">
+                            <thead><tr><th>代表用户</th><th>现在怎么记</th><th>真正的问题</th><th>转化为设计信号</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>青年学生 / 实习生</strong></td><td>提醒事项 + 备忘录</td><td>同一件事跨工具重复记录</td><td>统一入口；清单可复用</td></tr>
+                                <tr><td><strong>生活内容沉淀型</strong></td><td>备忘录、飞书、相册、收藏</td><td>闪念懒得记，记过也忘了回看</td><td>跨来源收口；自动整理与回顾</td></tr>
+                                <tr><td><strong>高事务低技术耐受型</strong></td><td>备忘录、闹钟、让别人提醒</td><td>记录麻烦，总以为自己记得住</td><td>概念更少；语音与微信入口</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="memo-evidence-note"><strong>共性背后的个性</strong><span>有人围绕家人整理，有人围绕宠物、住所或物品；对自动归类、日期误差、提醒和隐私的容忍度也不同。用户画像因此从“某类人”改为“频繁产生生活碎片，却不愿维护复杂结构的一类行为”。</span></div>
+                    {{ partial "memo-scene-wall.html" . }}
+                    <div class="memo-insight-pair"><article><span>当下</span><strong>降低记录成本</strong><p>不选分类、不起标题、不切模式，也能立刻留下原话。</p></article><i></i><article><span>未来</span><strong>降低找回成本</strong><p>能按熟悉结构浏览，也能搜索、提问或在“今天”找回。</p></article></div>
+                    <div class="memo-evidence-note"><strong>核心洞察</strong><span>用户不是没有记录需求，而是一件“小事”的单次记录成本太高。只解决输入，会形成无法管理的时间流；只强化分类，又会让用户从一开始就放弃记录。</span></div>
                 </section>
 
                 <section class="skill-block memo-section">
                     <header><span>02</span><h4>第一版 Demo</h4></header>
-                    <p>第一版叫“拾光备忘”：用微信小程序 + Java / Spring Boot 手搓出可运行 Demo，先证明从一句自然语言到结构化备忘的链路能够跑通。</p>
+                    <p>我先把直觉做成可运行 Demo“拾光备忘”。第一版优先保证 AI 分类准确，因此为所有用户设计固定模块与固定 Tag，把语义空间封闭起来。</p>
+                    <div class="memo-linear-flow memo-linear-flow--four" aria-label="第一版固定模块信息组织流程">
+                        <article><span>模块</span><strong>仓库分区</strong><p>生活大领域</p></article><i></i><article><span>分类</span><strong>货架</strong><p>继续组织内容</p></article><i></i><article><span>Tag</span><strong>贴纸</strong><p>语义、时间、用途</p></article><i></i><article><span>视图</span><strong>工作台</strong><p>日程、清单、看板</p></article>
+                    </div>
                     <div class="memo-demo-grid">
-                        <div><h5>做到了</h5><ul><li>自然语言快速记录与原文回执</li><li>AI 原子化、固定模块与稳定标签</li><li>日历、清单、看板与搜索视图</li><li>Mock AI / H2 跑通完整演示</li></ul></div>
-                        <div><h5>暴露的问题</h5><ul><li>用户要先学懂模块、分类、标签和多种视图</li><li>固定模块限制每个人不同的生活组织方式</li><li>功能很多，却没有收敛到一个清晰的 MVP 假设</li><li>能演示不等于能上线：持久化、异步任务和真机验收都未闭环</li></ul></div>
+                        <div><h5>跑通的概念闭环</h5><ul><li>自然语言输入与原话回执</li><li>一句话拆成多个原子条目</li><li>固定模块、标签与自动归类</li><li>日程、清单、搜索与自建看板</li></ul></div>
+                        <div><h5>Demo 暴露的产品问题</h5><ul><li>用户必须先理解模块、分类、Tag 和多种视图</li><li>个人生活差异被系统统一分类压平</li><li>“准确”建立在用户适应产品之上</li><li>能联调不等于真实微信、模型与通知已验证</li></ul></div>
                     </div>
-                    <div class="skill-decisions"><h5>产品决策</h5><ul><li>没有继续给第一版堆功能，而是回到用户完成“记住—找回”的最短任务链，重建信息架构。</li><li>把“AI 是否能分类”降为次要问题，先保证用户的原话不会丢、系统行为可理解且可修正。</li></ul></div>
+                    <div class="skill-decisions"><h5>关键反思</h5><ul><li>我限制用户的表达与结构自由，换取了模型更容易判断；但轻量备忘应该让产品适应用户，而不是让用户适应模型。</li><li>因此没有继续堆功能，而是回到“记下—整理—找回”的最短任务链重建信息架构。</li></ul></div>
                 </section>
 
                 <section class="skill-block memo-section">
-                    <header><span>03</span><h4>竞品坐标</h4></header>
-                    <p>我没有只比功能清单，而是沿着“记录 → 整理 → 找回 / 提醒”拆解每类工具在哪一步把成本留给了用户。</p>
-                    <div class="memo-competitors">
-                        <article><h5>手机备忘录</h5><strong>稳定、成熟</strong><p>但记录时仍要决定放在哪里，并持续维护结构。</p></article>
-                        <article><h5>微信自聊</h5><strong>入口最轻</strong><p>但信息按时间沉底，后续管理与导出能力弱。</p></article>
-                        <article><h5>Notion / PKM</h5><strong>结构最强</strong><p>但搭建与维护成本高，不适合“顺手记一下”。</p></article>
-                        <article><h5>日历 / 提醒</h5><strong>确定时间最强</strong><p>但承接不了多数没有明确日期的生活信息。</p></article>
-                        <article><h5>AI 记忆产品</h5><strong>自动化更高</strong><p>但黑盒归类、纠错、删除与导出常不够透明。</p></article>
+                    <header><span>03</span><h4>竞品与空位</h4></header>
+                    <p>分析单位不是“功能数量”，而是用户处理生活信息的完整任务链：<strong>记录 → 整理 → 找回 → 提醒</strong>。</p>
+                    <div class="memo-table-wrap" tabindex="0" aria-label="五类竞品对比，可横向滚动">
+                        <table class="memo-product-table memo-product-table--competition">
+                            <thead><tr><th>类型</th><th>擅长什么</th><th>成本留在哪里</th><th>给我的启发</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>手机备忘录</strong></td><td>概念少，浏览与编辑成熟</td><td>仍要主动打开、选位置、维护结构</td><td>查看端沿用原生备忘录心智</td></tr>
+                                <tr><td><strong>微信自聊</strong></td><td>输入自然，入口高频</td><td>信息被时间流淹没，长期找回困难</td><td>学习输入方式，不复制信息组织方式</td></tr>
+                                <tr><td><strong>flomo</strong></td><td>轻量捕捉与 AI 归纳成熟</td><td>内容积累后仍可能产生整理负担</td><td>AI 应替用户劳动，而非增加方法</td></tr>
+                                <tr><td><strong>Cato 猫</strong></td><td>微信任务输入与提醒闭环</td><td>无法承接物品、经验等长期事实</td><td>提醒只是生活信息的一种结果</td></tr>
+                                <tr><td><strong>记岛</strong></td><td>对话记录、微信入口、待办与串联</td><td>仍需适应新的 App 与浏览体系</td><td>微信入口不是壁垒，用户心智才是差异</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="memo-position-gap"><span>产品空位</span><strong>输入像聊天一样轻，查看像备忘录一样清楚；系统负责整理，用户保留最终控制权。</strong></div>
+                    <div class="memo-position-gap"><span>产品空位</span><strong>输入像聊天一样轻，查看像备忘录一样清楚；系统负责整理，结构与数据最终由用户掌控。</strong></div>
                 </section>
 
                 <section class="skill-block memo-section">
-                    <header><span>04</span><h4>定位重构</h4></header>
-                    <p>产品定位不是一次想对的，而是在每一版里主动推翻一个错误前提。</p>
-                    <div class="memo-evolution" aria-label="智慧备忘录产品定位迭代">
-                        <article><span>V1</span><h5>固定生活模块</h5><p>系统替用户定义生活。</p><em>推翻：不符合个人心智</em></article>
-                        <article><span>V2</span><h5>原文 → 原子 → 标签</h5><p>用标签生成多种视图。</p><em>推翻：结构仍由系统主导</em></article>
-                        <article><span>V3.1</span><h5>用户自建分类</h5><p>记录可以进入多个备忘。</p><em>保留：同一内容只存一次</em></article>
-                        <article class="is-current"><span>V3.2</span><h5>可靠、可纠错、可验证</h5><p>AI 只给候选，程序校验，用户拍板。</p><em>当前 MVP 基线</em></article>
+                    <header><span>04</span><h4>定位与用户</h4></header>
+                    <p>我没有从“谁会用 AI”定义用户，而是从行为共性收敛范围：什么信息容易被放弃记录、用户会用什么线索找回、愿意付出多少学习成本。</p>
+                    <div class="memo-convergence" aria-label="产品定位收敛流程">
+                        <article><span>可运行 Demo</span><strong>证明技术链路可行</strong><p>也暴露固定分类违背个人心智</p></article><i></i>
+                        <article><span>用户研究</span><strong>确认双重成本</strong><p>既要降低记录成本，也要降低找回成本</p></article><i></i>
+                        <article><span>竞品研究</span><strong>找到任务链空位</strong><p>轻输入、熟悉查看、自动整理、用户掌控</p></article><i></i>
+                        <article class="is-result"><span>产品定位</span><strong>生活外置记忆</strong><p>服务日常小事，不做专业知识库</p></article>
                     </div>
                     <div class="memo-definition"><span>最终定义</span><p>一个会自动整理的生活备忘录：<strong>随口记下，需要时能找到，有日期时会在“今天”出现。</strong></p></div>
-                    <div class="memo-principles"><span>先保存，再理解</span><span>不要求切换“记录 / 提问”</span><span>模糊日期不猜</span><span>AI 只生成候选</span><span>系统失败自动重试</span><span>敏感信息进入独立安全区</span></div>
-                    {{ partial "memo-diagram.html" (dict "label" "智慧备忘录 V3.2 核心运行流程图") }}
+                    <div class="memo-personas">
+                        <article><span>01</span><h5>轻事务记录型</h5><p>学生、职场新人；会用提醒和备忘，但容易跨工具重复记录。</p><strong>需要：统一入口、可复用清单</strong></article>
+                        <article><span>02</span><h5>生活沉淀型</h5><p>记录内容多、来源散；愿意积累，却经常忘记自己记过什么。</p><strong>需要：自动整理、浏览与回顾</strong></article>
+                        <article><span>03</span><h5>高事务低耐受型</h5><p>事情多但不愿学习复杂工具；更依赖口语、语音和熟悉入口。</p><strong>需要：少概念、可控自动化</strong></article>
+                    </div>
+                    <p class="memo-footnote">首版不服务专业论文管理、团队审批、财务记账、社区内容或密码保险箱，避免把“生活备忘”做成另一套复杂知识库。</p>
+                    <div class="memo-principles"><span>不要求分类或起标题</span><span>系统整理但用户可改</span><span>浏览、搜索与提问并存</span><span>原话始终可找回</span><span>日期内容进入“今天”</span></div>
                 </section>
 
                 <section class="skill-block memo-section">
-                    <header><span>05</span><h4>可执行基线</h4></header>
-                    <p>为了让“看起来合理”真正变成可开发、可验收，我把产品定义拆成从决策到发布门禁的一组互相可追溯文件。</p>
-                    <div class="memo-artifact-grid">
-                        <article><span>00—03</span><h5>产品定义</h5><p>决策记录、用户假设、对象规则、功能地图。</p></article>
-                        <article><span>04—06</span><h5>体验与语义</h5><p>用户旅程、页面流、PRD、技术方案、受约束执行。</p></article>
-                        <article><span>07—09</span><h5>MVP 与工程</h5><p>版本边界、工程基线、切片、测试、灰度与回滚。</p></article>
-                        <article><span>10—13</span><h5>原型与验收</h5><p>完整原型、密码边界、优先级、验收与延期项。</p></article>
+                    <header><span>05</span><h4>演进与决策</h4></header>
+                    <p>版本演进的核心不是不断加功能，而是持续删除用户不该承担的判断，并为 AI 的不确定性补上可控边界。</p>
+                    <div class="memo-evolution" aria-label="有备忘从 V1 到 V3.2 的产品演进">
+                        <article><span>V1</span><h5>固定模块与 Tag</h5><p>用封闭语义空间换取分类准确。</p><em>问题：用户要先学系统</em></article>
+                        <article><span>V2</span><h5>用户 DIY 定位</h5><p>把结构自由交还给用户。</p><em>问题：仍要求先完成定位</em></article>
+                        <article><span>V3.1</span><h5>分类—备忘—记录</h5><p>同一记录可进入多个备忘。</p><em>保留：符合真实找回线索</em></article>
+                        <article class="is-current"><span>V3.2</span><h5>单入口可靠 MVP</h5><p>先保存，再异步整理和共同纠错。</p><em>当前开发基线</em></article>
                     </div>
-                    <div class="memo-baseline-metrics">
-                        <div><strong>16</strong><span>个页面</span></div><div><strong>88</strong><span>个组件</span></div><div><strong>128</strong><span>条验收用例</span></div><div><strong>907</strong><span>组追溯关系</span></div>
-                    </div>
-                    <p class="memo-footnote">这些数字代表设计与验收基线已经建立，不代表 128 条用例已经全部执行通过。</p>
-                </section>
-
-                <section class="skill-block memo-section">
-                    <header><span>06</span><h4>正式开发</h4></header>
-                    <p>进入正式开发后，最难的不是“接上大模型”，而是把慢、会失败、会误判的智能能力放进一条用户仍然敢信任的链路。</p>
-                    <div class="memo-decision-list">
-                        <article><span>问题 01</span><div><h5>模型慢或失败，不能让记录消失</h5><p><strong>决定：</strong>本机 Outbox 暂存，服务端幂等保存 Source 后立即返回“已保存”，AI 通过事务任务异步处理。</p></div></article>
-                        <article><span>问题 02</span><div><h5>自动整理越强，误操作成本越高</h5><p><strong>决定：</strong>模型只生成候选；程序校验格式、日期与权限后写入，用户可以编辑、撤销和删除。</p></div></article>
-                        <article><span>问题 03</span><div><h5>模糊时间被猜错，比不提醒更糟</h5><p><strong>决定：</strong>“过几天”“下次”只保留原文，不强行进入“今天”；确定日期才生成日程。</p></div></article>
-                        <article><span>问题 04</span><div><h5>密码不是普通文本打码就够了</h5><p><strong>决定：</strong>敏感内容在正常 Source 与模型链路之前拦截，进入独立 Secure Vault 与加密边界。</p></div></article>
-                    </div>
-                    <div class="memo-build-status">
-                        <section><span>已完成</span><p>V3.2 产品与交互基线、正式 HTML 原型、Java 21 / Spring Boot 模块化底座、PostgreSQL / RLS、Source-first、幂等、事务 Outbox 与统一验证。</p></section>
-                        <section><span>开发中</span><p>真实微信登录、分类 / 备忘 / 记录、正式页面与编辑器、安全区、AI 候选、搜索问答、“今天”、导入导出和完整端到端验收。</p></section>
+                    <div class="memo-table-wrap" tabindex="0" aria-label="关键产品决策对比，可横向滚动">
+                        <table class="memo-product-table memo-product-table--decisions">
+                            <thead><tr><th>被推翻的方案</th><th>为什么不成立</th><th>最终决策</th><th>保护的用户价值</th></tr></thead>
+                            <tbody>
+                                <tr><td>固定模块与标签</td><td>分类准确建立在用户适应系统之上</td><td>只向用户呈现分类—备忘—记录</td><td>沿用个人生活心智</td></tr>
+                                <tr><td>首次使用完成全部定位</td><td>还没感到价值就先填写大量偏好</td><td>定位可选，系统在使用中建议</td><td>降低首次记录门槛</td></tr>
+                                <tr><td>AI 自动创建所有结构</td><td>误分类会快速污染信息架构</td><td>高置信度匹配已有备忘，否则进入历史</td><td>自动化可控、可纠正</td></tr>
+                                <tr><td>历史与备忘并列</td><td>进入备忘就是为了看整理结果</td><td>历史收回“今天”的输入层</td><td>导航符合用户预期</td></tr>
+                                <tr><td>记录 / 提问双模式</td><td>一句话可能同时包含事实与问题</td><td>统一输入，由系统识别意图</td><td>不把判断成本推给用户</td></tr>
+                                <tr><td>模型直接改真实数据</td><td>一次误判就可能破坏用户信任</td><td>AI 生成候选，规则校验，用户拍板</td><td>结果可解释、可撤销</td></tr>
+                                <tr><td>承诺所有自然语言提醒</td><td>模糊日期被猜错比不提醒更糟</td><td>只让明确日期进入“今天”</td><td>不制造虚假可靠感</td></tr>
+                                <tr><td>功能齐全的大 MVP</td><td>无法判断核心价值是否成立</td><td>只验证记得住、放得对、改得动、找得到</td><td>最快闭环核心假设</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
 
                 <section class="skill-block memo-section">
-                    <header><span>07</span><h4>验证与反馈</h4></header>
-                    <p>我把“做过验证”和“准备验证”分开记录，避免用工程完成度替代真实用户价值。</p>
+                    <header><span>06</span><h4>MVP 闭环</h4></header>
+                    <p>首版只验证四个最小目标；工程方案围绕它们设计，而不是把“接入大模型”本身当作产品成果。</p>
+                    <div class="memo-goal-grid">
+                        <article><span>01</span><strong>记得住</strong><p>模型超时或失败，原话也不会丢。</p></article>
+                        <article><span>02</span><strong>放得对</strong><p>高置信度自动整理，低置信度保留历史。</p></article>
+                        <article><span>03</span><strong>改得动</strong><p>分类、日期与内容均可纠正和撤销。</p></article>
+                        <article><span>04</span><strong>找得到</strong><p>支持浏览、搜索、提问与“今天”。</p></article>
+                    </div>
+                    {{ partial "memo-diagram.html" (dict "label" "有备忘 V3.2 从输入到找回的核心运行流程图") }}
+                    <div class="memo-tab-grid">
+                        <article><span>备忘</span><strong>看整理后的生活信息</strong><p>按分类进入备忘，浏览记录并共同纠错。</p></article>
+                        <article><span>今天</span><strong>承接输入与确定日期</strong><p>统一输入；保留历史；只呈现有明确日期的内容。</p></article>
+                        <article><span>设置</span><strong>管理结构与数据边界</strong><p>管理分类、偏好，以及后续导入导出能力。</p></article>
+                    </div>
+                    <div class="memo-evidence-note"><strong>为什么先做小程序</strong><span>微信服务号 + 小程序是最终双入口，但首版先用小程序验证核心闭环，避免服务号接入、通知规则和主体审核同时放大开发变量。</span></div>
+                </section>
+
+                <section class="skill-block memo-section">
+                    <header><span>07</span><h4>原型验证</h4></header>
+                    <p>我邀请 <strong>5 位用户在无讲解条件下完成原型任务</strong>。测试不是为了证明方案正确，而是观察用户是否按我预期理解导航、对象和入口。</p>
+                    <div class="memo-linear-flow memo-linear-flow--prototype" aria-label="原型测试推动信息架构修改的过程">
+                        <article><span>测试前</span><strong>备忘含双 Tab</strong><p>“备忘”与“历史”并列</p></article><i></i>
+                        <article><span>用户反馈</span><strong>预期发生冲突</strong><p>进入“备忘”就是想看备忘，历史是低频入口</p></article><i></i>
+                        <article class="is-result"><span>修改后</span><strong>历史移入“今天”</strong><p>备忘只保留分类与备忘，输入与历史归到同一层</p></article>
+                    </div>
                     <div class="memo-validation-grid">
-                        <section class="is-verified"><span>已经验证</span><ul><li>原型与 00—13 基线完成一致性审查</li><li>12 条 Demo 路径完成需求映射</li><li>65 项单元 / 架构、36 项 PostgreSQL、20 项小程序底座测试通过</li><li>8 个验收批次与 7 层证据结构已设计</li></ul></section>
-                        <section class="is-pending"><span>尚待验证</span><ul><li>真实用户是否会长期记录并成功找回</li><li>自动归类准确率、纠错率与 30 秒找回目标</li><li>128 条验收用例是否全部通过</li><li>真实微信、模型、KMS、真机和发布链路</li></ul></section>
+                        <section class="is-verified"><span>已经验证</span><ul><li>生活遗忘问题与双重成本在定性研究中反复出现</li><li>核心页面、对象关系与四项目标已形成可操作原型</li><li>无讲解测试发现真实理解偏差，并已推动导航修改</li><li>MVP 范围、交互原型与开发闭环已经完成</li></ul></section>
+                        <section class="is-pending"><span>不提前宣称</span><ul><li>用户会长期记录并在关键时刻成功找回</li><li>自动整理的准确率与用户纠错成本达到可接受水平</li><li>服务号 + 小程序双入口能带来更高留存</li><li>完整版上线后的使用频率与长期价值</li></ul></section>
                     </div>
-                    <div class="memo-research-plan" aria-label="后续用户验证计划"><span>8—12 人问题访谈</span><i></i><span>6—8 人 · 7 日记录</span><i></i><span>每轮 5—8 人原型测试</span><i></i><span>20—30 人 MVP 内测</span></div>
+                    <div class="memo-measure-grid" aria-label="上线后核心观察指标">
+                        <div><span>记录</span><strong>用户是否愿意随手记</strong></div><div><span>可靠</span><strong>原话保存是否稳定</strong></div><div><span>整理</span><strong>自动归类与纠错成本</strong></div><div><span>找回</span><strong>是否成功找到所需信息</strong></div><div><span>理解</span><strong>无需讲解能否使用</strong></div><div><span>长期</span><strong>信息积累后价值是否增长</strong></div>
+                    </div>
                 </section>
 
                 <section class="skill-block memo-section memo-outcome">
-                    <header><span>08</span><h4>当前成果</h4></header>
+                    <header><span>08</span><h4>最终形态</h4></header>
+                    <p>最终产品采用双入口：服务号降低记录与通知成本，小程序承担结构化浏览和管理；两端共享同一份数据与 AI 能力。</p>
+                    <div class="memo-linear-flow memo-channel-flow" aria-label="服务号与小程序协同的最终产品形态">
+                        <article><span>高频轻入口</span><strong>微信服务号</strong><p>随口记录、提问、回执、允许范围内的通知与跳转</p></article><i></i>
+                        <article><span>共同底座</span><strong>同一份数据 + AI</strong><p>先保存原话，再识别、整理、校验与同步</p></article><i></i>
+                        <article><span>结构化管理</span><strong>微信小程序</strong><p>浏览、搜索、纠错、“今天”、导入导出与设置</p></article>
+                    </div>
                     <div class="memo-outcome__metrics">
-                        <div><strong>4 次</strong><span>方向重构</span></div><div><strong>V3.2</strong><span>冻结产品基线</span></div><div><strong>121 项</strong><span>工程底座测试</span></div><div><strong>开发中</strong><span>当前阶段</span></div>
+                        <div><strong>V3.2</strong><span>当前产品方案</span></div><div><strong>已完成</strong><span>MVP 原型与开发</span></div><div><strong>开发中</strong><span>完整版产品</span></div><div><strong>进行中</strong><span>业务主体申请</span></div>
                     </div>
                     <div class="memo-showcase">
-                        <div class="memo-showcase__copy"><span class="portfolio-label">PRODUCT PREVIEW</span><h5>不是“什么都替你记”的 AI，<br>而是值得信任的生活外置记忆。</h5><p>当前已形成 V1—V3.2 全套产品文档、冻结交互原型、前端拆解、验收设计与可靠保存工程底座。业务前后端与真实用户验证仍在继续。</p></div>
+                        <div class="memo-showcase__copy"><span class="portfolio-label">PRODUCT PREVIEW</span><h5>让记录像聊天一样轻，<br>让查看像备忘录一样熟悉。</h5><p>MVP 已完成产品范围、交互原型与开发闭环；产品尚未正式发布，因此不把开发完成包装成线上效果。完整版与服务号双入口仍在开发，长期价值将在真实使用中继续验证。</p></div>
                         <div class="memo-phones" role="img" aria-label="智慧备忘录 V3.2 界面结构示意，非最终产品截图">
                             <div class="memo-phone"><span>备忘录</span><strong>随口记下</strong><i></i><i></i><i></i></div>
                             <div class="memo-phone is-center"><span>今天</span><strong>有日期的事</strong><i></i><i></i><i></i></div>
@@ -304,7 +357,7 @@
                         </div>
                     </div>
                     <p class="memo-preview-note">界面结构示意 · 非最终产品截图</p>
-                    <div class="memo-project-links"><span>在线原型 · 待部署</span><span>公开仓库 · 待建立</span><span>产品截图 · 待正式版本完成</span></div>
+                    <div class="memo-project-links"><span>正式交互原型 · 已完成</span><span>MVP 开发 · 已完成</span><span>公开访问 · 待正式发布</span></div>
                 </section>
             </article>
         </div>
