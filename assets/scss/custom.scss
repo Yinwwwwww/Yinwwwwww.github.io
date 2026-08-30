@@ -543,6 +543,11 @@ html {
     padding: 30px;
 }
 
+.about-copy > .content-block:first-child {
+    padding-top: 0;
+    border-top: 0;
+}
+
 .content-block {
     padding: 20px 0;
     border-top: 1px solid var(--portfolio-border);
@@ -560,7 +565,6 @@ html {
 .education-entry {
     + .education-entry {
         padding-top: 22px;
-        border-top: 1px solid var(--portfolio-border);
     }
 
     header {
@@ -659,43 +663,18 @@ html {
 }
 
 .personal-keywords {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: 8px;
 
-    @include respond(md) {
-        grid-template-columns: 0.65fr 1fr;
-
-        article:last-child {
-            grid-column: 1 / -1;
-        }
-    }
-
-    article {
-        min-width: 0;
-        padding: 16px 18px;
-        background: color-mix(in srgb, var(--portfolio-accent) 6%, var(--portfolio-panel));
-        border-radius: 10px;
-    }
-
     span {
-        display: block;
-        margin-bottom: 7px;
-        color: var(--portfolio-accent);
-        font-size: 0.88rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-    }
-
-    strong {
-        color: var(--portfolio-ink);
-        font-size: 1.55rem;
-    }
-
-    p {
-        margin: 0;
-        color: var(--portfolio-ink);
-        font-size: 1.12rem;
-        line-height: 1.55;
+        padding: 8px 12px;
+        color: var(--portfolio-accent-strong);
+        font-size: 1.05rem;
+        font-weight: 700;
+        background: color-mix(in srgb, var(--portfolio-accent) 8%, var(--portfolio-panel));
+        border: 1px solid color-mix(in srgb, var(--portfolio-accent) 18%, var(--portfolio-border));
+        border-radius: 999px;
     }
 }
 
