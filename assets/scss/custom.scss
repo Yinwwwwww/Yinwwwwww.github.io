@@ -875,63 +875,59 @@ html {
 }
 
 /* AI at work */
-.work-area {
-    --work-area-accent: var(--portfolio-accent);
+#work {
+    display: flex;
+    flex-direction: column;
 
+    > .portfolio-section__header {
+        order: 0;
+    }
+}
+
+.work-area {
     display: flex;
     flex-direction: column;
     gap: 24px;
     scroll-margin-top: 24px;
-
-    + .work-area {
-        margin-top: 52px;
-    }
 }
 
-.work-area--workflow {
-    --work-area-accent: var(--portfolio-green);
+#work-workflow {
+    order: 1;
 }
 
-.work-area--script {
-    --work-area-accent: #d76f35;
+#work-skill {
+    order: 2;
+    margin-top: 52px;
+}
+
+#work-script {
+    order: 3;
+    margin-top: 52px;
 }
 
 .work-area__header {
-    padding: 19px 22px;
-    background: color-mix(in srgb, var(--work-area-accent) 7%, transparent);
-    border-left: 4px solid var(--work-area-accent);
-    border-radius: 0 14px 14px 0;
-
-    > div {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        margin-bottom: 6px;
-
-        span,
-        small {
-            color: var(--work-area-accent);
-            font-size: 0.85rem;
-            font-weight: 750;
-            letter-spacing: 0.12em;
-        }
-
-        span {
-            min-width: 22px;
-        }
-    }
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    align-items: baseline;
+    padding: 0;
 
     h3 {
         margin: 0;
         color: var(--portfolio-ink);
-        font-size: 2.4rem;
-        letter-spacing: -0.035em;
+        font-size: 1.55rem;
+        letter-spacing: -0.02em;
+    }
+
+    > span {
+        color: var(--portfolio-muted);
+        font-size: 1.35rem;
     }
 
     p {
-        max-width: 760px;
-        margin: 7px 0 0;
+        margin: 0;
         color: var(--portfolio-muted);
+        font-size: 1.1rem;
         line-height: 1.65;
     }
 }
@@ -940,6 +936,22 @@ html {
     display: flex;
     flex-direction: column;
     gap: 30px;
+}
+
+#skill-guide {
+    order: 1;
+}
+
+#skill-weekly {
+    order: 2;
+}
+
+#skill-changelog {
+    order: 3;
+}
+
+#skill-sharing {
+    order: 4;
 }
 
 .skill-card {
@@ -1084,69 +1096,207 @@ html {
     max-width: 900px;
 }
 
-.skill-flow {
-    display: flex;
-    gap: 30px;
-    width: 100%;
-    padding: 38px 28px;
-    margin: 22px 0;
-    overflow-x: auto;
-    list-style: none;
-    background: color-mix(in srgb, var(--portfolio-accent) 2.5%, var(--portfolio-panel));
+.skill-diagram {
+    margin: 22px 0 24px;
+    overflow: hidden;
+    background: var(--portfolio-panel);
     border: 1px solid var(--portfolio-border);
     border-radius: 12px;
+}
+
+.skill-diagram__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 14px;
+    color: var(--portfolio-muted);
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.15em;
+    border-bottom: 1px solid var(--portfolio-border);
+}
+
+.skill-diagram__live {
+    display: inline-flex;
+    gap: 7px;
+    align-items: center;
+
+    i {
+        position: relative;
+        display: block;
+        width: 7px;
+        height: 7px;
+        background: var(--portfolio-accent);
+        border-radius: 50%;
+
+        &::after {
+            position: absolute;
+            inset: -4px;
+            background: color-mix(in srgb, var(--portfolio-accent) 24%, transparent);
+            border-radius: 50%;
+            content: "";
+            animation: diagramLive 1.8s ease-out infinite;
+        }
+    }
+}
+
+.skill-diagram__viewport {
+    width: 100%;
+    overflow-x: auto;
+    background-color: color-mix(in srgb, var(--portfolio-accent) 1.5%, var(--portfolio-panel));
+    background-image: radial-gradient(circle, color-mix(in srgb, var(--portfolio-muted) 18%, transparent) 1px, transparent 1px);
+    background-size: 18px 18px;
     scrollbar-width: thin;
     scrollbar-color: var(--portfolio-border) transparent;
 
-    li {
-        position: relative;
-        display: flex;
-        flex: 1 0 142px;
-        flex-direction: column;
-        gap: 6px;
-        justify-content: center;
-        min-height: 78px;
-        padding: 13px 14px;
-        text-align: center;
-        background: linear-gradient(145deg, color-mix(in srgb, var(--portfolio-accent) 10%, var(--portfolio-panel)), var(--portfolio-panel));
-        border: 1px solid color-mix(in srgb, var(--portfolio-accent) 34%, var(--portfolio-border));
-        border-radius: 9px;
-        animation: skillNodePulse 6s ease-in-out infinite;
+    svg {
+        display: block;
+        width: 100%;
+        min-width: 900px;
+        height: auto;
+    }
 
-        @include respond(xl) {
-            flex-basis: 0;
-        }
+    marker path {
+        fill: var(--portfolio-accent);
+    }
+}
 
-        &:not(:last-child)::after {
-            position: absolute;
-            top: 50%;
-            right: -31px;
-            width: 31px;
-            height: 1px;
-            background: linear-gradient(90deg, var(--portfolio-border) 15%, var(--portfolio-accent) 50%, var(--portfolio-border) 85%);
-            background-size: 200% 100%;
+.diagram-edges path {
+    fill: none;
+    stroke: color-mix(in srgb, var(--portfolio-accent) 68%, var(--portfolio-border));
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 7 6;
+    animation: diagramFlow 1.6s linear infinite;
+
+    &.is-branch {
+        stroke: color-mix(in srgb, #dc6d4f 62%, var(--portfolio-border));
+        stroke-dasharray: 3 7;
+    }
+
+    &.is-return {
+        stroke: color-mix(in srgb, var(--portfolio-muted) 62%, var(--portfolio-border));
+        stroke-dasharray: 4 8;
+    }
+}
+
+.diagram-edge-labels text {
+    fill: var(--portfolio-muted);
+    stroke: var(--portfolio-panel);
+    stroke-width: 5px;
+    paint-order: stroke;
+    font-size: 10px;
+    font-weight: 650;
+    letter-spacing: 0.02em;
+    text-anchor: middle;
+}
+
+.diagram-node {
+    rect,
+    polygon {
+        fill: var(--portfolio-panel);
+        stroke: var(--portfolio-border);
+        stroke-width: 1.3;
+        vector-effect: non-scaling-stroke;
+    }
+
+    text {
+        fill: var(--portfolio-ink);
+        font-size: 12px;
+        font-weight: 680;
+        text-anchor: middle;
+    }
+
+    .node-sub {
+        fill: var(--portfolio-muted);
+        font-size: 9.5px;
+        font-weight: 520;
+        letter-spacing: 0.01em;
+    }
+
+    &.is-input rect {
+        fill: color-mix(in srgb, #3b82f6 7%, var(--portfolio-panel));
+        stroke: color-mix(in srgb, #3b82f6 38%, var(--portfolio-border));
+    }
+
+    &.is-script rect {
+        fill: color-mix(in srgb, #3b82f6 7%, var(--portfolio-panel));
+        stroke: color-mix(in srgb, #3b82f6 34%, var(--portfolio-border));
+    }
+
+    &.is-ai rect {
+        fill: color-mix(in srgb, var(--portfolio-accent) 8%, var(--portfolio-panel));
+        stroke: color-mix(in srgb, var(--portfolio-accent) 38%, var(--portfolio-border));
+    }
+
+    &.is-human rect {
+        fill: color-mix(in srgb, #e0a42f 9%, var(--portfolio-panel));
+        stroke: color-mix(in srgb, #e0a42f 42%, var(--portfolio-border));
+    }
+
+    &.is-system rect {
+        fill: color-mix(in srgb, var(--portfolio-green) 8%, var(--portfolio-panel));
+        stroke: color-mix(in srgb, var(--portfolio-green) 38%, var(--portfolio-border));
+    }
+
+    &.is-decision polygon {
+        fill: color-mix(in srgb, var(--portfolio-accent) 5%, var(--portfolio-panel));
+        stroke: color-mix(in srgb, var(--portfolio-accent) 34%, var(--portfolio-border));
+    }
+
+    &.is-stop rect,
+    &.is-muted rect {
+        fill: color-mix(in srgb, #dc6d4f 6%, var(--portfolio-panel));
+        stroke: color-mix(in srgb, #dc6d4f 30%, var(--portfolio-border));
+    }
+
+    &.is-output rect {
+        fill: var(--portfolio-ink);
+        stroke: var(--portfolio-ink);
+    }
+
+    &.is-output text {
+        fill: var(--portfolio-panel);
+    }
+
+    &.is-output .node-sub {
+        fill: color-mix(in srgb, var(--portfolio-panel) 68%, transparent);
+    }
+}
+
+.skill-diagram__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    padding: 10px 14px;
+    color: var(--portfolio-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--portfolio-border);
+
+    span {
+        display: inline-flex;
+        gap: 7px;
+        align-items: center;
+
+        &::before {
+            width: 7px;
+            height: 7px;
+            background: #3b82f6;
+            border-radius: 50%;
             content: "";
-            transform: translateY(-50%);
-            animation: skillFlowMove 1.8s linear infinite;
         }
 
-        span {
-            color: var(--portfolio-accent);
-            font-size: 0.85rem;
-            font-weight: 700;
+        &.is-ai::before {
+            background: var(--portfolio-accent);
         }
 
-        strong {
-            color: var(--portfolio-ink);
-            font-size: 1.05rem;
-            font-weight: 650;
-            line-height: 1.35;
+        &.is-human::before {
+            background: #e0a42f;
         }
 
-        @for $i from 1 through 6 {
-            &:nth-child(#{$i}) {
-                animation-delay: #{($i - 1) * 0.55}s;
-            }
+        &.is-output::before {
+            background: var(--portfolio-ink);
         }
     }
 }
@@ -1245,24 +1395,21 @@ html {
     box-shadow: 0 8px 30px rgba(37, 32, 58, 0.05);
 }
 
-@keyframes skillFlowMove {
+@keyframes diagramFlow {
     to {
-        background-position: -200% 0;
+        stroke-dashoffset: -26;
     }
 }
 
-@keyframes skillNodePulse {
-    0%,
-    72%,
-    100% {
-        border-color: var(--portfolio-border);
-        box-shadow: none;
+@keyframes diagramLive {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.45);
     }
 
-    8%,
-    18% {
-        border-color: color-mix(in srgb, var(--portfolio-accent) 62%, transparent);
-        box-shadow: 0 0 0 4px color-mix(in srgb, var(--portfolio-accent) 8%, transparent);
+    100% {
+        opacity: 0;
+        transform: scale(1.2);
     }
 }
 
@@ -1355,8 +1502,8 @@ html {
         scroll-behavior: auto;
     }
 
-    .skill-flow li,
-    .skill-flow li::after {
+    .diagram-edges path,
+    .skill-diagram__live i::after {
         animation: none;
     }
 }
