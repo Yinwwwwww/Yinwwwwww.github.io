@@ -35,6 +35,79 @@
             <g class="diagram-node is-script" transform="translate(1800 88)"><rect width="150" height="64" rx="10"></rect><text x="75" y="27">填充统一模板</text><text class="node-sub" x="75" y="46">单一 HTML + 灯箱</text></g>
             <g class="diagram-node is-output" transform="translate(2000 88)"><rect width="150" height="64" rx="10"></rect><text x="75" y="27">预览并交付</text><text class="node-sub" x="75" y="46">一看就懂 · 照着能用</text></g>
         </svg>
+        {{ else if eq .type "feedback" }}
+        <svg width="2960" height="460" viewBox="0 0 2960 460" role="img" aria-labelledby="feedback-diagram-title">
+            <title id="feedback-diagram-title">反馈从确定性留存、语义判重、三类分流到 TAPD 写后回读的完整流程</title>
+            <defs><marker id="arrow-feedback" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z"></path></marker></defs>
+            <g class="diagram-edges" marker-end="url(#arrow-feedback)">
+                <path d="M180 170H230"></path><path d="M400 170H450"></path><path d="M610 170H660"></path><path d="M830 170H880"></path><path d="M1060 170H1080"></path>
+                <path d="M1220 170H1260"></path><path d="M1440 170H1460"></path>
+                <path d="M1600 170Q1625 170 1650 72"></path><path d="M1600 170H1650"></path><path d="M1600 170Q1625 170 1650 268"></path>
+                <path d="M1830 72Q1855 72 1880 170"></path><path d="M1830 170H1880"></path><path d="M1830 268Q1855 268 1880 170"></path>
+                <path d="M2060 170H2110"></path><path d="M2280 170H2330"></path><path d="M2500 170H2520"></path><path d="M2660 170H2710"></path>
+                <path d="M1150 217V330" class="is-branch"></path><path d="M1220 362H1240V170H1260" class="is-return"></path>
+                <path d="M2590 217V330" class="is-branch"></path><path d="M2520 362H2195V202" class="is-return"></path>
+            </g>
+            <g class="diagram-edge-labels">
+                <text x="1240" y="158">字段完整</text><text x="1160" y="270">异常</text>
+                <text x="1625" y="102">已有记录</text><text x="1625" y="158">已实现</text><text x="1625" y="248">新反馈</text>
+                <text x="2685" y="158">校验通过</text><text x="2600" y="270">失败</text>
+            </g>
+            <g class="diagram-node is-input" transform="translate(30 138)"><rect width="150" height="64" rx="32"></rect><text x="75" y="27">智能表单采集</text><text class="node-sub" x="75" y="46">需求 / 缺陷原文</text></g>
+            <g class="diagram-node is-system" transform="translate(230 138)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">多维表格事实源</text><text class="node-sub" x="85" y="46">原始记录确定性留存</text></g>
+            <g class="diagram-node is-script" transform="translate(450 138)"><rect width="160" height="64" rx="10"></rect><text x="80" y="27">每日两次定时任务</text><text class="node-sub" x="80" y="46">只扫描新增记录</text></g>
+            <g class="diagram-node is-system" transform="translate(660 138)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">触发自动化入池 Skill</text><text class="node-sub" x="85" y="46">结构化记录进入后台链路</text></g>
+            <g class="diagram-node is-script" transform="translate(880 138)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">解析字段与逐行图片</text><text class="node-sub" x="90" y="46">列映射 · 归属核对</text></g>
+            <g class="diagram-node is-decision"><polygon points="1150,123 1220,170 1150,217 1080,170"></polygon><text x="1150" y="166">输入完整？</text><text class="node-sub" x="1150" y="184">字段 / 图片 / 类型</text></g>
+            <g class="diagram-node is-human" transform="translate(1080 330)"><rect width="140" height="64" rx="10"></rect><text x="70" y="27">人工补齐与核对</text><text class="node-sub" x="70" y="46">不猜测异常归属</text></g>
+            <g class="diagram-node is-ai" transform="translate(1260 138)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">多源检索与语义判重</text><text class="node-sub" x="90" y="46">知识库 · iWiki · 发布计划</text></g>
+            <g class="diagram-node is-decision"><polygon points="1530,123 1600,170 1530,217 1460,170"></polygon><text x="1530" y="166">反馈归属？</text><text class="node-sub" x="1530" y="184">三类分流</text></g>
+            <g class="diagram-node is-system" transform="translate(1650 40)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">原单追加评论与证据</text><text class="node-sub" x="90" y="46">抄送去重累加 · 不覆盖</text></g>
+            <g class="diagram-node is-system" transform="translate(1650 138)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">关联已实现能力</text><text class="node-sub" x="90" y="46">必须有具体条目佐证</text></g>
+            <g class="diagram-node is-system" transform="translate(1650 236)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">二次检索后规范建单</text><text class="node-sub" x="90" y="46">无佐证也降级到此分支</text></g>
+            <g class="diagram-node is-human" transform="translate(1880 138)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">确认疑似重复与异常</text><text class="node-sub" x="90" y="46">高风险节点人工闸门</text></g>
+            <g class="diagram-node is-system" transform="translate(2110 138)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">TAPD MCP 执行写入</text><text class="node-sub" x="85" y="46">建单 / 评论 / 字段更新</text></g>
+            <g class="diagram-node is-script" transform="translate(2330 138)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">等待后回读真实字段</text><text class="node-sub" x="85" y="46">多选逐值比对 · 图片检查</text></g>
+            <g class="diagram-node is-decision"><polygon points="2590,123 2660,170 2590,217 2520,170"></polygon><text x="2590" y="166">落库正确？</text><text class="node-sub" x="2590" y="184">字段 / 图片 / 数量</text></g>
+            <g class="diagram-node is-stop" transform="translate(2520 330)"><rect width="150" height="64" rx="10"></rect><text x="75" y="27">修正字段或回退附件</text><text class="node-sub" x="75" y="46">重写后再次回读</text></g>
+            <g class="diagram-node is-output" transform="translate(2710 138)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">输出三类结果表</text><text class="node-sub" x="85" y="46">理由 · 链接 · 图片位置</text></g>
+        </svg>
+        {{ else if eq .type "dashboard" }}
+        <svg width="3080" height="470" viewBox="0 0 3080 470" role="img" aria-labelledby="dashboard-diagram-title">
+            <title id="dashboard-diagram-title">平台数据运营看板从口径确认、人工取数、四模块生成到核验与周会行动的完整流程</title>
+            <defs><marker id="arrow-dashboard" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z"></path></marker></defs>
+            <g class="diagram-edges" marker-end="url(#arrow-dashboard)">
+                <path d="M200 180H250"></path><path d="M420 180H470"></path><path d="M640 180H690"></path><path d="M860 180H910"></path>
+                <path d="M1070 180Q1115 180 1160 67"></path><path d="M1070 180Q1115 180 1160 157"></path><path d="M1070 180Q1115 180 1160 247"></path><path d="M1070 180Q1115 180 1160 337"></path>
+                <path d="M1340 67Q1375 67 1410 180"></path><path d="M1340 157Q1375 157 1410 180"></path><path d="M1340 247Q1375 247 1410 180"></path><path d="M1340 337Q1375 337 1410 180"></path>
+                <path d="M1590 180H1640"></path><path d="M1820 180H1840"></path><path d="M1980 180H2030"></path><path d="M2190 180H2240"></path><path d="M2410 180H2430"></path><path d="M2570 180H2620"></path><path d="M2790 180H2840"></path>
+                <path d="M1910 227V330" class="is-branch"></path><path d="M1990 362H2040"></path><path d="M2210 362H775V212" class="is-return"></path>
+                <path d="M2500 227V330" class="is-branch"></path><path d="M2570 362Q2780 362 2925 212" class="is-return"></path>
+            </g>
+            <g class="diagram-edge-labels">
+                <text x="2005" y="168">通过</text><text x="1920" y="275">需修正</text><text x="2595" y="168">有</text><text x="2510" y="275">无</text>
+            </g>
+            <g class="diagram-node is-input" transform="translate(30 148)"><rect width="170" height="64" rx="32"></rect><text x="85" y="27">确认周期与四类问题</text><text class="node-sub" x="85" y="46">趋势 · 失败 · 使用 · 成本</text></g>
+            <g class="diagram-node is-script" transform="translate(250 148)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">读取模板与取数手册</text><text class="node-sub" x="85" y="46">指标 · 口径 · 清洗规则</text></g>
+            <g class="diagram-node is-ai" transform="translate(470 148)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">四个模块 Prompt 编排</text><text class="node-sub" x="85" y="46">独立上下文 · 标准 SQL</text></g>
+            <g class="diagram-node is-human" transform="translate(690 148)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">人工执行模块 SQL</text><text class="node-sub" x="85" y="46">数据库合规闸门</text></g>
+            <g class="diagram-node is-system" transform="translate(910 148)"><rect width="160" height="64" rx="10"></rect><text x="80" y="27">回传真实查询结果</text><text class="node-sub" x="80" y="46">AI 不凭印象出数</text></g>
+            <g class="diagram-node is-script" transform="translate(1160 35)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">趋势模块</text><text class="node-sub" x="90" y="46">规模与活跃变化</text></g>
+            <g class="diagram-node is-ai" transform="translate(1160 125)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">失败归因模块</text><text class="node-sub" x="90" y="46">海报失败对账 Skill ★</text></g>
+            <g class="diagram-node is-ai" transform="translate(1160 215)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">使用情况模块</text><text class="node-sub" x="90" y="46">资产明细盘点 Skill ★</text></g>
+            <g class="diagram-node is-script" transform="translate(1160 305)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">成本模块</text><text class="node-sub" x="90" y="46">调用量与费用变化</text></g>
+            <g class="diagram-node is-ai" transform="translate(1410 148)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">分模块出图与初步归因</text><text class="node-sub" x="90" y="46">并行生成 · 局部可重跑</text></g>
+            <g class="diagram-node is-human" transform="translate(1640 148)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">人工执行四项核验</text><text class="node-sub" x="90" y="46">范围 · 口径 · 周变 · 异常</text></g>
+            <g class="diagram-node is-decision"><polygon points="1910,133 1980,180 1910,227 1840,180"></polygon><text x="1910" y="176">核验通过？</text><text class="node-sub" x="1910" y="194">数据与归因一致</text></g>
+            <g class="diagram-node is-stop" transform="translate(1830 330)"><rect width="160" height="64" rx="10"></rect><text x="80" y="27">进入标准修改 SOP</text><text class="node-sub" x="80" y="46">先确认业务问题与影响</text></g>
+            <g class="diagram-node is-script" transform="translate(2040 330)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">更新单模块并测试</text><text class="node-sub" x="85" y="46">手册 · Prompt · SQL · 版本</text></g>
+            <g class="diagram-node is-system" transform="translate(2030 148)"><rect width="160" height="64" rx="10"></rect><text x="80" y="27">合并四模块看板</text><text class="node-sub" x="80" y="46">口径与时间范围一致</text></g>
+            <g class="diagram-node is-ai" transform="translate(2240 148)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">跨模块分析异常</text><text class="node-sub" x="85" y="46">数据侧 × 用户反馈侧</text></g>
+            <g class="diagram-node is-decision"><polygon points="2500,133 2570,180 2500,227 2430,180"></polygon><text x="2500" y="176">可形成动作？</text><text class="node-sub" x="2500" y="194">证据与归因充分</text></g>
+            <g class="diagram-node is-system" transform="translate(2430 330)"><rect width="140" height="64" rx="10"></rect><text x="70" y="27">沉淀口径与基线</text><text class="node-sub" x="70" y="46">下周继续观察</text></g>
+            <g class="diagram-node is-human" transform="translate(2620 148)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">形成运营或产品动作</text><text class="node-sub" x="85" y="46">明确负责人和跟踪指标</text></g>
+            <g class="diagram-node is-output" transform="translate(2840 148)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">周会汇报并持续跟踪</text><text class="node-sub" x="85" y="46">结论 · 动作 · 数据回升</text></g>
+        </svg>
         {{ else if eq .type "weekly" }}
         <svg width="2280" height="440" viewBox="0 0 2280 440" role="img" aria-labelledby="weekly-diagram-title">
             <title id="weekly-diagram-title">技术周报横向检索、核验、补检与发布流程</title>

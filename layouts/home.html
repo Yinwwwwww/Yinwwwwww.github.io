@@ -325,10 +325,67 @@
                 <span>·</span>
                 <p>将多个角色、工具与节点串联为可持续推进的业务过程。</p>
             </header>
-            <article class="portfolio-card work-card work-card--document">
-                <header><span class="portfolio-label">WORKFLOW · PLACEHOLDER</span><h3>工作流项目</h3></header>
-                <section><h4>内容待补充</h4><div class="text-placeholder"><span></span><span class="medium"></span></div></section>
-            </article>
+            <div class="skill-library workflow-library">
+                <article class="portfolio-card skill-card" id="workflow-feedback">
+                    <header class="skill-card__header">
+                        <div class="skill-card__identity"><h3>反馈收集流程重构</h3><code>feedback-governance-workflow</code></div>
+                        <span class="skill-card__role">腾讯 · 产品策划</span>
+                    </header>
+                    <section class="skill-block">
+                        <header><h4>任务背景</h4></header>
+                        <p>将每日新增的用户需求与缺陷完整沉淀到 TAPD 外部需求反馈池，并与已有事项或已上线能力建立关联，让反馈可统计、可排期、可闭环、可回访。</p>
+                    </section>
+                    <section class="skill-block">
+                        <header><h4>原流程与成本</h4></header>
+                        <p>反馈分散在共享表格、访谈材料和旧 Bot/TAPD，存在漏录、重复建单、字段与原始材料缺失；旧 Bot 直接理解非结构化对话建单，还会引入幻觉和字段不稳定，人工拆解、查重、补字段与搬图成本高。</p>
+                    </section>
+                    <section class="skill-block skill-solution">
+                        <header><h4>AI 实现方案</h4></header>
+                        <p class="skill-summary">以智能表单和多维表格保存原始事实，每日两次触发自动化入池 Skill；脚本、LLM 与 TAPD MCP 分别承担解析、判重和写入，人工只把关疑似重复与异常。</p>
+                        {{ partial "skill-diagram.html" (dict "type" "feedback" "label" "反馈收集流程重构完整流程图") }}
+                        <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>原始反馈先确定性落库，AI 不决定事实是否被保存；即使处理失败，记录仍可重试或人工补偿。</li><li>已有记录只追加证据、不覆盖正文；“已实现”必须有发布或知识来源佐证，否则降级为新反馈。</li><li>建单前再次检索，写入后回读真实字段；图片失败回退附件，任何不确定项交由人工确认。</li></ul></div>
+                    </section>
+                    <section class="skill-block skill-result">
+                        <header><h4>达成效果</h4></header>
+                        <div class="skill-metrics">
+                            <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l3 2M7 3 4 6M17 3l3 3"></path></svg></span><div class="skill-metric__copy"><strong>每日 2 次</strong><span>定时任务处理</span></div></div>
+                            <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3 10h18M8 15h8"></path></svg></span><div class="skill-metric__copy"><strong>约 2 个月</strong><span>持续运行</span></div></div>
+                            <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 14h4l2 3h4l2-3h4"></path><path d="m9 9 2 2 4-4"></path></svg></span><div class="skill-metric__copy"><strong>90+ 条</strong><span>原始反馈全部进入处理结果</span></div></div>
+                        </div>
+                        <p>新增、重复、已实现三类结果均可追踪，增量原始记录无遗漏。历史阶段另完成 100+ 条反馈录入及 200+ → 120+ 主单治理，三组数据口径独立、不合并计算。</p>
+                    </section>
+                </article>
+
+                <article class="portfolio-card skill-card" id="workflow-dashboard">
+                    <header class="skill-card__header">
+                        <div class="skill-card__identity"><h3>平台数据运营看板</h3><code>platform-ops-dashboard</code></div>
+                        <span class="skill-card__role">腾讯 · 产品策划</span>
+                    </header>
+                    <section class="skill-block">
+                        <header><h4>任务背景</h4></header>
+                        <p>每周稳定回答平台趋势、失败归因、使用情况和成本四类问题，为 20+ 人产研测团队及管理层周会提供可比较、可行动的数据依据。</p>
+                    </section>
+                    <section class="skill-block">
+                        <header><h4>原流程与成本</h4></header>
+                        <p>初始只有粗略模板，指标、口径和取数方式未定义；整版交给 AI 一次生成会出现 SQL 报错或超时、口径漂移、长上下文幻觉与反复校对，完整产出约需 1.5 天。受合规限制，AI 也不能直连数据库。</p>
+                    </section>
+                    <section class="skill-block skill-solution">
+                        <header><h4>AI 实现方案</h4></header>
+                        <p class="skill-summary">将整版任务拆成四个独立模块，以模板、标准取数手册和模块 Prompt 锁定口径；人工执行 SQL，AI 基于真实回传数据出图与初步归因，再经人工核验和修改 SOP 合并发布。</p>
+                        {{ partial "skill-diagram.html" (dict "type" "dashboard" "label" "平台数据运营看板完整流程图") }}
+                        <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>看板结构高频局部变化，刻意保持半自动；稳定规则封装为节点 Skill，变化内容留在手册、Prompt 与人工控制点。</li><li>SQL 必须由人工执行，AI 只依据回传的真实结果出图和归因；四个模块独立运行，避免长上下文污染。</li><li>范围、口径、前后周变化与异常值必须人工复核；指标变化只修改对应模块，并经过单独 SQL 测试与版本更新。</li></ul></div>
+                    </section>
+                    <section class="skill-block skill-result">
+                        <header><h4>达成效果</h4></header>
+                        <div class="skill-metrics">
+                            <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3 10h18M8 15h3M13 15h3"></path></svg></span><div class="skill-metric__copy"><strong>8 周</strong><span>持续运营</span></div></div>
+                            <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"></circle><path d="M9 2h6M12 5v3M12 13l4-3"></path></svg></span><div class="skill-metric__copy"><strong>约 1 小时</strong><span>单次出数，由约 1.5 天缩短</span></div></div>
+                            <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"></circle><path d="M3 20v-2a6 6 0 0 1 12 0v2M16 4.5a3 3 0 0 1 0 6M17 14a5 5 0 0 1 4 5v1"></path></svg></span><div class="skill-metric__copy"><strong>20+ 人</strong><span>团队与管理层周会使用</span></div></div>
+                        </div>
+                        <p>其中人工执行与核验约 30 分钟。模块化链路减少了 SQL 报错、口径漂移和重复校对，并支持从企微使用下降等异常中形成宣导动作、持续跟踪数据回升。</p>
+                    </section>
+                </article>
+            </div>
         </section>
 
         <section class="work-area work-area--script" id="work-script">
