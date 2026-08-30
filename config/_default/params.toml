@@ -16,9 +16,7 @@ favicon        = "img/avatar.png"
         default = "Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
 
 [widgets]
-    homepage = [
-        { type = "search" },
-    ]
+    homepage = []
     page     = [{ type = "toc" }]
 
 [comments]
