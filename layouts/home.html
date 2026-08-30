@@ -174,17 +174,128 @@
                 </div>
             </article>
 
-            <article class="portfolio-card project-card" id="idea-memo">
-                <header class="project-card__header">
-                    <div><span class="portfolio-label">PROJECT 02 · DEMO</span><h3>智慧备忘录</h3></div>
-                    <span class="project-type">PRD + TECH + PROTOTYPE</span>
+            <article class="portfolio-card skill-card memo-case" id="idea-memo">
+                <header class="skill-card__header">
+                    <div class="skill-card__identity"><h3>智慧备忘录</h3><code>有备忘 · life-memory-mvp</code></div>
+                    <span class="skill-card__role">个人项目 · 产品负责人</span>
                 </header>
-                <div class="project-card__grid">
-                    <section><h4>设计说明</h4><p class="placeholder-caption">背景 / 现状 / 痛点</p><div class="text-placeholder"><span></span><span></span><span class="short"></span></div></section>
-                    <section><h4>解决方案 / 产品定位</h4><p class="placeholder-caption">产品策略文字占位</p><div class="text-placeholder"><span></span><span></span><span class="medium"></span></div></section>
-                    <section class="project-showcase"><h4>产品展示</h4><div class="prototype-placeholder"><div class="prototype-placeholder__window"><span></span><span></span><span></span></div><strong>HTML 原型图占位</strong><small>INTERACTIVE PROTOTYPE</small></div></section>
-                    <section class="project-actions"><h4>产品访问 / 下载</h4><div><span class="placeholder-button">访问链接 · 待补充</span><span class="placeholder-button is-muted">暂无下载</span></div></section>
+
+                <div class="memo-story">
+                    <span class="portfolio-label">STORY OPENING</span>
+                    <p class="memo-story__lead">家里的那颗驱虫药，我明明记得还剩一粒，却怎么也找不到。重新买完，才在零食架最底层发现它——这时猫已经长大，原来的剂量也不再适用。</p>
+                    <p>类似的“小事”一直发生：猫砂盆上次是什么时候彻底清洗的？想讲给妈妈的趣事，为什么总等到细节褪色才想起来？每次我都在“这个要记一下”和“算了，应该记得住”之间放弃记录。</p>
+                    <div class="memo-story__scenes" aria-label="问题场景">
+                        <span>一件物品放在哪里</span><span>一件事上次何时做</span><span>一段经历以后想讲</span>
+                    </div>
+                    <blockquote>我缺的不是更复杂的知识库，而是一个能接住生活碎片、在未来需要时把它送回来的“外置记忆”。</blockquote>
+                    <div class="memo-story__initial"><strong>最初构想</strong><p>像发微信一样说一句，AI 自动拆成原子记录、放进固定生活模块；有日期的进入日程，之后按模块浏览或直接提问。第一版很快证明：技术能实现，但“先替所有人设计一套生活分类法”这个产品假设错了。</p></div>
                 </div>
+
+                <section class="skill-block memo-section">
+                    <header><span>01</span><h4>用户与场景</h4></header>
+                    <p>现阶段证据来自长期生活场景记录、竞品任务链拆解和多轮产品假设，而非已经完成的大样本调研。以下是<strong>有场景支撑、仍待真实用户验证</strong>的共性判断。</p>
+                    <div class="memo-need-grid">
+                        <article><strong>低准备输入</strong><p>记录前不用先想标题、分类，或判断 AI 能否理解。</p></article>
+                        <article><strong>可靠留存</strong><p>模型失败也不能丢原话；先保存，再理解。</p></article>
+                        <article><strong>多路找回</strong><p>既能按人、宠物、物品浏览，也能按语义和日期搜索。</p></article>
+                        <article><strong>随时纠错</strong><p>看得见系统做了什么，也能编辑、撤销、删除和导出。</p></article>
+                    </div>
+                    <div class="memo-evidence-note"><strong>共性背后的个性</strong><span>有人围绕家人整理，有人围绕宠物、住所或物品；对自动归类、日期误差、提醒和隐私的容忍度也不同。用户画像因此从“某类人”改为“频繁产生生活碎片，却不愿维护复杂结构的一类行为”。</span></div>
+                </section>
+
+                <section class="skill-block memo-section">
+                    <header><span>02</span><h4>第一版 Demo</h4></header>
+                    <p>第一版叫“拾光备忘”：用微信小程序 + Java / Spring Boot 手搓出可运行 Demo，先证明从一句自然语言到结构化备忘的链路能够跑通。</p>
+                    <div class="memo-demo-grid">
+                        <div><h5>做到了</h5><ul><li>自然语言快速记录与原文回执</li><li>AI 原子化、固定模块与稳定标签</li><li>日历、清单、看板与搜索视图</li><li>Mock AI / H2 跑通完整演示</li></ul></div>
+                        <div><h5>暴露的问题</h5><ul><li>用户要先学懂模块、分类、标签和多种视图</li><li>固定模块限制每个人不同的生活组织方式</li><li>功能很多，却没有收敛到一个清晰的 MVP 假设</li><li>能演示不等于能上线：持久化、异步任务和真机验收都未闭环</li></ul></div>
+                    </div>
+                    <div class="skill-decisions"><h5>产品决策</h5><ul><li>没有继续给第一版堆功能，而是回到用户完成“记住—找回”的最短任务链，重建信息架构。</li><li>把“AI 是否能分类”降为次要问题，先保证用户的原话不会丢、系统行为可理解且可修正。</li></ul></div>
+                </section>
+
+                <section class="skill-block memo-section">
+                    <header><span>03</span><h4>竞品坐标</h4></header>
+                    <p>我没有只比功能清单，而是沿着“记录 → 整理 → 找回 / 提醒”拆解每类工具在哪一步把成本留给了用户。</p>
+                    <div class="memo-competitors">
+                        <article><h5>手机备忘录</h5><strong>稳定、成熟</strong><p>但记录时仍要决定放在哪里，并持续维护结构。</p></article>
+                        <article><h5>微信自聊</h5><strong>入口最轻</strong><p>但信息按时间沉底，后续管理与导出能力弱。</p></article>
+                        <article><h5>Notion / PKM</h5><strong>结构最强</strong><p>但搭建与维护成本高，不适合“顺手记一下”。</p></article>
+                        <article><h5>日历 / 提醒</h5><strong>确定时间最强</strong><p>但承接不了多数没有明确日期的生活信息。</p></article>
+                        <article><h5>AI 记忆产品</h5><strong>自动化更高</strong><p>但黑盒归类、纠错、删除与导出常不够透明。</p></article>
+                    </div>
+                    <div class="memo-position-gap"><span>产品空位</span><strong>输入像聊天一样轻，查看像备忘录一样清楚；系统负责整理，用户保留最终控制权。</strong></div>
+                </section>
+
+                <section class="skill-block memo-section">
+                    <header><span>04</span><h4>定位重构</h4></header>
+                    <p>产品定位不是一次想对的，而是在每一版里主动推翻一个错误前提。</p>
+                    <div class="memo-evolution" aria-label="智慧备忘录产品定位迭代">
+                        <article><span>V1</span><h5>固定生活模块</h5><p>系统替用户定义生活。</p><em>推翻：不符合个人心智</em></article>
+                        <article><span>V2</span><h5>原文 → 原子 → 标签</h5><p>用标签生成多种视图。</p><em>推翻：结构仍由系统主导</em></article>
+                        <article><span>V3.1</span><h5>用户自建分类</h5><p>记录可以进入多个备忘。</p><em>保留：同一内容只存一次</em></article>
+                        <article class="is-current"><span>V3.2</span><h5>可靠、可纠错、可验证</h5><p>AI 只给候选，程序校验，用户拍板。</p><em>当前 MVP 基线</em></article>
+                    </div>
+                    <div class="memo-definition"><span>最终定义</span><p>一个会自动整理的生活备忘录：<strong>随口记下，需要时能找到，有日期时会在“今天”出现。</strong></p></div>
+                    <div class="memo-principles"><span>先保存，再理解</span><span>不要求切换“记录 / 提问”</span><span>模糊日期不猜</span><span>AI 只生成候选</span><span>系统失败自动重试</span><span>敏感信息进入独立安全区</span></div>
+                    {{ partial "memo-diagram.html" (dict "label" "智慧备忘录 V3.2 核心运行流程图") }}
+                </section>
+
+                <section class="skill-block memo-section">
+                    <header><span>05</span><h4>可执行基线</h4></header>
+                    <p>为了让“看起来合理”真正变成可开发、可验收，我把产品定义拆成从决策到发布门禁的一组互相可追溯文件。</p>
+                    <div class="memo-artifact-grid">
+                        <article><span>00—03</span><h5>产品定义</h5><p>决策记录、用户假设、对象规则、功能地图。</p></article>
+                        <article><span>04—06</span><h5>体验与语义</h5><p>用户旅程、页面流、PRD、技术方案、受约束执行。</p></article>
+                        <article><span>07—09</span><h5>MVP 与工程</h5><p>版本边界、工程基线、切片、测试、灰度与回滚。</p></article>
+                        <article><span>10—13</span><h5>原型与验收</h5><p>完整原型、密码边界、优先级、验收与延期项。</p></article>
+                    </div>
+                    <div class="memo-baseline-metrics">
+                        <div><strong>16</strong><span>个页面</span></div><div><strong>88</strong><span>个组件</span></div><div><strong>128</strong><span>条验收用例</span></div><div><strong>907</strong><span>组追溯关系</span></div>
+                    </div>
+                    <p class="memo-footnote">这些数字代表设计与验收基线已经建立，不代表 128 条用例已经全部执行通过。</p>
+                </section>
+
+                <section class="skill-block memo-section">
+                    <header><span>06</span><h4>正式开发</h4></header>
+                    <p>进入正式开发后，最难的不是“接上大模型”，而是把慢、会失败、会误判的智能能力放进一条用户仍然敢信任的链路。</p>
+                    <div class="memo-decision-list">
+                        <article><span>问题 01</span><div><h5>模型慢或失败，不能让记录消失</h5><p><strong>决定：</strong>本机 Outbox 暂存，服务端幂等保存 Source 后立即返回“已保存”，AI 通过事务任务异步处理。</p></div></article>
+                        <article><span>问题 02</span><div><h5>自动整理越强，误操作成本越高</h5><p><strong>决定：</strong>模型只生成候选；程序校验格式、日期与权限后写入，用户可以编辑、撤销和删除。</p></div></article>
+                        <article><span>问题 03</span><div><h5>模糊时间被猜错，比不提醒更糟</h5><p><strong>决定：</strong>“过几天”“下次”只保留原文，不强行进入“今天”；确定日期才生成日程。</p></div></article>
+                        <article><span>问题 04</span><div><h5>密码不是普通文本打码就够了</h5><p><strong>决定：</strong>敏感内容在正常 Source 与模型链路之前拦截，进入独立 Secure Vault 与加密边界。</p></div></article>
+                    </div>
+                    <div class="memo-build-status">
+                        <section><span>已完成</span><p>V3.2 产品与交互基线、正式 HTML 原型、Java 21 / Spring Boot 模块化底座、PostgreSQL / RLS、Source-first、幂等、事务 Outbox 与统一验证。</p></section>
+                        <section><span>开发中</span><p>真实微信登录、分类 / 备忘 / 记录、正式页面与编辑器、安全区、AI 候选、搜索问答、“今天”、导入导出和完整端到端验收。</p></section>
+                    </div>
+                </section>
+
+                <section class="skill-block memo-section">
+                    <header><span>07</span><h4>验证与反馈</h4></header>
+                    <p>我把“做过验证”和“准备验证”分开记录，避免用工程完成度替代真实用户价值。</p>
+                    <div class="memo-validation-grid">
+                        <section class="is-verified"><span>已经验证</span><ul><li>原型与 00—13 基线完成一致性审查</li><li>12 条 Demo 路径完成需求映射</li><li>65 项单元 / 架构、36 项 PostgreSQL、20 项小程序底座测试通过</li><li>8 个验收批次与 7 层证据结构已设计</li></ul></section>
+                        <section class="is-pending"><span>尚待验证</span><ul><li>真实用户是否会长期记录并成功找回</li><li>自动归类准确率、纠错率与 30 秒找回目标</li><li>128 条验收用例是否全部通过</li><li>真实微信、模型、KMS、真机和发布链路</li></ul></section>
+                    </div>
+                    <div class="memo-research-plan" aria-label="后续用户验证计划"><span>8—12 人问题访谈</span><i></i><span>6—8 人 · 7 日记录</span><i></i><span>每轮 5—8 人原型测试</span><i></i><span>20—30 人 MVP 内测</span></div>
+                </section>
+
+                <section class="skill-block memo-section memo-outcome">
+                    <header><span>08</span><h4>当前成果</h4></header>
+                    <div class="memo-outcome__metrics">
+                        <div><strong>4 次</strong><span>方向重构</span></div><div><strong>V3.2</strong><span>冻结产品基线</span></div><div><strong>121 项</strong><span>工程底座测试</span></div><div><strong>开发中</strong><span>当前阶段</span></div>
+                    </div>
+                    <div class="memo-showcase">
+                        <div class="memo-showcase__copy"><span class="portfolio-label">PRODUCT PREVIEW</span><h5>不是“什么都替你记”的 AI，<br>而是值得信任的生活外置记忆。</h5><p>当前已形成 V1—V3.2 全套产品文档、冻结交互原型、前端拆解、验收设计与可靠保存工程底座。业务前后端与真实用户验证仍在继续。</p></div>
+                        <div class="memo-phones" role="img" aria-label="智慧备忘录 V3.2 界面结构示意，非最终产品截图">
+                            <div class="memo-phone"><span>备忘录</span><strong>随口记下</strong><i></i><i></i><i></i></div>
+                            <div class="memo-phone is-center"><span>今天</span><strong>有日期的事</strong><i></i><i></i><i></i></div>
+                            <div class="memo-phone"><span>找回</span><strong>按意思搜索</strong><i></i><i></i><i></i></div>
+                        </div>
+                    </div>
+                    <p class="memo-preview-note">界面结构示意 · 非最终产品截图</p>
+                    <div class="memo-project-links"><span>在线原型 · 待部署</span><span>公开仓库 · 待建立</span><span>产品截图 · 待正式版本完成</span></div>
+                </section>
             </article>
         </div>
     </section>

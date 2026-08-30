@@ -1,0 +1,58 @@
+<div class="skill-diagram memo-runtime" role="group" aria-label="{{ .label }}">
+    <header class="skill-diagram__header">
+        <span>PRODUCT RUNTIME</span>
+        <span class="skill-diagram__live"><em>初始全览 · 放大查看细节</em><i></i> LIVE</span>
+    </header>
+    <div class="skill-diagram__viewport">
+        <svg width="2780" height="470" viewBox="0 0 2780 470" role="img" aria-labelledby="memo-runtime-title">
+            <title id="memo-runtime-title">智慧备忘录从自然语言输入、可靠保存、AI 候选生成到用户纠错与找回的核心运行流程</title>
+            <defs><marker id="arrow-memo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z"></path></marker></defs>
+            <g class="diagram-edges" marker-end="url(#arrow-memo)">
+                <path d="M190 180H230"></path><path d="M400 180H430"></path><path d="M570 180H620"></path><path d="M800 180H850"></path><path d="M1020 180H1070"></path><path d="M1240 180H1270"></path>
+                <path d="M1410 180H1450"></path><path d="M1590 180H1630"></path><path d="M1810 180H1860"></path><path d="M2030 180H2070"></path>
+                <path d="M500 227V330" class="is-branch"></path>
+                <path d="M1340 212V330" class="is-branch"></path><path d="M1270 362H1160V212" class="is-return"></path>
+                <path d="M1520 227V330" class="is-branch"></path><path d="M1590 362H1610V180H1630" class="is-return"></path>
+                <path d="M2210 180Q2240 180 2270 77"></path><path d="M2210 180H2270"></path><path d="M2210 180Q2240 180 2270 283"></path>
+                <path d="M2440 77Q2470 77 2500 180"></path><path d="M2440 180H2500"></path><path d="M2440 283Q2470 283 2500 180"></path>
+                <path d="M2660 180H2710"></path><path d="M2580 212V400H1130V212" class="is-return"></path>
+            </g>
+            <g class="diagram-edge-labels">
+                <text x="595" y="168">普通内容</text><text x="510" y="280">敏感内容</text>
+                <text x="1430" y="168">候选可用</text><text x="1350" y="280">失败 / 越界</text>
+                <text x="1610" y="168">日期明确</text><text x="1530" y="280">日期模糊</text>
+                <text x="2245" y="110">浏览</text><text x="2245" y="168">今日</text><text x="2245" y="265">搜索 / 提问</text>
+                <text x="1840" y="388">用户修正成为下一次理解的约束</text>
+            </g>
+            <g class="diagram-node is-input" transform="translate(30 148)"><rect width="160" height="64" rx="32"></rect><text x="80" y="27">随口输入一句话</text><text class="node-sub" x="80" y="46">不选分类 · 不切模式</text></g>
+            <g class="diagram-node is-script" transform="translate(230 148)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">本机 Outbox 暂存</text><text class="node-sub" x="85" y="46">离线也先接住原话</text></g>
+            <g class="diagram-node is-decision"><polygon points="500,133 570,180 500,227 430,180"></polygon><text x="500" y="176">包含秘密？</text><text class="node-sub" x="500" y="194">密码 / 高敏内容</text></g>
+            <g class="diagram-node is-system" transform="translate(420 330)"><rect width="160" height="64" rx="10"></rect><text x="80" y="27">进入 Secure Vault</text><text class="node-sub" x="80" y="46">隔离存储 · 不进模型</text></g>
+            <g class="diagram-node is-system" transform="translate(620 148)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">服务端幂等保存 Source</text><text class="node-sub" x="90" y="46">原文只存一份 · 不丢失</text></g>
+            <g class="diagram-node is-output" transform="translate(850 148)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">立即返回“已保存”</text><text class="node-sub" x="85" y="46">先给用户确定感</text></g>
+            <g class="diagram-node is-script" transform="translate(1070 148)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">事务任务异步处理</text><text class="node-sub" x="85" y="46">Job + Outbox 可重试</text></g>
+            <g class="diagram-node is-ai" transform="translate(1270 148)"><rect width="140" height="64" rx="10"></rect><text x="70" y="27">AI 生成候选</text><text class="node-sub" x="70" y="46">原子 · 分类 · 日期</text></g>
+            <g class="diagram-node is-decision"><polygon points="1520,133 1590,180 1520,227 1450,180"></polygon><text x="1520" y="176">日期明确？</text><text class="node-sub" x="1520" y="194">不猜“过几天”</text></g>
+            <g class="diagram-node is-stop" transform="translate(1270 330)"><rect width="140" height="64" rx="10"></rect><text x="70" y="27">保留原文并重试</text><text class="node-sub" x="70" y="46">候选失败不影响保存</text></g>
+            <g class="diagram-node is-muted" transform="translate(1440 330)"><rect width="150" height="64" rx="10"></rect><text x="75" y="27">只保存 · 不排期</text><text class="node-sub" x="75" y="46">未来仍可搜索找回</text></g>
+            <g class="diagram-node is-script" transform="translate(1630 148)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">程序校验并确定性写入</text><text class="node-sub" x="90" y="46">格式 · 权限 · 版本 · 边界</text></g>
+            <g class="diagram-node is-system" transform="translate(1860 148)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">建立备忘与记录关系</text><text class="node-sub" x="85" y="46">一条记录可归属多个备忘</text></g>
+            <g class="diagram-node is-system" transform="translate(2070 148)"><rect width="140" height="64" rx="10"></rect><text x="70" y="27">形成三条找回路径</text><text class="node-sub" x="70" y="46">同一事实 · 多种入口</text></g>
+            <g class="diagram-node is-output" transform="translate(2270 45)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">备忘录浏览</text><text class="node-sub" x="85" y="46">按个人结构查看</text></g>
+            <g class="diagram-node is-output" transform="translate(2270 148)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">“今天”连续列表</text><text class="node-sub" x="85" y="46">确定日期自动出现</text></g>
+            <g class="diagram-node is-output" transform="translate(2270 251)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">搜索与问答</text><text class="node-sub" x="85" y="46">语义 / 结构 / 日期</text></g>
+            <g class="diagram-node is-human" transform="translate(2500 148)"><rect width="160" height="64" rx="10"></rect><text x="80" y="27">用户核对与修正</text><text class="node-sub" x="80" y="46">编辑 · 撤销 · 删除</text></g>
+            <g class="diagram-node is-output" transform="translate(2710 148)"><rect width="40" height="64" rx="20"></rect><text x="20" y="27">✓</text><text class="node-sub" x="20" y="46">找回</text></g>
+        </svg>
+    </div>
+    <div class="skill-diagram__legend">
+        <div class="skill-diagram__legend-items" aria-hidden="true">
+            <span class="is-script">确定性处理</span><span class="is-ai">AI 候选</span><span class="is-human">用户控制</span><span class="is-output">保存 / 找回</span>
+        </div>
+        <div class="skill-diagram__zoom" aria-label="流程图缩放控制">
+            <button type="button" data-diagram-zoom="out" aria-label="缩小{{ .label }}" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6"></path></svg></button>
+            <output aria-live="polite">适配</output>
+            <button type="button" data-diagram-zoom="in" aria-label="放大{{ .label }}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6M10.5 7.5v6"></path></svg></button>
+        </div>
+    </div>
+</div>
