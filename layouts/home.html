@@ -209,66 +209,75 @@
 
             <article class="portfolio-card skill-card" id="skill-changelog">
                 <header class="skill-card__header">
-                    <span class="skill-card__index">03</span>
-                    <div><span class="portfolio-label">RELEASE COMMUNICATION</span><h3>更新日志自动生成</h3><code>atap-changelog-updater</code></div>
+                    <div class="skill-card__identity"><h3>更新日志自动生成</h3><code>atap-changelog-updater</code></div>
                     <span class="skill-card__role">腾讯 · 产品策划</span>
                 </header>
                 <section class="skill-block">
-                    <header><span>01</span><h4>任务背景</h4></header>
-                    <div class="skill-facts"><div><small>要解决的事</small><p>将产品与技术信息合并为面向用户的周度平台更新日志，并安全写入 iWiki。</p></div><div><small>原流程与成本</small><p>产品信息在周例会、技术信息在发布计划，人工拼合容易漏周、写错周；修改时还可能覆盖历史条目。</p></div></div>
+                    <header><h4>任务背景</h4></header>
+                    <p>将产品与技术信息合并为面向用户的周度平台更新日志，并安全写入 iWiki。</p>
+                </section>
+                <section class="skill-block">
+                    <header><h4>原流程与成本</h4></header>
+                    <p>产品信息在周例会、技术信息在发布计划，人工拼合容易漏周、写错周；修改时还可能覆盖历史条目。</p>
                 </section>
                 <section class="skill-block skill-solution">
-                    <header><span>02</span><h4>实现方案</h4></header>
+                    <header><h4>AI 实现方案</h4></header>
                     <p class="skill-summary">以周例会上线能力为主、TAPD 缺陷为辅，校验周期后生成用户语言，经确认再执行新增或定点修改。</p>
                     {{ partial "skill-diagram.html" (dict "type" "changelog" "label" "更新日志自动生成完整流程图") }}
                     <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>双源周期不一致立即暂停，避免把不同周的信息拼在一起。</li><li>写入前必须人工确认；先读旧页面，再决定新增或修改。</li><li>新增只追加并按日期排序，修改只替换目标周，防止覆盖历史。</li></ul></div>
                 </section>
                 <section class="skill-block skill-result">
-                    <header><span>03</span><h4>达成效果</h4></header>
+                    <header><h4>达成效果</h4></header>
                     <p>把双源拼合、用户化表达和 iWiki 写入收敛为可校验流程，降低错周、漏项及误覆盖风险，形成可持续维护的更新日志。</p>
                 </section>
             </article>
 
             <article class="portfolio-card skill-card" id="skill-sharing">
                 <header class="skill-card__header">
-                    <span class="skill-card__index">04</span>
-                    <div><span class="portfolio-label">KNOWLEDGE REUSE</span><h3>产品落地经验分享 → iWiki 案例</h3><code>atap-share-to-iwiki</code></div>
+                    <div class="skill-card__identity"><h3>产品落地经验分享 → iWiki 案例</h3><code>atap-share-to-iwiki</code></div>
                     <span class="skill-card__role">腾讯 · 产品策划</span>
                 </header>
                 <section class="skill-block">
-                    <header><span>01</span><h4>任务背景</h4></header>
-                    <div class="skill-facts"><div><small>要解决的事</small><p>把产品落地经验分享转化为其他项目组可直接复用的结构化案例。</p></div><div><small>原流程与成本</small><p>展示文档与会议录制“讲过即消失”；人工整理结构不一，智能纪要又常缺少踩坑、真实数据和问答边界。</p></div></div>
+                    <header><h4>任务背景</h4></header>
+                    <p>把产品落地经验分享转化为其他项目组可直接复用的结构化案例。</p>
+                </section>
+                <section class="skill-block">
+                    <header><h4>原流程与成本</h4></header>
+                    <p>展示文档与会议录制“讲过即消失”；人工整理结构不一，智能纪要又常缺少踩坑、真实数据和问答边界。</p>
                 </section>
                 <section class="skill-block skill-solution">
-                    <header><span>02</span><h4>实现方案</h4></header>
+                    <header><h4>AI 实现方案</h4></header>
                     <p class="skill-summary">脚本拉取逐字稿，LLM 交叉理解逐字稿与展示材料，识别口径差异并按模板成文，经用户确认后新建 iWiki 页面。</p>
                     {{ partial "skill-diagram.html" (dict "type" "sharing" "label" "产品落地经验分享转 iWiki 案例完整流程图") }}
                     <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>逐字稿是一手事实，展示材料提供结构；数字冲突以展示材料口径为准并标注。</li><li>通过主题、日期、正文三点核对录制，匹配不上就停止，不用相似内容凑数。</li><li>敏感信息中性化；每期新建页面不覆盖历史，写后检查章节、表格和父页面。</li></ul></div>
                 </section>
                 <section class="skill-block skill-result">
-                    <header><span>03</span><h4>达成效果</h4></header>
+                    <header><h4>达成效果</h4></header>
                     <p>将一次性分享转化为结构统一、口径可追溯的案例资产，并保留现场问答与可照搬清单，让经验从“听过”变为“可复用”。</p>
                 </section>
             </article>
 
             <article class="portfolio-card skill-card" id="skill-weekly">
                 <header class="skill-card__header">
-                    <span class="skill-card__index">02</span>
-                    <div><span class="portfolio-label">INDUSTRY INTELLIGENCE</span><h3>生成技术周报</h3><code>weekly-report</code></div>
+                    <div class="skill-card__identity"><h3>生成技术周报</h3><code>weekly-report</code></div>
                     <span class="skill-card__role">腾讯 · 产品策划</span>
                 </header>
                 <section class="skill-block">
-                    <header><span>01</span><h4>任务背景</h4></header>
-                    <div class="skill-facts"><div><small>要解决的事</small><p>为游戏品质管理团队提供稳定、可信、可转化为产品机会的游戏测试与 AI 情报窗口。</p></div><div><small>原流程与成本</small><p>临时检索式生产依赖个人状态：来源不可考、链接失效、板块跑偏、同一事件重复，大厂官方动态也容易漏跟。</p></div></div>
+                    <header><h4>任务背景</h4></header>
+                    <p>为游戏品质管理团队提供稳定、可信、可转化为产品机会的游戏测试与 AI 情报窗口。</p>
+                </section>
+                <section class="skill-block">
+                    <header><h4>原流程与成本</h4></header>
+                    <p>临时检索式生产依赖个人状态：来源不可考、链接失效、板块跑偏、同一事件重复，大厂官方动态也容易漏跟。</p>
                 </section>
                 <section class="skill-block skill-solution">
-                    <header><span>02</span><h4>实现方案</h4></header>
+                    <header><h4>AI 实现方案</h4></header>
                     <p class="skill-summary">将选题、检索、来源核验、事件去重、技术拆解和 HTML 输出固化为周度生产线，最终由人工复核发布。</p>
                     {{ partial "skill-diagram.html" (dict "type" "weekly" "label" "技术周报生成完整流程图") }}
                     <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>只使用可访问、内容与日期相符的官方一手深链，不确定信息直接剔除。</li><li>一个事件只进入一个板块；重点技术按“是什么—关键机制—适用边界”表达。</li><li>固定板块与内容配额，引用编号全文连续，避免每期结构和质量随状态波动。</li></ul></div>
                 </section>
                 <section class="skill-block skill-result">
-                    <header><span>03</span><h4>达成效果</h4></header>
+                    <header><h4>达成效果</h4></header>
                     <div class="skill-metrics"><div><strong>10 期</strong><span>独立完成周报</span></div><div><strong>200+ 成员</strong><span>部门覆盖</span></div><div><strong>2 个方向</strong><span>转化为内部产品机会</span></div></div>
                     <p>周报不止做资讯搬运，行业线索进一步转化为团队共享上下文与“零侵入自动报 Bug”等产品规划输入；后两项仍处规划或待评审状态。</p>
                 </section>
@@ -276,22 +285,25 @@
 
             <article class="portfolio-card skill-card" id="skill-guide">
                 <header class="skill-card__header">
-                    <span class="skill-card__index">01</span>
-                    <div><span class="portfolio-label">USER EDUCATION</span><h3>新功能用户手册</h3><code>atap-release-poster</code></div>
+                    <div class="skill-card__identity"><h3>新功能用户手册</h3><code>atap-release-poster</code></div>
                     <span class="skill-card__role">腾讯 · 产品策划</span>
                 </header>
                 <section class="skill-block">
-                    <header><span>01</span><h4>任务背景</h4></header>
-                    <div class="skill-facts"><div><small>要解决的事</small><p>把研发向发布计划翻译成最终用户“一看就懂、照着能用”的图文新功能手册。</p></div><div><small>原流程与成本</small><p>原发版内容只列需求与缺陷，用户需要自行理解价值、入口和步骤；产品需人工筛选功能、确认路径、整理截图并重复排版。</p></div></div>
+                    <header><h4>任务背景</h4></header>
+                    <p>把研发向发布计划翻译成最终用户“一看就懂、照着能用”的图文新功能手册。</p>
+                </section>
+                <section class="skill-block">
+                    <header><h4>原流程与成本</h4></header>
+                    <p>原发版内容只列需求与缺陷，用户需要自行理解价值、入口和步骤；产品需人工筛选功能、确认路径、整理截图并重复排版。</p>
                 </section>
                 <section class="skill-block skill-solution">
-                    <header><span>02</span><h4>实现方案</h4></header>
+                    <header><h4>AI 实现方案</h4></header>
                     <p class="skill-summary">从发布计划中筛出用户可感知能力，按模块生成“价值、入口、步骤、配图”四件套，经截图与入口确认后输出统一 HTML。</p>
                     {{ partial "skill-diagram.html" (dict "type" "manual" "label" "新功能用户手册生成完整流程图") }}
                     <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>只有存在页面、入口、按钮或可见结果的功能才进入手册。</li><li>操作步骤严格来自需求 description 原文；缺失时留空并提示补充，不自行编造。</li><li>生成前回显保留项、剔除项、入口路径和截图归属，图片使用相对路径并支持灯箱。</li></ul></div>
                 </section>
                 <section class="skill-block skill-result">
-                    <header><span>03</span><h4>达成效果</h4></header>
+                    <header><h4>达成效果</h4></header>
                     <div class="skill-metrics"><div><strong>12 期</strong><span>累计负责发版内容</span></div><div><strong>200+ 成员</strong><span>部门覆盖</span></div><div><strong>定性反馈</strong><span>图文步骤更易阅读</span></div></div>
                     <p>统一了用户价值、功能入口和操作步骤的传播结构。12 期是发版清单与图文手册的总期数，不能表述为全部由该 Skill 自动生成。</p>
                 </section>
