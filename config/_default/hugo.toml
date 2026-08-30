@@ -1,0 +1,18 @@
+baseURL                = "https://yinwwwwww.github.io/"
+locale                 = "zh-cn"
+title                  = "Yinwwwwww 的作品集"
+# Theme i18n support
+# See i18n folder for available languages
+defaultContentLanguage = "zh"
+# Set hasCJKLanguage to true if DefaultContentLanguage is a CJK language
+# This will make .Summary and .WordCount behave correctly
+hasCJKLanguage         = true
+
+theme                  = "hugo-theme-stack"
+
+[pagination]
+    pagerSize = 5
+
+[permalinks]
+    post = "/p/:slug/"
+    page = "/:slug/"

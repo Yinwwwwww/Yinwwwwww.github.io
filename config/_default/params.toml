@@ -1,0 +1,28 @@
+mainSections   = ["post"]
+rssFullContent = true
+favicon        = "img/avatar.png"
+
+[footer]
+    since = 2025
+
+[sidebar]
+    emoji    = "🚀"
+    subtitle = "记录技术、学习与生活"
+    avatar   = "img/avatar.png"
+
+[article]
+    [article.license]
+        enabled = true
+        default = "Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
+
+[widgets]
+    homepage = [
+        { type = "search" },
+        { type = "archives", params = { limit = 5 } },
+        { type = "categories", params = { limit = 10 } },
+        { type = "tag-cloud", params = { limit = 10 } },
+    ]
+    page     = [{ type = "toc" }]
+
+[comments]
+    enabled = false

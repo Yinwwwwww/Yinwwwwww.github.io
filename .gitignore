@@ -1,0 +1,16 @@
+# Generated files by hugo
+/public/
+/resources/
+/_gen/
+/hugo_stats.json
+
+# Temporary lock file while building
+/.hugo_build.lock
+
+# OS generated files
+.DS_Store
+
+# Node / editor
+node_modules/
+.idea/
+.vscode/
