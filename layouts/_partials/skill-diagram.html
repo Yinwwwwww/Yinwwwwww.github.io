@@ -35,6 +35,72 @@
             <g class="diagram-node is-script" transform="translate(1800 88)"><rect width="150" height="64" rx="10"></rect><text x="75" y="27">填充统一模板</text><text class="node-sub" x="75" y="46">单一 HTML + 灯箱</text></g>
             <g class="diagram-node is-output" transform="translate(2000 88)"><rect width="150" height="64" rx="10"></rect><text x="75" y="27">预览并交付</text><text class="node-sub" x="75" y="46">一看就懂 · 照着能用</text></g>
         </svg>
+        {{ else if eq .type "sourcing" }}
+        <svg width="2780" height="440" viewBox="0 0 2780 440" role="img" aria-labelledby="sourcing-diagram-title">
+            <title id="sourcing-diagram-title">技术社区研究、自动搜索、候选人方向匹配与 Aime 对话推送流程</title>
+            <defs><marker id="arrow-sourcing" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z"></path></marker></defs>
+            <g class="diagram-edges" marker-end="url(#arrow-sourcing)">
+                <path d="M190 160H240"></path><path d="M420 160H470"></path><path d="M640 160H690"></path><path d="M860 160H910"></path><path d="M1090 160H1140"></path><path d="M1330 160H1380"></path><path d="M1560 160H1580"></path>
+                <path d="M1720 160H1770"></path><path d="M1950 160H1970"></path><path d="M2110 160H2160"></path><path d="M2340 160H2390"></path><path d="M2550 160H2600"></path>
+                <path d="M1650 207V310" class="is-branch"></path><path d="M1720 342H1745V160H1770" class="is-return"></path>
+                <path d="M2040 207V310" class="is-branch"></path>
+            </g>
+            <g class="diagram-edge-labels"><text x="1745" y="148">可判断</text><text x="1660" y="260">信息不足</text><text x="2135" y="148">匹配</text><text x="2050" y="260">不匹配</text></g>
+            <g class="diagram-node is-input" transform="translate(30 128)"><rect width="160" height="64" rx="32"></rect><text x="80" y="27">明确 sourcing 目标</text><text class="node-sub" x="80" y="46">岗位方向 · 人才画像</text></g>
+            <g class="diagram-node is-human" transform="translate(240 128)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">调研主流技术社区</text><text class="node-sub" x="90" y="46">运营 · 人群 · 分享 · 招聘</text></g>
+            <g class="diagram-node is-system" transform="translate(470 128)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">沉淀社区画像与路径</text><text class="node-sub" x="85" y="46">确定搜索来源和方式</text></g>
+            <g class="diagram-node is-input" transform="translate(690 128)"><rect width="170" height="64" rx="32"></rect><text x="85" y="27">Aime 对话调用 Skill</text><text class="node-sub" x="85" y="46">输入岗位与目标方向</text></g>
+            <g class="diagram-node is-ai" transform="translate(910 128)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">解析方向与搜索条件</text><text class="node-sub" x="90" y="46">关键词 · 技术栈 · 约束</text></g>
+            <g class="diagram-node is-script" transform="translate(1140 128)"><rect width="190" height="64" rx="10"></rect><text x="95" y="27">搜索 GitHub 等技术社区</text><text class="node-sub" x="95" y="46">按社区路径获取公开信息</text></g>
+            <g class="diagram-node is-script" transform="translate(1380 128)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">提取候选人公开证据</text><text class="node-sub" x="90" y="46">项目 · 活跃方向 · 主页信息</text></g>
+            <g class="diagram-node is-decision"><polygon points="1650,113 1720,160 1650,207 1580,160"></polygon><text x="1650" y="156">信息可判断？</text><text class="node-sub" x="1650" y="174">证据是否足够</text></g>
+            <g class="diagram-node is-human" transform="translate(1580 310)"><rect width="140" height="64" rx="10"></rect><text x="70" y="27">人工补看公开主页</text><text class="node-sub" x="70" y="46">不凭缺失信息硬判</text></g>
+            <g class="diagram-node is-ai" transform="translate(1770 128)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">判断技术方向匹配度</text><text class="node-sub" x="90" y="46">结合岗位目标与公开证据</text></g>
+            <g class="diagram-node is-decision"><polygon points="2040,113 2110,160 2040,207 1970,160"></polygon><text x="2040" y="156">方向匹配？</text><text class="node-sub" x="2040" y="174">进入候选池门槛</text></g>
+            <g class="diagram-node is-muted" transform="translate(1970 310)"><rect width="140" height="64" rx="10"></rect><text x="70" y="27">进入排除清单</text><text class="node-sub" x="70" y="46">保留筛选理由</text></g>
+            <g class="diagram-node is-system" transform="translate(2160 128)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">整理标准候选人卡片</text><text class="node-sub" x="90" y="46">基本信息 · 技术证据 · 理由</text></g>
+            <g class="diagram-node is-output" transform="translate(2390 128)"><rect width="160" height="64" rx="10"></rect><text x="80" y="27">Aime 对话内推送</text><text class="node-sub" x="80" y="46">集中呈现候选人结果</text></g>
+            <g class="diagram-node is-human" transform="translate(2600 128)"><rect width="140" height="64" rx="10"></rect><text x="70" y="27">HR 确认并触达</text><text class="node-sub" x="70" y="46">最终人工决策</text></g>
+        </svg>
+        {{ else if eq .type "boss" }}
+        <svg width="3350" height="470" viewBox="0 0 3350 470" role="img" aria-labelledby="boss-diagram-title">
+            <title id="boss-diagram-title">BOSS 直聘前端抓包、Coze 候选人判断与脚本自动回复求简历流程</title>
+            <defs><marker id="arrow-boss" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z"></path></marker></defs>
+            <g class="diagram-edges" marker-end="url(#arrow-boss)">
+                <path d="M200 160H250"></path><path d="M430 160H480"></path><path d="M660 160H710"></path><path d="M890 160H910"></path><path d="M1050 160H1100"></path><path d="M1280 160H1330"></path><path d="M1500 160H1550"></path><path d="M1730 160H1740"></path>
+                <path d="M1880 160H1920"></path>
+                <path d="M2060 160Q2085 160 2110 82"></path><path d="M2060 160Q2085 160 2110 282"></path>
+                <path d="M2290 82Q2315 82 2340 160"></path><path d="M2290 282Q2315 282 2340 160"></path>
+                <path d="M2520 160H2570"></path><path d="M2740 160H2760"></path><path d="M2900 160H2950"></path><path d="M3120 160H3170"></path>
+                <path d="M980 207V320" class="is-branch"></path><path d="M910 352H800V192" class="is-return"></path>
+                <path d="M1810 207V320" class="is-branch"></path><path d="M1730 352H1640V192" class="is-return"></path>
+                <path d="M2830 207V320" class="is-branch"></path>
+            </g>
+            <g class="diagram-edge-labels">
+                <text x="1075" y="148">完整</text><text x="990" y="260">缺字段</text><text x="1900" y="148">结构有效</text><text x="1820" y="260">异常</text>
+                <text x="2085" y="108">达标</text><text x="2085" y="258">不达标</text><text x="2925" y="148">状态有效</text><text x="2840" y="260">异常</text>
+            </g>
+            <g class="diagram-node is-input" transform="translate(30 128)"><rect width="170" height="64" rx="32"></rect><text x="85" y="27">配置岗位筛选标准</text><text class="node-sub" x="85" y="46">JD 条件 · 回复策略</text></g>
+            <g class="diagram-node is-script" transform="translate(250 128)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">脚本监听前端网络响应</text><text class="node-sub" x="90" y="46">不依赖页面视觉抓取</text></g>
+            <g class="diagram-node is-script" transform="translate(480 128)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">筛选候选人必要字段</text><text class="node-sub" x="90" y="46">从抓包内容剔除无关数据</text></g>
+            <g class="diagram-node is-script" transform="translate(710 128)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">标准化候选人数据</text><text class="node-sub" x="90" y="46">固定字段与传输格式</text></g>
+            <g class="diagram-node is-decision"><polygon points="980,113 1050,160 980,207 910,160"></polygon><text x="980" y="156">字段完整？</text><text class="node-sub" x="980" y="174">满足判断输入</text></g>
+            <g class="diagram-node is-stop" transform="translate(910 320)"><rect width="140" height="64" rx="10"></rect><text x="70" y="27">停止并人工核对</text><text class="node-sub" x="70" y="46">不传输残缺资料</text></g>
+            <g class="diagram-node is-system" transform="translate(1100 128)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">传入 Coze 工作流</text><text class="node-sub" x="90" y="46">脚本调用固定接口</text></g>
+            <g class="diagram-node is-script" transform="translate(1330 128)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">校验输入与输出 Schema</text><text class="node-sub" x="85" y="46">结构格式和限制内容</text></g>
+            <g class="diagram-node is-ai" transform="translate(1550 128)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">大模型判断候选人</text><text class="node-sub" x="90" y="46">严格对照岗位达标条件</text></g>
+            <g class="diagram-node is-decision"><polygon points="1810,113 1880,160 1810,207 1740,160"></polygon><text x="1810" y="156">结果可执行？</text><text class="node-sub" x="1810" y="174">结构与限制均满足</text></g>
+            <g class="diagram-node is-human" transform="translate(1730 320)"><rect width="160" height="64" rx="10"></rect><text x="80" y="27">记录 badcase 并迭代</text><text class="node-sub" x="80" y="46">Prompt 累计 10+ 版</text></g>
+            <g class="diagram-node is-decision"><polygon points="1990,113 2060,160 1990,207 1920,160"></polygon><text x="1990" y="156">候选人达标？</text><text class="node-sub" x="1990" y="174">Coze 语义判断</text></g>
+            <g class="diagram-node is-system" transform="translate(2110 50)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">求简历 / 继续沟通</text><text class="node-sub" x="90" y="46">进入推进策略</text></g>
+            <g class="diagram-node is-system" transform="translate(2110 250)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">标准回复 / 不推进</text><text class="node-sub" x="90" y="46">进入对应回复策略</text></g>
+            <g class="diagram-node is-system" transform="translate(2340 128)"><rect width="180" height="64" rx="10"></rect><text x="90" y="27">判别结果回传脚本</text><text class="node-sub" x="90" y="46">结果码 · 回复类型 · 文案</text></g>
+            <g class="diagram-node is-script" transform="translate(2570 128)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">映射会话与目标动作</text><text class="node-sub" x="85" y="46">固定按钮与请求参数</text></g>
+            <g class="diagram-node is-decision"><polygon points="2830,113 2900,160 2830,207 2760,160"></polygon><text x="2830" y="156">页面状态有效？</text><text class="node-sub" x="2830" y="174">会话 / 按钮 / 参数</text></g>
+            <g class="diagram-node is-stop" transform="translate(2750 320)"><rect width="160" height="64" rx="10"></rect><text x="80" y="27">停止动作并记录异常</text><text class="node-sub" x="80" y="46">转人工处理</text></g>
+            <g class="diagram-node is-script" transform="translate(2950 128)"><rect width="170" height="64" rx="10"></rect><text x="85" y="27">执行回复或求简历</text><text class="node-sub" x="85" y="46">由标准化脚本操作 BOSS</text></g>
+            <g class="diagram-node is-output" transform="translate(3170 128)"><rect width="140" height="64" rx="10"></rect><text x="70" y="27">继续监听新会话</text><text class="node-sub" x="70" y="46">长期循环运行</text></g>
+        </svg>
         {{ else if eq .type "feedback" }}
         <svg width="2960" height="460" viewBox="0 0 2960 460" role="img" aria-labelledby="feedback-diagram-title">
             <title id="feedback-diagram-title">反馈从确定性留存、语义判重、三类分流到 TAPD 写后回读的完整流程</title>

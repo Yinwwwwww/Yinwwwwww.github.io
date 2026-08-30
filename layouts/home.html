@@ -316,6 +316,36 @@
                     <p>统一了用户价值、功能入口和操作步骤的传播结构。12 期是发版清单与图文手册的总期数，不能表述为全部由该 Skill 自动生成。</p>
                 </section>
             </article>
+
+            <article class="portfolio-card skill-card" id="skill-sourcing">
+                <header class="skill-card__header">
+                    <div class="skill-card__identity"><h3>技术社区 sourcing 运营</h3><code>tech-community-sourcing</code></div>
+                    <span class="skill-card__role">字节跳动 · HRBP</span>
+                </header>
+                <section class="skill-block">
+                    <header><h4>任务背景</h4></header>
+                    <p>面向技术岗位，在 GitHub 等技术社区中寻找方向匹配的优质候选人，并把分散的公开信息整理成 HR 可直接判断和触达的候选人线索。</p>
+                </section>
+                <section class="skill-block">
+                    <header><h4>原流程与成本</h4></header>
+                    <p>HR 需要先学习不同社区的运营模式、主流人群、内容分享与招聘方式，再跨平台搜索、筛选和整理候选人信息；平台规则与技术语境不同，人工学习和重复检索成本高。</p>
+                </section>
+                <section class="skill-block skill-solution">
+                    <header><h4>AI 实现方案</h4></header>
+                    <p class="skill-summary">先沉淀技术社区画像与 sourcing 方法，再将搜索、公开证据提取、方向匹配和候选人卡片整理封装为 Skill；接入 Aime 后，可在对话中输入岗位方向并直接获得候选人结果。</p>
+                    {{ partial "skill-diagram.html" (dict "type" "sourcing" "label" "技术社区 sourcing 运营完整流程图") }}
+                    <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>先理解社区运营模式、主流人群和招聘路径，再确定搜索来源，避免脱离社区语境进行无差别检索。</li><li>Skill 负责跨社区搜索、公开信息整理和方向匹配，输出保留候选人技术活动证据，不只给出结论。</li><li>Aime 对话作为低门槛调用入口，结果统一为候选人卡片；最终是否触达仍由 HR 确认。</li></ul></div>
+                </section>
+                <section class="skill-block skill-result">
+                    <header><h4>达成效果</h4></header>
+                    <div class="skill-metrics">
+                        <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3 4 6 4 9s-1 6-4 9M12 3c-3 3-4 6-4 9s1 6 4 9"></path></svg></span><div class="skill-metric__copy"><strong>多社区</strong><span>统一搜索入口</span></div></div>
+                        <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"></circle><path d="m14.5 14.5 5 5M10 7v6M7 10h6"></path></svg></span><div class="skill-metric__copy"><strong>自动化</strong><span>筛选与信息整理</span></div></div>
+                        <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 14a4 4 0 0 1-4 4H9l-6 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path><path d="m8 10 2.5 2.5L16 7"></path></svg></span><div class="skill-metric__copy"><strong>对话内</strong><span>候选人卡片推送</span></div></div>
+                    </div>
+                    <p>把社区学习、候选人搜索与信息梳理收敛到一个可复用入口，降低复杂人工筛选和重复学习技术社区运营方式的成本。</p>
+                </section>
+            </article>
             </div>
         </section>
 
@@ -383,6 +413,36 @@
                             <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"></circle><path d="M3 20v-2a6 6 0 0 1 12 0v2M16 4.5a3 3 0 0 1 0 6M17 14a5 5 0 0 1 4 5v1"></path></svg></span><div class="skill-metric__copy"><strong>20+ 人</strong><span>团队与管理层周会使用</span></div></div>
                         </div>
                         <p>其中人工执行与核验约 30 分钟。模块化链路减少了 SQL 报错、口径漂移和重复校对，并支持从企微使用下降等异常中形成宣导动作、持续跟踪数据回升。</p>
+                    </section>
+                </article>
+
+                <article class="portfolio-card skill-card" id="workflow-boss-hr">
+                    <header class="skill-card__header">
+                        <div class="skill-card__identity"><h3>BOSS 直聘 HR 助手</h3><code>boss-hr-screening-workflow</code></div>
+                        <span class="skill-card__role">字节跳动 · HRBP</span>
+                    </header>
+                    <section class="skill-block">
+                        <header><h4>任务背景</h4></header>
+                        <p>将 BOSS 直聘上的候选人初筛、资格判断、标准回复和求简历串成可长期运行的自动化链路，让 HR 把精力集中在需要人工判断和深度沟通的候选人上。</p>
+                    </section>
+                    <section class="skill-block">
+                        <header><h4>原流程与成本</h4></header>
+                        <p>HR 需要逐条阅读候选人资料、对照岗位条件并重复回复。BOSS 没有 MCP，前端还通过图片化、图层隐藏文字等方式防抓取，AI 视觉读取和自动点击都不稳定，容易抓错内容或点错按钮。</p>
+                    </section>
+                    <section class="skill-block skill-solution">
+                        <header><h4>AI 实现方案</h4></header>
+                        <p class="skill-summary">用标准化脚本监听并筛选前端网络数据，把候选人必要字段传入 Coze 工作流；大模型只负责按岗位标准判断，结构化结果回传脚本后，再由脚本在 BOSS 执行回复、求简历或停止推进。</p>
+                        {{ partial "skill-diagram.html" (dict "type" "boss" "label" "BOSS 直聘 HR 助手完整流程图") }}
+                        <div class="skill-decisions"><h5>关键设计决策</h5><ul><li>产品不是 Agent，也不是 MCP Tool；BOSS 无 MCP，整条链路由确定性脚本与 Coze 工作流共同完成。</li><li>候选人信息通过前端抓包提取，按钮操作由脚本固定执行；不让 AI 视觉模型承担不稳定的页面抓取和点击。</li><li>大模型只做语义筛选并返回受约束的结构化结果；Prompt 围绕格式、限制内容与 badcase 迭代 10+ 版后固化。</li></ul></div>
+                    </section>
+                    <section class="skill-block skill-result">
+                        <header><h4>达成效果</h4></header>
+                        <div class="skill-metrics">
+                            <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 9h16M8 13h3M8 16h6"></path><circle cx="17" cy="14" r="2"></circle></svg></span><div class="skill-metric__copy"><strong>抓包 + 脚本</strong><span>固定采集与页面动作</span></div></div>
+                            <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h5M8 16h7"></path><path d="m15 12 1.5 1.5L20 10"></path></svg></span><div class="skill-metric__copy"><strong>10+ 版</strong><span>Prompt 与 badcase 迭代</span></div></div>
+                            <div><span class="skill-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 1 2.3 5.7L4 20v-6h6l-2.2 2.2"></path><path d="m10 12 2 2 4-5"></path></svg></span><div class="skill-metric__copy"><strong>长期稳定</strong><span>自动筛选、回复与求简历</span></div></div>
+                        </div>
+                        <p>将不可靠的页面识别转为可重复的抓包与脚本动作，并把语义判断收敛到 Coze 工作流，最终形成可长期跑通的自动化筛选助手。</p>
                     </section>
                 </article>
             </div>
