@@ -181,14 +181,6 @@ html {
         font-size: 1.25rem;
     }
 
-    .portfolio-sidebar__eyebrow {
-        margin: 0;
-        color: var(--portfolio-accent);
-        font-size: 1rem;
-        font-weight: 700;
-        letter-spacing: 0.2em;
-    }
-
     .menu-social {
         gap: 10px;
 
@@ -215,7 +207,7 @@ html {
         }
     }
 
-    .portfolio-nav {
+    #main-menu.portfolio-nav {
         display: none;
         flex: 1;
         flex-direction: column;
@@ -252,12 +244,14 @@ html {
 
         summary {
             display: grid;
-            grid-template-columns: 30px 1fr 16px;
+            grid-template-columns: 30px max-content 16px;
             gap: 8px;
             align-items: center;
+            justify-content: center;
             padding: 11px 4px;
             color: var(--portfolio-ink);
             font-weight: 700;
+            text-align: center;
             cursor: pointer;
             list-style: none;
             user-select: none;
@@ -285,21 +279,26 @@ html {
         .portfolio-nav__links {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 2px;
-            padding: 0 0 10px 38px;
+            padding: 0 0 10px;
 
             a {
                 position: relative;
-                display: block;
-                padding: 6px 10px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                max-width: 100%;
+                padding: 6px 14px 6px 26px;
                 color: var(--portfolio-muted);
+                text-align: center;
                 border-radius: 8px;
                 transition: color 150ms ease, background 150ms ease;
 
                 &::before {
                     position: absolute;
                     top: 50%;
-                    left: -8px;
+                    left: 12px;
                     width: 4px;
                     height: 4px;
                     background: currentColor;
