@@ -2475,6 +2475,11 @@ html {
 }
 
 .memo-research-subsection {
+    > p {
+        color: var(--portfolio-muted);
+        line-height: 1.75;
+    }
+
     + .memo-research-subsection {
         margin-top: 30px;
     }
@@ -2501,7 +2506,8 @@ html {
     }
 
     strong {
-        color: var(--portfolio-ink);
+        color: inherit;
+        font-weight: inherit;
     }
 }
 
@@ -2511,7 +2517,8 @@ html {
     h5 {
         margin: 0;
         color: var(--portfolio-ink);
-        font-size: 1.18rem;
+        font-size: inherit;
+        font-weight: 700;
         letter-spacing: -0.01em;
     }
 
@@ -2579,11 +2586,18 @@ html {
 
 .memo-product-table--interviews {
     min-width: 1120px;
-    font-size: inherit;
+    font-size: 1.4rem;
     line-height: 1.65;
 
     th {
+        color: var(--portfolio-muted);
         font-size: inherit;
+        font-weight: 400;
+    }
+
+    strong {
+        color: inherit;
+        font-weight: 400;
     }
 
     th:nth-child(1) {
@@ -2603,11 +2617,18 @@ html {
 
 .memo-product-table--behavior {
     min-width: 860px;
-    font-size: inherit;
+    font-size: 1.4rem;
     line-height: 1.65;
 
     th {
+        color: var(--portfolio-muted);
         font-size: inherit;
+        font-weight: 400;
+    }
+
+    strong {
+        color: inherit;
+        font-weight: 400;
     }
 
     th:first-child {
@@ -2658,7 +2679,7 @@ html {
         padding: 15px 22px;
         margin: 0 -22px 17px;
         color: var(--portfolio-ink);
-        font-size: 0.96rem;
+        font-size: inherit;
         background: color-mix(in srgb, var(--portfolio-accent) 6%, var(--portfolio-panel));
     }
 
