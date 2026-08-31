@@ -80,12 +80,20 @@ function setupMemoSceneWalls() {
             close.focus({ preventScroll: true });
         };
 
+        const toggleDetail = (button: HTMLButtonElement) => {
+            const isCurrentScene = !panel.hidden && title.textContent === (button.dataset.sceneTitle ?? '');
+            if (isCurrentScene) {
+                closeDetail();
+                return;
+            }
+            openDetail(button);
+        };
+
         wall.addEventListener('pointerdown', (event) => {
             const target = event.target as HTMLElement | null;
             const button = target?.closest<HTMLButtonElement>('[data-scene-title]');
             if (!button || !wall.contains(button)) return;
             wall.classList.add('is-interacting');
-            openDetail(button);
         });
 
         wall.addEventListener('pointerup', () => {
@@ -100,7 +108,7 @@ function setupMemoSceneWalls() {
             const target = event.target as HTMLElement | null;
             const button = target?.closest<HTMLButtonElement>('[data-scene-title]');
             if (!button || !wall.contains(button)) return;
-            openDetail(button);
+            toggleDetail(button);
         });
 
         close.addEventListener('click', closeDetail);

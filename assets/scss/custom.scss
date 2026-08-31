@@ -1583,7 +1583,7 @@ html {
 .memo-story {
     position: relative;
     padding: clamp(24px, 4vw, 42px);
-    margin-bottom: 42px;
+    margin-bottom: 14px;
     overflow: hidden;
     background:
         radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--portfolio-accent) 18%, transparent), transparent 32%),
@@ -1611,6 +1611,22 @@ html {
         letter-spacing: -0.025em;
     }
 
+    .memo-story__subtitle {
+        margin-top: 8px;
+        font-size: 0.96rem;
+        line-height: 1.65;
+    }
+
+    .memo-story__concept {
+        max-width: 940px;
+        padding-left: 18px;
+        margin-top: 22px;
+        color: var(--portfolio-ink);
+        font-size: 1rem;
+        line-height: 1.75;
+        border-left: 2px solid var(--portfolio-accent);
+    }
+
     blockquote {
         max-width: 900px;
         padding: 0 0 0 20px;
@@ -1621,6 +1637,26 @@ html {
         line-height: 1.65;
         border-left: 3px solid var(--portfolio-accent);
     }
+}
+
+.memo-exploration {
+    padding: clamp(24px, 4vw, 42px);
+    margin-bottom: 42px;
+    background: color-mix(in srgb, var(--portfolio-ink) 2.5%, var(--portfolio-panel));
+    border: 1px solid var(--portfolio-border);
+    border-radius: 14px;
+
+    .memo-flow-title {
+        padding-top: 0;
+        margin-top: 0;
+        border-top: 0;
+    }
+}
+
+.memo-exploration__evidence {
+    padding-top: 18px;
+    margin-top: 18px;
+    border-top: 1px solid var(--portfolio-border);
 }
 
 .memo-story__scenes,
@@ -2473,43 +2509,33 @@ html {
     border-radius: 12px;
 
     &.is-paused .memo-scene-track,
-    &.is-interacting .memo-scene-track,
-    &:hover .memo-scene-track,
-    &:focus-within .memo-scene-track {
+    &.is-interacting .memo-scene-track {
         animation-play-state: paused;
     }
 }
 
 .memo-scene-wall__header {
-    display: grid;
-    justify-items: center;
-    padding: 24px 22px 18px;
-    text-align: center;
-
-    span,
-    strong {
-        display: block;
-    }
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px 10px;
 
     span {
-        margin-bottom: 5px;
+        display: block;
         color: var(--portfolio-accent);
         font-size: 0.76rem;
         font-weight: 800;
         letter-spacing: 0.1em;
-    }
-
-    strong {
-        max-width: 760px;
-        color: var(--portfolio-ink);
-        font-size: clamp(1.05rem, 1.7vw, 1.32rem);
-        line-height: 1.55;
+        white-space: nowrap;
     }
 
     p {
-        margin: 8px 0 0;
+        margin: 0;
         color: var(--portfolio-muted);
         font-size: 0.8rem;
+        line-height: 1.45;
+        text-align: right;
     }
 }
 
@@ -2984,8 +3010,14 @@ html {
         grid-template-columns: 1fr;
     }
 
-    .memo-story {
+    .memo-story,
+    .memo-exploration {
         padding: 22px 18px;
+    }
+
+    .memo-story__concept {
+        padding-left: 14px;
+        font-size: 0.92rem;
     }
 
     .memo-discovery-flow,
@@ -3024,16 +3056,20 @@ html {
         grid-template-columns: 1fr;
     }
 
-    .memo-scene-wall__header,
     .memo-scene-detail {
         align-items: flex-start;
     }
 
     .memo-scene-wall__header {
-        padding: 18px 16px 12px;
+        gap: 10px;
+        padding: 15px 16px 9px;
 
         p {
-            display: none;
+            display: block;
+            max-width: 160px;
+            font-size: 0.7rem;
+            line-height: 1.35;
+            text-align: right;
         }
     }
 
