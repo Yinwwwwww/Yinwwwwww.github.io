@@ -2441,6 +2441,94 @@ html {
     }
 }
 
+.memo-research-intro {
+    max-width: 1120px;
+    color: var(--portfolio-muted);
+    line-height: 1.75;
+
+    p {
+        margin: 0 0 10px;
+    }
+
+    ol {
+        display: grid;
+        gap: 8px;
+        padding-left: 1.55rem;
+        margin: 0;
+    }
+
+    li {
+        padding-left: 4px;
+    }
+
+    li::marker {
+        color: var(--portfolio-accent);
+        font-weight: 750;
+    }
+}
+
+.memo-research-methods {
+    display: grid;
+    gap: 10px;
+    margin-top: 22px;
+
+    @include respond(lg) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    article {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 13px;
+        padding: 17px 18px;
+        background: color-mix(in srgb, var(--portfolio-ink) 3%, var(--portfolio-panel));
+        border: 1px solid var(--portfolio-border);
+        border-radius: 10px;
+
+        > span {
+            color: var(--portfolio-accent);
+            font-size: 0.77rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+        }
+    }
+
+    strong {
+        display: block;
+        color: var(--portfolio-ink);
+        font-size: 0.98rem;
+    }
+
+    p {
+        margin: 5px 0 0;
+        color: var(--portfolio-muted);
+        font-size: 0.84rem;
+        line-height: 1.55;
+    }
+}
+
+.memo-research-subhead {
+    margin-top: 30px;
+
+    span {
+        color: var(--portfolio-accent);
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+    }
+
+    h5 {
+        margin: 5px 0 0;
+        color: var(--portfolio-ink);
+        font-size: 1.18rem;
+        letter-spacing: -0.01em;
+    }
+
+    + p {
+        margin-top: 9px;
+    }
+}
+
 .memo-table-wrap {
     margin-top: 12px;
     overflow-x: auto;
@@ -2496,6 +2584,139 @@ html {
 .memo-product-table--competition,
 .memo-product-table--decisions {
     min-width: 820px;
+}
+
+.memo-product-table--interviews {
+    min-width: 1120px;
+
+    th:nth-child(1) {
+        width: 15%;
+    }
+
+    th:nth-child(2),
+    th:nth-child(3),
+    th:nth-child(5) {
+        width: 23%;
+    }
+
+    th:nth-child(4) {
+        width: 16%;
+    }
+}
+
+.memo-product-table--behavior {
+    min-width: 860px;
+
+    th:first-child {
+        width: 21%;
+    }
+
+    th:nth-child(2) {
+        width: 34%;
+    }
+}
+
+.memo-core-insight {
+    padding: 24px;
+    margin-top: 14px;
+    background: color-mix(in srgb, var(--portfolio-accent) 7%, var(--portfolio-panel));
+    border: 1px solid color-mix(in srgb, var(--portfolio-accent) 25%, var(--portfolio-border));
+    border-radius: 12px;
+
+    > span,
+    > strong {
+        display: block;
+    }
+
+    > span {
+        color: var(--portfolio-accent);
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+    }
+
+    > strong {
+        margin-top: 8px;
+        color: var(--portfolio-ink);
+        font-size: clamp(1.35rem, 2vw, 1.75rem);
+        letter-spacing: -0.02em;
+    }
+
+    > p {
+        margin: 10px 0 0;
+        color: var(--portfolio-muted);
+        line-height: 1.7;
+    }
+
+    .memo-insight-pair article {
+        background: var(--portfolio-panel);
+    }
+}
+
+.memo-needs-compare {
+    display: grid;
+    margin-top: 14px;
+    overflow: hidden;
+    border: 1px solid var(--portfolio-border);
+    border-radius: 12px;
+
+    @include respond(md) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    section {
+        padding: 0 22px 22px;
+        background: var(--portfolio-panel);
+
+        + section {
+            border-top: 1px solid var(--portfolio-border);
+
+            @include respond(md) {
+                border-top: 0;
+                border-left: 1px solid var(--portfolio-border);
+            }
+        }
+    }
+
+    h6 {
+        padding: 15px 22px;
+        margin: 0 -22px 17px;
+        color: var(--portfolio-ink);
+        font-size: 0.96rem;
+        background: color-mix(in srgb, var(--portfolio-accent) 6%, var(--portfolio-panel));
+    }
+
+    ul {
+        display: grid;
+        gap: 11px;
+        padding: 0;
+        margin: 0;
+        color: var(--portfolio-muted);
+        line-height: 1.55;
+        list-style: none;
+    }
+
+    li {
+        position: relative;
+        padding-left: 16px;
+
+        &::before {
+            position: absolute;
+            top: 0.66em;
+            left: 0;
+            width: 5px;
+            height: 5px;
+            background: var(--portfolio-accent);
+            border-radius: 50%;
+            content: "";
+        }
+    }
+}
+
+.memo-evidence-note--decision {
+    strong {
+        color: var(--portfolio-ink);
+    }
 }
 
 .memo-scene-wall {
@@ -3105,6 +3326,14 @@ html {
 
     .memo-product-table {
         min-width: 680px;
+    }
+
+    .memo-product-table--interviews {
+        min-width: 1120px;
+    }
+
+    .memo-product-table--behavior {
+        min-width: 860px;
     }
 
     .memo-evolution {

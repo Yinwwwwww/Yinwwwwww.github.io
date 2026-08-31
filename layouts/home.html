@@ -230,20 +230,61 @@
 
                 <section class="skill-block memo-section">
                     <header><span>02</span><h4>用户调研与问题验证</h4></header>
-                    <p>我用<strong>8 人探索性访谈、用户心理拆解和社媒研究</strong>回答三个问题：遗忘是否跨人群存在、已有工具为什么没解决、共性问题背后为何产生不同需求。这是定性探索，不代表总体人口比例。</p>
-                    <div class="memo-research-metrics"><div><strong>8 人</strong><span>跨年龄与生活状态访谈</span></div><div><strong>3 种</strong><span>访谈 · 心理分析 · 社媒研究</span></div><div><strong>20 个</strong><span>用于展开边界的典型场景</span></div></div>
-                    <div class="memo-table-wrap" tabindex="0" aria-label="代表性用户访谈结论，可横向滚动">
-                        <table class="memo-product-table">
-                            <thead><tr><th>代表用户</th><th>现在怎么记</th><th>真正的问题</th><th>转化为设计信号</th></tr></thead>
+                    <div class="memo-research-intro">
+                        <p>这一阶段的目标，是回答三个问题：</p>
+                        <ol>
+                            <li>这些遗忘究竟只是我的个人烦恼，还是不同用户都会遇到的问题？</li>
+                            <li>明明已经有备忘录、日历、提醒事项和许多专门的记录 App，用户为什么仍然不去记录这些生活碎片？</li>
+                            <li>在共性问题的背后，不同用户需要的产品又有什么差异？</li>
+                        </ol>
+                    </div>
+                    <div class="memo-research-methods" aria-label="三种用户研究方式">
+                        <article><span>01</span><div><strong>用户访谈</strong><p>访谈 8 位用户，覆盖青年、中年、中老年，以及不同职业与生活状态。</p></div></article>
+                        <article><span>02</span><div><strong>用户行为分析</strong><p>结合典型生活场景与真实遗忘过程，拆解用户从“想到”到“放弃记录”的决策。</p></div></article>
+                        <article><span>03</span><div><strong>社媒研究</strong><p>围绕记录、备忘、提醒、flomo 等讨论，观察用户对现有工具的真实反馈与弃用原因。</p></div></article>
+                    </div>
+
+                    <div class="memo-research-subhead"><span>RESEARCH PROCESS</span><h5>三位代表性受访者</h5></div>
+                    <div class="memo-table-wrap" tabindex="0" aria-label="三位代表性受访者，可横向滚动">
+                        <table class="memo-product-table memo-product-table--interviews">
+                            <thead><tr><th>用户</th><th>当前方式</th><th>主要痛点</th><th>典型场景</th><th>期望</th></tr></thead>
                             <tbody>
-                                <tr><td><strong>青年学生 / 实习生</strong></td><td>提醒事项 + 备忘录</td><td>同一件事跨工具重复记录</td><td>统一入口；清单可复用</td></tr>
-                                <tr><td><strong>生活内容沉淀型</strong></td><td>备忘录、飞书、相册、收藏</td><td>闪念懒得记，记过也忘了回看</td><td>跨来源收口；自动整理与回顾</td></tr>
-                                <tr><td><strong>高事务低技术耐受型</strong></td><td>备忘录、闹钟、让别人提醒</td><td>记录麻烦，总以为自己记得住</td><td>概念更少；语音与微信入口</td></tr>
+                                <tr><td><strong>A，23 岁</strong><br>学生 / 实习生</td><td>提醒事项桌面组件记 Todo，备忘录记清单</td><td>多个软件切换；同一件事重复记录</td><td>出行清单、近期待办</td><td>不重复记录；可以复用出行清单</td></tr>
+                                <tr><td><strong>B，30+</strong><br>在职、极简主义、爱做饭</td><td>备忘录 / 飞书记想法，相册存菜谱截图，大众点评收藏饭店；曾使用 flomo</td><td>闪念懒得记；手被占时容易忘；忘记自己记过什么；不擅长复盘和分类</td><td>菜谱、想法、跨 App 收藏、生活方法</td><td>自动整理；适时回看；界面精简；方法类内容形成行动提示</td></tr>
+                                <tr><td><strong>C，50+</strong><br>事务多、低技术耐受</td><td>备忘录、日历闹钟、让别人提醒</td><td>记录麻烦；以为能记住；别人也可能忘</td><td>睡前想法、超市购物、车辆充电费用</td><td>语音输入；自动归类；同时保留手工整理能力</td></tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="memo-insight-pair"><article><span>当下</span><strong>降低记录成本</strong><p>不选分类、不起标题、不切模式，也能立刻留下原话。</p></article><i></i><article><span>未来</span><strong>降低找回成本</strong><p>能按熟悉结构浏览，也能搜索、提问或在“今天”找回。</p></article></div>
-                    <div class="memo-evidence-note"><strong>核心洞察</strong><span>用户不是没有记录需求，而是一件“小事”的单次记录成本太高。只解决输入，会形成无法管理的时间流；只强化分类，又会让用户从一开始就放弃记录。</span></div>
+                    <div class="memo-evidence-note"><strong>需求假设得到验证</strong><span>三位代表性受访者对应三种需求重心；八位用户虽有各自的生活画像，却都指向同一个问题：生活琐事会被遗忘，而现有方式没有充分满足轻量记录与未来找回的需要。</span></div>
+
+                    <div class="memo-research-subhead"><span>BEHAVIOR PATTERN</span><h5>典型生活场景下的行为与心理</h5></div>
+                    <p>基于个人生活观察，并参照访谈与社媒反馈，我将 20+ 个常见场景归纳为六种相同的行为结构。</p>
+                    <div class="memo-table-wrap" tabindex="0" aria-label="典型生活场景中的六种行为结构，可横向滚动">
+                        <table class="memo-product-table memo-product-table--behavior">
+                            <thead><tr><th>行为结构</th><th>如何发生</th><th>用户当下的心理</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>出现得随机</strong></td><td>往往发生在走路、做饭、聊天、睡前或家务中</td><td>“等会再记”“自己应该能记住”</td></tr>
+                                <tr><td><strong>当下价值感低</strong></td><td>单条信息看起来不重要，不值得专门建档</td><td>“这件小事应该记一下，但不知道记在哪；不归类下次也找不到，积累多了还难管理”</td></tr>
+                                <tr><td><strong>记录有启动成本</strong></td><td>需要打开应用、选择位置、起标题或设提醒</td><td>“太麻烦了，这点小事还是脑子里记一下吧”</td></tr>
+                                <tr><td><strong>高估自己的记忆</strong></td><td>当下总觉得“这个肯定记得住”</td><td>“明早出门时一定要记得……”</td></tr>
+                                <tr><td><strong>念头窗口很短</strong></td><td>没有立刻留下，很快会被新的信息覆盖</td><td>一个闪念出现，又迅速消失</td></tr>
+                                <tr><td><strong>找回线索不确定</strong></td><td>记录时不知道未来会按人物、物品、日期还是场景寻找</td><td>“应该放在哪里？之后会在什么场景下需要它？”</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="memo-core-insight">
+                        <span>CORE INSIGHT</span><strong>发生时不值一记，需要时不可或缺。</strong>
+                        <p>现有工具并不是不能记录，而是一次记录对于一件“小事”来说显得太重。只追求低成本输入，内容会变成无法管理的时间流；只提高分类和搜索能力，用户又可能因为启动成本太高，从一开始就没有留下信息。</p>
+                        <div class="memo-insight-pair"><article><span>当下</span><strong>降低记录成本</strong><p>不选分类、不起标题，也能立刻留下原话。</p></article><i></i><article><span>未来</span><strong>降低找回成本</strong><p>按熟悉结构浏览，也能搜索、提问或在“今天”找回。</p></article></div>
+                    </div>
+
+                    <div class="memo-research-subhead"><span>NEEDS FRAMEWORK</span><h5>共性需求与个性化需求</h5></div>
+                    <p>通过用户访谈与社媒调研，我进一步区分：哪些能力应该成为产品底座，哪些只是特定用户的增强需求。</p>
+                    <div class="memo-needs-compare">
+                        <section><h6>共性需求</h6><ul><li>输入前不选择分类、不起标题也能记录</li><li>尽量减少应用切换和重复记录</li><li>系统承担整理，但结果必须让用户看得懂、改得动</li><li>信息既可以按熟悉结构浏览，也可以直接搜索</li><li>有日期的事项进入统一的时间入口</li><li>原话不能因为 AI 理解失败而消失</li><li>不要求用户学习标签、Prompt 或知识管理方法</li></ul></section>
+                        <section><h6>个性化需求</h6><ul><li>有人按人物组织，有人按家庭、宠物、物品或事件组织</li><li>有人重视出行清单与模板，有人重视菜谱、收藏与方法沉淀</li><li>有人需要定期回顾，有人更需要当日待办</li><li>有人愿意文字输入，有人更依赖语音</li><li>有人希望尽可能自动，有人希望保留更多手工控制</li></ul></section>
+                    </div>
+                    <div class="memo-evidence-note memo-evidence-note--decision"><strong>由调研推动的产品决策</strong><span>我否决了 Demo 中“所有用户共用同一套生活分类、分类只由产品定义”的方案。共性应该体现在记录、保存、整理、纠错与找回机制上；分类结构则需要支持用户的个性化需求。</span></div>
                 </section>
 
                 <section class="skill-block memo-section">
