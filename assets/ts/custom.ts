@@ -48,10 +48,9 @@ function setupMemoSceneWalls() {
         const panel = wall.querySelector<HTMLElement>('[data-scene-detail-panel]');
         const title = wall.querySelector<HTMLElement>('[data-scene-detail-title]');
         const copy = wall.querySelector<HTMLElement>('[data-scene-detail-copy]');
-        const close = wall.querySelector<HTMLButtonElement>('[data-scene-close]');
         const buttons = Array.from(wall.querySelectorAll<HTMLButtonElement>('[data-scene-title]'));
 
-        if (!panel || !title || !copy || !close || buttons.length === 0) return;
+        if (!panel || !title || !copy || buttons.length === 0) return;
 
         const closeDetail = () => {
             panel.hidden = true;
@@ -77,7 +76,6 @@ function setupMemoSceneWalls() {
             copy.textContent = button.dataset.sceneDetail ?? '';
             panel.hidden = false;
             wall.classList.add('is-paused', 'is-interacting');
-            close.focus({ preventScroll: true });
         };
 
         const toggleDetail = (button: HTMLButtonElement) => {
@@ -111,7 +109,6 @@ function setupMemoSceneWalls() {
             toggleDetail(button);
         });
 
-        close.addEventListener('click', closeDetail);
         wall.addEventListener('keydown', (event) => {
             if (event.key === 'Escape' && !panel.hidden) closeDetail();
         });

@@ -1582,14 +1582,9 @@ html {
 
 .memo-story {
     position: relative;
-    padding: clamp(24px, 4vw, 42px);
-    margin-bottom: 14px;
-    overflow: hidden;
-    background:
-        radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--portfolio-accent) 18%, transparent), transparent 32%),
-        linear-gradient(135deg, color-mix(in srgb, var(--portfolio-accent) 8%, var(--portfolio-panel)), var(--portfolio-panel));
-    border: 1px solid color-mix(in srgb, var(--portfolio-accent) 16%, var(--portfolio-border));
-    border-radius: 14px;
+    padding: 0;
+    margin-bottom: 42px;
+    overflow: visible;
 
     > p {
         max-width: 880px;
@@ -1611,20 +1606,20 @@ html {
         letter-spacing: -0.025em;
     }
 
-    .memo-story__subtitle {
-        margin-top: 8px;
-        font-size: 0.96rem;
-        line-height: 1.65;
-    }
-
     .memo-story__concept {
         max-width: 940px;
-        padding-left: 18px;
         margin-top: 22px;
         color: var(--portfolio-ink);
         font-size: 1rem;
         line-height: 1.75;
-        border-left: 2px solid var(--portfolio-accent);
+
+        p {
+            margin: 0;
+
+            + p {
+                margin-top: 14px;
+            }
+        }
     }
 
     blockquote {
@@ -1695,7 +1690,8 @@ html {
     h4 {
         margin: 6px 0 0;
         color: var(--portfolio-ink);
-        font-size: 1.16rem;
+        font-size: 1.45rem;
+        letter-spacing: -0.015em;
     }
 
     + .memo-discovery-flow {
@@ -2641,22 +2637,13 @@ html {
         line-height: 1.55;
     }
 
-    button {
-        min-width: max-content;
-        padding: 8px 11px;
+    .memo-scene-detail__hint {
+        flex-shrink: 0;
+        margin: 0;
         color: var(--portfolio-accent-strong);
-        font: inherit;
         font-size: 0.82rem;
         font-weight: 700;
-        cursor: pointer;
-        background: var(--portfolio-accent-soft);
-        border: 0;
-        border-radius: 7px;
-
-        &:focus-visible {
-            outline: 2px solid color-mix(in srgb, var(--portfolio-accent) 50%, transparent);
-            outline-offset: 2px;
-        }
+        white-space: nowrap;
     }
 }
 
@@ -3010,13 +2997,11 @@ html {
         grid-template-columns: 1fr;
     }
 
-    .memo-story,
     .memo-exploration {
         padding: 22px 18px;
     }
 
     .memo-story__concept {
-        padding-left: 14px;
         font-size: 0.92rem;
     }
 
@@ -3090,8 +3075,9 @@ html {
         gap: 14px;
         margin: 0 12px 14px;
 
-        button {
+        .memo-scene-detail__hint {
             width: 100%;
+            white-space: normal;
         }
     }
 
