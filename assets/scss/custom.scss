@@ -1574,6 +1574,10 @@ html {
     .skill-card__header {
         margin-bottom: 28px;
     }
+
+    .skill-card__role {
+        max-width: 320px;
+    }
 }
 
 .memo-story {
@@ -1637,6 +1641,31 @@ html {
         background: color-mix(in srgb, var(--portfolio-panel) 82%, transparent);
         border: 1px solid var(--portfolio-border);
         border-radius: 999px;
+    }
+}
+
+.memo-flow-title {
+    padding-top: 24px;
+    margin-top: 30px;
+    border-top: 1px solid var(--portfolio-border);
+
+    span {
+        color: var(--portfolio-accent);
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+    }
+
+    h4 {
+        margin: 6px 0 0;
+        color: var(--portfolio-ink);
+        font-size: 1.16rem;
+    }
+
+    + .memo-discovery-flow {
+        padding-top: 0;
+        margin-top: 14px;
+        border-top: 0;
     }
 }
 
@@ -2444,6 +2473,7 @@ html {
     border-radius: 12px;
 
     &.is-paused .memo-scene-track,
+    &.is-interacting .memo-scene-track,
     &:hover .memo-scene-track,
     &:focus-within .memo-scene-track {
         animation-play-state: paused;
@@ -2451,11 +2481,10 @@ html {
 }
 
 .memo-scene-wall__header {
-    display: flex;
-    gap: 20px;
-    align-items: end;
-    justify-content: space-between;
-    padding: 20px 22px 15px;
+    display: grid;
+    justify-items: center;
+    padding: 24px 22px 18px;
+    text-align: center;
 
     span,
     strong {
@@ -2471,15 +2500,16 @@ html {
     }
 
     strong {
+        max-width: 760px;
         color: var(--portfolio-ink);
-        font-size: 1.05rem;
+        font-size: clamp(1.05rem, 1.7vw, 1.32rem);
+        line-height: 1.55;
     }
 
     p {
-        margin: 0;
+        margin: 8px 0 0;
         color: var(--portfolio-muted);
         font-size: 0.8rem;
-        white-space: nowrap;
     }
 }
 
@@ -2492,6 +2522,8 @@ html {
 }
 
 .memo-scene-track {
+    position: relative;
+    left: 50%;
     display: flex;
     width: max-content;
     animation: memoSceneMarquee var(--scene-duration, 38s) linear infinite;
@@ -2813,13 +2845,13 @@ html {
 }
 
 @keyframes memoSceneMarquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from { transform: translateX(-25%); }
+    to { transform: translateX(-75%); }
 }
 
 @keyframes memoSceneMarqueeReverse {
-    from { transform: translateX(-50%); }
-    to { transform: translateX(0); }
+    from { transform: translateX(-75%); }
+    to { transform: translateX(-25%); }
 }
 
 @keyframes diagramFlow {
@@ -2932,6 +2964,17 @@ html {
     .skill-card__role {
         max-width: 118px;
         line-height: 1.35;
+    }
+
+    .memo-case .skill-card__header {
+        grid-template-columns: 1fr;
+
+        .skill-card__role {
+            justify-self: start;
+            max-width: none;
+            font-size: 1.05rem;
+            text-align: left;
+        }
     }
 
     .memo-story__initial,

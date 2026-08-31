@@ -55,7 +55,7 @@ function setupMemoSceneWalls() {
 
         const closeDetail = () => {
             panel.hidden = true;
-            wall.classList.remove('is-paused');
+            wall.classList.remove('is-paused', 'is-interacting');
             buttons.forEach((button) => {
                 button.classList.remove('is-active');
                 button.setAttribute('aria-pressed', 'false');
@@ -64,17 +64,43 @@ function setupMemoSceneWalls() {
 
         buttons.forEach((button) => {
             button.setAttribute('aria-pressed', 'false');
-            button.addEventListener('click', () => {
-                buttons.forEach((item) => {
-                    item.classList.toggle('is-active', item === button);
-                    item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
-                });
-                title.textContent = button.dataset.sceneTitle ?? '';
-                copy.textContent = button.dataset.sceneDetail ?? '';
-                panel.hidden = false;
-                wall.classList.add('is-paused');
-                close.focus({ preventScroll: true });
+        });
+
+        const openDetail = (button: HTMLButtonElement) => {
+            const selectedTitle = button.dataset.sceneTitle ?? '';
+            buttons.forEach((item) => {
+                const isSelected = item.dataset.sceneTitle === selectedTitle;
+                item.classList.toggle('is-active', isSelected);
+                item.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
             });
+            title.textContent = selectedTitle;
+            copy.textContent = button.dataset.sceneDetail ?? '';
+            panel.hidden = false;
+            wall.classList.add('is-paused', 'is-interacting');
+            close.focus({ preventScroll: true });
+        };
+
+        wall.addEventListener('pointerdown', (event) => {
+            const target = event.target as HTMLElement | null;
+            const button = target?.closest<HTMLButtonElement>('[data-scene-title]');
+            if (!button || !wall.contains(button)) return;
+            wall.classList.add('is-interacting');
+            openDetail(button);
+        });
+
+        wall.addEventListener('pointerup', () => {
+            requestAnimationFrame(() => {
+                if (panel.hidden) wall.classList.remove('is-interacting');
+            });
+        });
+
+        wall.addEventListener('pointercancel', () => wall.classList.remove('is-interacting'));
+
+        wall.addEventListener('click', (event) => {
+            const target = event.target as HTMLElement | null;
+            const button = target?.closest<HTMLButtonElement>('[data-scene-title]');
+            if (!button || !wall.contains(button)) return;
+            openDetail(button);
         });
 
         close.addEventListener('click', closeDetail);

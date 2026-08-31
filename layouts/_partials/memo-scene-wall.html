@@ -1,46 +1,47 @@
+{{- $scenes := slice
+    (dict "title" "备用钥匙放在哪里" "detail" "备用钥匙被收进一个“肯定不会忘”的抽屉，真正需要时却要翻遍全屋。")
+    (dict "title" "重要证件换了位置" "detail" "身份证、护照或重要材料换了收纳位置，往往到办手续前才发现找不到。")
+    (dict "title" "配件对应哪台设备" "detail" "充电线、转接头或遥控器配件被单独收好，再需要时已经不知道对应什么设备。")
+    (dict "title" "停车楼层想不起来" "detail" "在商场或医院停车时只凭感觉记住楼层，回来后在相似车位间来回寻找。")
+    (dict "title" "滤芯上次何时更换" "detail" "空调滤网、净水器滤芯或床品刚更换时觉得很好记，下次却只剩“好像很久了”。")
+    (dict "title" "上次有效的处理方法" "detail" "头痛、过敏或胃不舒服时曾找到有效方法，再次出现却只能重新试错。")
+    (dict "title" "宠物上次驱虫" "detail" "宠物上一次驱虫、洗澡或打疫苗的日期，只能靠模糊印象判断是否该做。")
+    (dict "title" "家电保修与保养日期" "detail" "家电保修、车辆保养或门锁换电池的时间，常在出问题后才去翻订单和聊天记录。")
+    (dict "title" "去超市漏买东西" "detail" "在家想到要买好几样东西，到店后往往只记得其中一部分。")
+    (dict "title" "消耗品快用完" "detail" "洗衣液、垃圾袋、纸巾等快用完，却常在回家看到空瓶时才重新想起来。")
+    (dict "title" "退换与取消订阅期限" "detail" "商品可能要退换、订阅准备取消，再想起时已经超过期限。")
+    (dict "title" "稍后处理的杂事" "detail" "快递、发票、报销或取件事项准备稍后处理，被新任务打断后就完全忘记。")
+    (dict "title" "消息等会认真回" "detail" "看到消息时想等空下来认真回复，几天后才发现一直没有回。")
+    (dict "title" "趣事忘了讲给家人" "detail" "白天遇到趣事，准备晚上讲给家人，真正见面时细节已经被忘掉。")
+    (dict "title" "朋友的喜好与忌口" "detail" "朋友说过不吃什么、喜欢什么，点菜或挑礼物时却想不起来。")
+    (dict "title" "想再去的小店" "detail" "路过一家好吃的小店，准备以后再来，最后只记得大概位置、不记得名字。")
+    (dict "title" "尺码与耗材型号" "detail" "某品牌尺码偏小、某耗材有固定型号，下次购买仍要重新查，甚至再次买错。")
+    (dict "title" "旅行要带的非标物品" "detail" "旅行前突然想到转换插头、备用眼镜或药，正式收行李时只记得常规物品。")
+    (dict "title" "好用的菜谱与方法" "detail" "偶然发现很好用的菜谱或生活方法，下一次只记得“上次有个更好的办法”。")
+    (dict "title" "路上冒出的想法" "detail" "走路、洗澡或睡前突然出现一个想法，真正有空时只记得自己曾想到过什么。")
+-}}
+{{- $rows := slice (first 10 $scenes) (after 10 $scenes) -}}
 <div class="memo-scene-wall" data-memo-scene-wall>
-    <div class="memo-scene-wall__header"><div><span>20 LIFE MOMENTS</span><strong>那些“不大，却总让人困扰”的遗忘</strong></div><p>点击任一场景查看遗忘后果</p></div>
+    <div class="memo-scene-wall__header">
+        <span>20 LIFE MOMENTS</span>
+        <strong>很多生活信息在产生时，小到不值得专门整理；真正需要时，却又重要到不能丢。</strong>
+        <p>点击任一场景，查看遗忘发生时的真实后果</p>
+    </div>
     <div class="memo-scene-wall__stage">
-        <div class="memo-scene-track" style="--scene-duration: 34s;">
+        {{- range $rowIndex, $row := $rows }}
+        <div class="memo-scene-track{{ if eq $rowIndex 1 }} is-reverse{{ end }}" style="--scene-duration: {{ if eq $rowIndex 0 }}44s{{ else }}49s{{ end }};">
             <div class="memo-scene-group">
-                <button type="button" data-scene-title="备用钥匙放在哪里" data-scene-detail="备用钥匙被收进一个“肯定不会忘”的抽屉，真正需要时却要翻遍全屋。">备用钥匙放在哪里</button>
-                <button type="button" data-scene-title="重要证件换了位置" data-scene-detail="身份证、护照或重要材料换了收纳位置，往往到办手续前才发现找不到。">重要证件换了位置</button>
-                <button type="button" data-scene-title="配件对应哪台设备" data-scene-detail="充电线、转接头或遥控器配件被单独收好，再需要时已经不知道对应什么设备。">配件对应哪台设备</button>
-                <button type="button" data-scene-title="停车楼层想不起来" data-scene-detail="在商场或医院停车时只凭感觉记住楼层，回来后在相似车位间来回寻找。">停车楼层想不起来</button>
-                <button type="button" data-scene-title="滤芯上次何时更换" data-scene-detail="空调滤网、净水器滤芯或床品刚更换时觉得很好记，下次却只剩“好像很久了”。">滤芯上次何时更换</button>
+                {{- range $scene := $row }}
+                <button type="button" data-scene-primary data-scene-title="{{ $scene.title }}" data-scene-detail="{{ $scene.detail }}">{{ $scene.title }}</button>
+                {{- end }}
             </div>
-            <div class="memo-scene-group" aria-hidden="true"><span>备用钥匙放在哪里</span><span>重要证件换了位置</span><span>配件对应哪台设备</span><span>停车楼层想不起来</span><span>滤芯上次何时更换</span></div>
-        </div>
-        <div class="memo-scene-track is-reverse" style="--scene-duration: 39s;">
-            <div class="memo-scene-group">
-                <button type="button" data-scene-title="上次有效的处理方法" data-scene-detail="头痛、过敏或胃不舒服时曾找到有效方法，再次出现却只能重新试错。">上次有效的处理方法</button>
-                <button type="button" data-scene-title="宠物上次驱虫" data-scene-detail="宠物上一次驱虫、洗澡或打疫苗的日期，只能靠模糊印象判断是否该做。">宠物上次驱虫</button>
-                <button type="button" data-scene-title="家电保修与保养日期" data-scene-detail="家电保修、车辆保养或门锁换电池的时间，常在出问题后才去翻订单和聊天记录。">家电保修与保养日期</button>
-                <button type="button" data-scene-title="去超市漏买东西" data-scene-detail="在家想到要买好几样东西，到店后往往只记得其中一部分。">去超市漏买东西</button>
-                <button type="button" data-scene-title="消耗品快用完" data-scene-detail="洗衣液、垃圾袋、纸巾等快用完，却常在回家看到空瓶时才重新想起来。">消耗品快用完</button>
+            <div class="memo-scene-group" aria-hidden="true">
+                {{- range $scene := $row }}
+                <button type="button" tabindex="-1" aria-hidden="true" data-scene-duplicate data-scene-title="{{ $scene.title }}" data-scene-detail="{{ $scene.detail }}">{{ $scene.title }}</button>
+                {{- end }}
             </div>
-            <div class="memo-scene-group" aria-hidden="true"><span>上次有效的处理方法</span><span>宠物上次驱虫</span><span>家电保修与保养日期</span><span>去超市漏买东西</span><span>消耗品快用完</span></div>
         </div>
-        <div class="memo-scene-track" style="--scene-duration: 37s;">
-            <div class="memo-scene-group">
-                <button type="button" data-scene-title="退换与取消订阅期限" data-scene-detail="商品可能要退换、订阅准备取消，再想起时已经超过期限。">退换与取消订阅期限</button>
-                <button type="button" data-scene-title="稍后处理的杂事" data-scene-detail="快递、发票、报销或取件事项准备稍后处理，被新任务打断后就完全忘记。">稍后处理的杂事</button>
-                <button type="button" data-scene-title="消息等会认真回" data-scene-detail="看到消息时想等空下来认真回复，几天后才发现一直没有回。">消息等会认真回</button>
-                <button type="button" data-scene-title="趣事忘了讲给家人" data-scene-detail="白天遇到趣事，准备晚上讲给家人，真正见面时细节已经被忘掉。">趣事忘了讲给家人</button>
-                <button type="button" data-scene-title="朋友的喜好与忌口" data-scene-detail="朋友说过不吃什么、喜欢什么，点菜或挑礼物时却想不起来。">朋友的喜好与忌口</button>
-            </div>
-            <div class="memo-scene-group" aria-hidden="true"><span>退换与取消订阅期限</span><span>稍后处理的杂事</span><span>消息等会认真回</span><span>趣事忘了讲给家人</span><span>朋友的喜好与忌口</span></div>
-        </div>
-        <div class="memo-scene-track is-reverse" style="--scene-duration: 42s;">
-            <div class="memo-scene-group">
-                <button type="button" data-scene-title="想再去的小店" data-scene-detail="路过一家好吃的小店，准备以后再来，最后只记得大概位置、不记得名字。">想再去的小店</button>
-                <button type="button" data-scene-title="尺码与耗材型号" data-scene-detail="某品牌尺码偏小、某耗材有固定型号，下次购买仍要重新查，甚至再次买错。">尺码与耗材型号</button>
-                <button type="button" data-scene-title="旅行要带的非标物品" data-scene-detail="旅行前突然想到转换插头、备用眼镜或药，正式收行李时只记得常规物品。">旅行要带的非标物品</button>
-                <button type="button" data-scene-title="好用的菜谱与方法" data-scene-detail="偶然发现很好用的菜谱或生活方法，下一次只记得“上次有个更好的办法”。">好用的菜谱与方法</button>
-                <button type="button" data-scene-title="路上冒出的想法" data-scene-detail="走路、洗澡或睡前突然出现一个想法，真正有空时只记得自己曾想到过什么。">路上冒出的想法</button>
-            </div>
-            <div class="memo-scene-group" aria-hidden="true"><span>想再去的小店</span><span>尺码与耗材型号</span><span>旅行要带的非标物品</span><span>好用的菜谱与方法</span><span>路上冒出的想法</span></div>
-        </div>
+        {{- end }}
     </div>
     <aside class="memo-scene-detail" data-scene-detail-panel hidden aria-live="polite">
         <div><span>SCENE DETAIL</span><strong data-scene-detail-title></strong><p data-scene-detail-copy></p></div>

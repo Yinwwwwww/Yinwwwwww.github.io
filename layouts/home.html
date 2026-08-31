@@ -186,29 +186,29 @@
 
             <article class="portfolio-card skill-card memo-case" id="idea-memo">
                 <header class="skill-card__header">
-                    <div class="skill-card__identity"><h3>智慧备忘录</h3><code>有备忘 · life-memory-mvp</code></div>
-                    <span class="skill-card__role">个人项目 · 产品负责人</span>
+                    <div class="skill-card__identity"><h3>有备忘</h3><code>智慧备忘录 · 生活的外置记忆</code></div>
+                    <span class="skill-card__role">个人项目 · 产品设计 + 全栈开发</span>
                 </header>
 
                 <div class="memo-story">
                     <span class="portfolio-label">STORY OPENING</span>
-                    <p class="memo-story__lead">“这个要记一下。”——但它后面总跟着另一个念头：“这点小事应该记得住吧，现在记太麻烦了。”</p>
-                    <p>家里明明还剩一颗幼猫驱虫药，我却怎么也找不到，只能重新购买。后来在零食架底层重新发现它时，小猫已经长大，原来的剂量也不再适用。猫砂盆上次何时清洗、想讲给家人的趣事、被收到“肯定不会忘”位置的钥匙，也一次次在需要时消失。</p>
+                    <p class="memo-story__lead">写给生活里那些“不大，却总让人困扰”的遗忘</p>
+                    {{ partial "memo-scene-wall.html" . }}
                     <div class="memo-story__scenes" aria-label="问题场景">
-                        <span>8 人探索性访谈</span><span>5 人无讲解原型测试</span><span>MVP 开发完成</span><span>完整版开发中</span>
+                        <span>8 人探索性访谈</span><span>5 项竞品拆解分析</span><span>完整 PRD</span><span>全流程交互原型图</span><span>3 轮迭代演进</span><span>5 人无讲解原型测试</span><span>MVP 开发完成</span><span>完整版开发中</span>
                     </div>
-                    <blockquote>很多生活信息在产生时，小到不值得专门整理；真正需要时，却又重要到不能丢。</blockquote>
+                    <div class="memo-flow-title"><span>PRODUCT DISCOVERY</span><h4>产品探索与收敛路径</h4></div>
                     <div class="memo-discovery-flow" aria-label="有备忘从问题发现到 MVP 开发完成的探索流程">
                         <article><span>01</span><h5>生活问题</h5><p>遗忘持续制造寻找、重复购买与遗憾</p></article><i></i>
                         <article><span>02</span><h5>初步构想</h5><p>说一句，系统负责保存、整理和找回</p></article><i></i>
-                        <div class="memo-discovery-flow__parallel"><article><b>Demo</b><small>把直觉做出来</small></article><article><b>用户研究</b><small>确认共性与差异</small></article><article><b>竞品研究</b><small>寻找完整闭环空位</small></article></div><i></i>
+                        <div class="memo-discovery-flow__parallel"><article><b>用户调研</b><small>确认共性与差异</small></article><article><b>竞品分析</b><small>寻找完整闭环空位</small></article><article><b>Demo 验证</b><small>同步完成开发与验证</small></article></div><i></i>
                         <article><span>03</span><h5>定位重构</h5><p>从模型友好转向用户心智</p></article><i></i>
                         <article class="is-current"><span>04</span><h5>V3.2 MVP</h5><p>可靠、可纠正、可验证</p></article>
                     </div>
                 </div>
 
                 <section class="skill-block memo-section">
-                    <header><span>01</span><h4>问题验证</h4></header>
+                    <header><span>01</span><h4>用户调研与问题验证</h4></header>
                     <p>我用<strong>8 人探索性访谈、用户心理拆解和社媒研究</strong>回答三个问题：遗忘是否跨人群存在、已有工具为什么没解决、共性问题背后为何产生不同需求。这是定性探索，不代表总体人口比例。</p>
                     <div class="memo-research-metrics"><div><strong>8 人</strong><span>跨年龄与生活状态访谈</span></div><div><strong>3 种</strong><span>访谈 · 心理分析 · 社媒研究</span></div><div><strong>20 个</strong><span>用于展开边界的典型场景</span></div></div>
                     <div class="memo-table-wrap" tabindex="0" aria-label="代表性用户访谈结论，可横向滚动">
@@ -221,26 +221,12 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ partial "memo-scene-wall.html" . }}
                     <div class="memo-insight-pair"><article><span>当下</span><strong>降低记录成本</strong><p>不选分类、不起标题、不切模式，也能立刻留下原话。</p></article><i></i><article><span>未来</span><strong>降低找回成本</strong><p>能按熟悉结构浏览，也能搜索、提问或在“今天”找回。</p></article></div>
                     <div class="memo-evidence-note"><strong>核心洞察</strong><span>用户不是没有记录需求，而是一件“小事”的单次记录成本太高。只解决输入，会形成无法管理的时间流；只强化分类，又会让用户从一开始就放弃记录。</span></div>
                 </section>
 
                 <section class="skill-block memo-section">
-                    <header><span>02</span><h4>第一版 Demo</h4></header>
-                    <p>我先把直觉做成可运行 Demo“拾光备忘”。第一版优先保证 AI 分类准确，因此为所有用户设计固定模块与固定 Tag，把语义空间封闭起来。</p>
-                    <div class="memo-linear-flow memo-linear-flow--four" aria-label="第一版固定模块信息组织流程">
-                        <article><span>模块</span><strong>仓库分区</strong><p>生活大领域</p></article><i></i><article><span>分类</span><strong>货架</strong><p>继续组织内容</p></article><i></i><article><span>Tag</span><strong>贴纸</strong><p>语义、时间、用途</p></article><i></i><article><span>视图</span><strong>工作台</strong><p>日程、清单、看板</p></article>
-                    </div>
-                    <div class="memo-demo-grid">
-                        <div><h5>跑通的概念闭环</h5><ul><li>自然语言输入与原话回执</li><li>一句话拆成多个原子条目</li><li>固定模块、标签与自动归类</li><li>日程、清单、搜索与自建看板</li></ul></div>
-                        <div><h5>Demo 暴露的产品问题</h5><ul><li>用户必须先理解模块、分类、Tag 和多种视图</li><li>个人生活差异被系统统一分类压平</li><li>“准确”建立在用户适应产品之上</li><li>能联调不等于真实微信、模型与通知已验证</li></ul></div>
-                    </div>
-                    <div class="skill-decisions"><h5>关键反思</h5><ul><li>我限制用户的表达与结构自由，换取了模型更容易判断；但轻量备忘应该让产品适应用户，而不是让用户适应模型。</li><li>因此没有继续堆功能，而是回到“记下—整理—找回”的最短任务链重建信息架构。</li></ul></div>
-                </section>
-
-                <section class="skill-block memo-section">
-                    <header><span>03</span><h4>竞品与空位</h4></header>
+                    <header><span>02</span><h4>竞品分析与空位洞察</h4></header>
                     <p>分析单位不是“功能数量”，而是用户处理生活信息的完整任务链：<strong>记录 → 整理 → 找回 → 提醒</strong>。</p>
                     <div class="memo-table-wrap" tabindex="0" aria-label="五类竞品对比，可横向滚动">
                         <table class="memo-product-table memo-product-table--competition">
@@ -255,6 +241,19 @@
                         </table>
                     </div>
                     <div class="memo-position-gap"><span>产品空位</span><strong>输入像聊天一样轻，查看像备忘录一样清楚；系统负责整理，结构与数据最终由用户掌控。</strong></div>
+                </section>
+
+                <section class="skill-block memo-section">
+                    <header><span>03</span><h4>第一版 Demo</h4></header>
+                    <p>在进行用户调研和竞品分析的同时，我完成了可运行 Demo“拾光备忘”的开发与验证。第一版优先保证 AI 分类准确，因此为所有用户设计固定模块与固定 Tag，把语义空间封闭起来。</p>
+                    <div class="memo-linear-flow memo-linear-flow--four" aria-label="第一版固定模块信息组织流程">
+                        <article><span>模块</span><strong>仓库分区</strong><p>生活大领域</p></article><i></i><article><span>分类</span><strong>货架</strong><p>继续组织内容</p></article><i></i><article><span>Tag</span><strong>贴纸</strong><p>语义、时间、用途</p></article><i></i><article><span>视图</span><strong>工作台</strong><p>日程、清单、看板</p></article>
+                    </div>
+                    <div class="memo-demo-grid">
+                        <div><h5>跑通的概念闭环</h5><ul><li>自然语言输入与原话回执</li><li>一句话拆成多个原子条目</li><li>固定模块、标签与自动归类</li><li>日程、清单、搜索与自建看板</li></ul></div>
+                        <div><h5>Demo 暴露的产品问题</h5><ul><li>用户必须先理解模块、分类、Tag 和多种视图</li><li>个人生活差异被系统统一分类压平</li><li>“准确”建立在用户适应产品之上</li><li>能联调不等于真实微信、模型与通知已验证</li></ul></div>
+                    </div>
+                    <div class="skill-decisions"><h5>关键反思</h5><ul><li>我限制用户的表达与结构自由，换取了模型更容易判断；但轻量备忘应该让产品适应用户，而不是让用户适应模型。</li><li>因此没有继续堆功能，而是回到“记下—整理—找回”的最短任务链重建信息架构。</li></ul></div>
                 </section>
 
                 <section class="skill-block memo-section">
