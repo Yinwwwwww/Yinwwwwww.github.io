@@ -2464,6 +2464,26 @@ html {
         }
     }
 
+    /* 2.1 受访者表：首列加宽，保证“学生／实习生”等副行单行呈现 */
+    table.memo-doc-table--interviewees {
+        th:first-child,
+        td:first-child {
+            width: 230px;
+            min-width: 230px;
+            white-space: nowrap;
+        }
+    }
+
+    /* 2.2 行为结构表：首列加宽，保证“用户高估自己的记忆”单行呈现 */
+    table.memo-doc-table--behavior {
+        th:first-child,
+        td:first-child {
+            width: 230px;
+            min-width: 230px;
+            white-space: nowrap;
+        }
+    }
+
     .memo-doc-callout {
         display: grid;
         grid-template-columns: 24px minmax(0, 1fr);
