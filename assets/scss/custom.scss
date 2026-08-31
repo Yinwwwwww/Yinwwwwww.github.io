@@ -2501,7 +2501,7 @@ html {
 
 .memo-scene-wall {
     position: relative;
-    margin-top: 12px;
+    margin-top: 22px;
     overflow: hidden;
     background:
         radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--portfolio-accent) 20%, transparent), transparent 27%),
@@ -2513,6 +2513,10 @@ html {
     &.is-interacting .memo-scene-track {
         animation-play-state: paused;
     }
+}
+
+.memo-no-break {
+    white-space: nowrap;
 }
 
 .memo-scene-wall__header {
