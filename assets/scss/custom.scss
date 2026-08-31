@@ -559,14 +559,10 @@ html {
 
 .education-list {
     display: grid;
-    gap: 22px;
+    gap: 12px;
 }
 
 .education-entry {
-    + .education-entry {
-        padding-top: 22px;
-    }
-
     header {
         display: grid;
         gap: 8px;
