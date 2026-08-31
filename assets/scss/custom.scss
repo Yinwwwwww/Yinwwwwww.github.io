@@ -2416,6 +2416,16 @@ html {
         min-width: 980px;
     }
 
+    /* 3.1 五项竞品对比：首列加宽为约 2 倍，保证“Cato（提醒猫）”单行呈现 */
+    table.memo-doc-table--competition {
+        th:first-child,
+        td:first-child {
+            width: 240px;
+            min-width: 240px;
+            white-space: nowrap;
+        }
+    }
+
     .memo-doc-callout {
         display: grid;
         grid-template-columns: 24px minmax(0, 1fr);
