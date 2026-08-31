@@ -2420,9 +2420,47 @@ html {
     table.memo-doc-table--competition {
         th:first-child,
         td:first-child {
-            width: 240px;
-            min-width: 240px;
+            width: 185px;
+            min-width: 185px;
             white-space: nowrap;
+        }
+    }
+
+    /* 4 章定位来源表：首列加宽，“用户调研／竞品分析”单行呈现 */
+    table.memo-doc-table--origin {
+        th:first-child,
+        td:first-child {
+            width: 120px;
+            min-width: 120px;
+            white-space: nowrap;
+        }
+    }
+
+    /* 5 章版本演进表：首列约 1.5 倍 */
+    table.memo-doc-table--versions {
+        th:first-child,
+        td:first-child {
+            width: 115px;
+            min-width: 115px;
+            white-space: nowrap;
+        }
+    }
+
+    /* 6.4 双入口表：首列约 1.5 倍 */
+    table.memo-doc-table--entries {
+        th:first-child,
+        td:first-child {
+            width: 200px;
+            min-width: 200px;
+            white-space: nowrap;
+        }
+    }
+
+    /* 整表文字左右居中 */
+    table.memo-doc-table--center {
+        th,
+        td {
+            text-align: center;
         }
     }
 
