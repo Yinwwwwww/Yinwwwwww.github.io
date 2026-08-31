@@ -843,10 +843,6 @@ html {
     display: grid;
     gap: var(--spacing-lg);
     align-items: center;
-
-    @include respond(lg) {
-        grid-template-columns: 1fr 0.8fr;
-    }
 }
 
 .internship-copy {
