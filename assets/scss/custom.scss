@@ -1444,7 +1444,9 @@ html {
 
     h5 {
         margin: 0 0 11px;
+        color: var(--portfolio-muted);
         font-size: inherit;
+        font-weight: 700;
         line-height: 1.6;
 
         &::before {
@@ -2654,6 +2656,8 @@ html {
     display: grid;
     margin-top: 14px;
     overflow: hidden;
+    font-size: 1.4rem;
+    line-height: 1.65;
     border: 1px solid var(--portfolio-border);
     border-radius: 12px;
 
