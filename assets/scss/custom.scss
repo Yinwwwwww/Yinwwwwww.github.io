@@ -1610,7 +1610,6 @@ html {
         max-width: 940px;
         margin-top: 22px;
         color: var(--portfolio-ink);
-        font-size: 1rem;
         line-height: 1.75;
 
         p {
@@ -1745,6 +1744,11 @@ html {
     > p strong {
         color: var(--portfolio-ink);
     }
+}
+
+.memo-section--first {
+    padding-top: 34px;
+    border-top: 1px solid var(--portfolio-border);
 }
 
 .memo-need-grid,
@@ -2999,10 +3003,6 @@ html {
 
     .memo-exploration {
         padding: 22px 18px;
-    }
-
-    .memo-story__concept {
-        font-size: 0.92rem;
     }
 
     .memo-discovery-flow,
