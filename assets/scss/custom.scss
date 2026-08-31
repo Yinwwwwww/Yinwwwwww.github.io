@@ -1752,6 +1752,11 @@ html {
     border-top: 1px solid var(--portfolio-border);
 }
 
+.memo-section + .memo-section {
+    padding-top: 34px;
+    border-top: 1px solid var(--portfolio-border);
+}
+
 .memo-need-grid,
 .memo-demo-grid,
 .memo-artifact-grid,
@@ -2471,9 +2476,7 @@ html {
 
 .memo-research-subsection {
     + .memo-research-subsection {
-        padding-top: 30px;
         margin-top: 30px;
-        border-top: 1px solid var(--portfolio-border);
     }
 }
 
