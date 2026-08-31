@@ -14,3 +14,7 @@
 node_modules/
 .idea/
 .vscode/
+
+# 飞书导出源文件（本地参考物，不入库）
+/AI*idea -- 有备忘_副本.md
+/AI*idea -- 有备忘(1)_副本.pdf

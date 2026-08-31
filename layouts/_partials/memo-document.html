@@ -1,0 +1,851 @@
+<article class="memo-document">
+    <section class="memo-doc-section">
+        <h2>1 Demo先行</h2>
+        <p>有了上述想法后，我先让 AI 按照初步构想做出了一套可运行、可联调的 Demo -- 一个“会自动分类的生活信息助手”：用户像发消息一样说出内容，系统拆成可以独立使用的条目，再自动归类、形成日程或按需找回。</p>
+
+        <section class="memo-doc-subsection">
+            <h3>1.1 第一版为什么采用「固定模块 + 固定标签」的形式</h3>
+            <p>Demo版本最关心的是 AI 自动分类和召回的准确率。</p>
+            <p>当时我的判断是：如果允许每个用户自由描述分类，用户写出的定位可能模糊、交叉甚至彼此矛盾，AI 的判断空间就会变得不可控。因此，我设计了一套由系统统一提供的固定模块和固定 Tag，用户从系统给出的 Tag 中选择并组合成集合与模块。当时设计的重点，是如何把标签定义得足够全面、彼此独立、不发生意义交叉，让 AI 面对一个封闭稳定的语义空间。</p>
+            <p>我把整个体系比作：仓库 -- 货架 -- 贴纸 -- 工作台。</p>
+            <div class="memo-doc-table-wrap">
+                <table class="memo-doc-table memo-doc-table--3">
+                    <thead>
+                        <tr>
+                            <th scope="col">产品概念</th>
+                            <th scope="col">比喻</th>
+                            <th scope="col">作用</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>模块</td>
+                            <td>仓库的分区</td>
+                            <td>划分生活中的大领域</td>
+                        </tr>
+                        <tr>
+                            <td>分类</td>
+                            <td>货架</td>
+                            <td>在领域（模块）内继续组织内容</td>
+                        </tr>
+                        <tr>
+                            <td>Tag</td>
+                            <td>贴纸</td>
+                            <td>标记条目的语义、时间和用途</td>
+                        </tr>
+                        <tr>
+                            <td>日程、清单、看板</td>
+                            <td>工作台</td>
+                            <td>按 Tag 把内容重新组合成不同视图</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>1.2 Demo 跑通了什么</h3>
+            <p>Demo 证明了“输入—拆解—归类—提醒／检索”的概念闭环可以实现，核心链路是：</p>
+            {{ partial "memo-document-flow.html" (dict "type" "demo") }}
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>1.3 Demo 暴露出的真正问题</h3>
+            <p>Demo 让我真实地看到了在原构想下，设计的漏洞：</p>
+            <ul>
+                <li>用户必须先理解模块、分类、Tag 和多种视图；</li>
+                <li>个人生活差异被系统统一分类压平；</li>
+                <li>“准确”建立在用户适应产品之上。</li>
+            </ul>
+            <div class="memo-doc-callout">
+                <strong>Demo 的实践让我意识到</strong>
+                <ul>
+                    <li>不应该通过限制用户的表达与结构自由，换取模型判断的准确率；轻量备忘应该让产品适应用户，而不是让用户适应模型；</li>
+                    <li>“输入—拆解—归类—提醒／检索”的概念闭环可以实现。</li>
+                </ul>
+            </div>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>2 用户调研与问题验证</h2>
+        <p>这一阶段的目标是回答三个问题：</p>
+        <ol>
+            <li>这些遗忘究竟只是我的个人烦恼，还是不同用户都会遇到的问题？</li>
+            <li>明明已经有备忘录、日历、提醒事项和那么专门的记录app，用户为什么仍然不去记录这些生活碎片？</li>
+            <li>在共性问题的背后，不同用户需要的产品又有什么差异？</li>
+        </ol>
+        <p>我采用了三种方式：</p>
+        <ul>
+            <li>用户访谈：共访谈 8 位用户，覆盖青年、中年、中老年，以及不同职业和生活状态；</li>
+            <li>用户行为分析：基于典型生活场景，结合真实遗忘过程，拆解用户从“想到”到“放弃记录”的决策；</li>
+            <li>社媒研究：在小红书等平台基于记录、备忘、提醒、flomo 等相关讨论，观察用户对现有工具的真实反馈和弃用原因。</li>
+        </ul>
+
+        <section class="memo-doc-subsection">
+            <h3>2.1 三位代表性受访者</h3>
+            <div class="memo-doc-table-wrap">
+                <table class="memo-doc-table memo-doc-table--5">
+                    <thead>
+                        <tr>
+                            <th scope="col">用户</th>
+                            <th scope="col">当前方式</th>
+                            <th scope="col">主要痛点</th>
+                            <th scope="col">典型场景</th>
+                            <th scope="col">期望</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A. 23 岁<br>学生／实习生</td>
+                            <td>提醒事项桌面组件记 Todo，备忘录记清单</td>
+                            <td>多个软件切换；同一件事重复记录</td>
+                            <td>出行清单、近期待办</td>
+                            <td>不重复记录；可以复用出行清单</td>
+                        </tr>
+                        <tr>
+                            <td>B. 30+<br>在职、极简主义</td>
+                            <td>备忘录／飞书记想法，相册存菜谱截图，大众点评收藏饭店；曾使用 flomo</td>
+                            <td>闪念懒得记；手被占时容易忘；忘记自己记过什么；不擅长复盘和分类</td>
+                            <td>菜谱、想法、跨 App 收藏、生活方法</td>
+                            <td>自动整理；适时回看；界面精简；方法类内容能形成行动提示</td>
+                        </tr>
+                        <tr>
+                            <td>C. 50+<br>事务多、低技术耐受</td>
+                            <td>备忘录、日历闹钟、让别人提醒</td>
+                            <td>记录麻烦；以为能记住；别人也可能忘</td>
+                            <td>睡前想法、超市购物、车辆充电费用</td>
+                            <td>语音输入；自动归类；同时保留手工整理能力</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="memo-doc-callout">
+                <strong>需求假设的验证</strong>
+                <p>这三个案例分别代表了三种不同需求重心，八位受访用户也有各自的生活画像，但同时都指向了生活琐事会被遗忘、现有记录方式并不能满足记录需求，本产品的整体需求假设是成立的。</p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>2.2 典型生活场景下，用户行为和心理的拆解分析</h3>
+            <p>基于个人生活观察，并参照访谈与社媒反馈，我将 20+ 个常见场景归纳为六种相同的行为结构：</p>
+            <div class="memo-doc-table-wrap">
+                <table class="memo-doc-table memo-doc-table--3">
+                    <thead>
+                        <tr>
+                            <th scope="col">行为结构</th>
+                            <th scope="col">如何发生</th>
+                            <th scope="col">用户当下的心理</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>出现得随机</td>
+                            <td>往往发生在走路、做饭、聊天、睡前或家务中</td>
+                            <td>“等会再记”、“自己应该能记住”</td>
+                        </tr>
+                        <tr>
+                            <td>当下价值感低</td>
+                            <td>单条看起来不重要，不值得专门建档</td>
+                            <td>“这件小事应该记一下的、但又不知道记在哪，不归类收纳的话下次也找不到，积累多了还不好管理”</td>
+                        </tr>
+                        <tr>
+                            <td>记录存在启动成本</td>
+                            <td>用户需要打开应用、选择位置、起标题或设提醒</td>
+                            <td>“太麻烦了，这点小事还是脑子里记一下吧”</td>
+                        </tr>
+                        <tr>
+                            <td>用户高估自己的记忆</td>
+                            <td>当下总觉得“这个肯定记得住”</td>
+                            <td>（睡前）“明早出门时一定要记得xx”</td>
+                        </tr>
+                        <tr>
+                            <td>念头窗口很短</td>
+                            <td>没有立刻留下，很快就会被新的信息覆盖</td>
+                            <td>一些闪念</td>
+                        </tr>
+                        <tr>
+                            <td>未来找回线索不确定</td>
+                            <td>记录时不知道以后会按人物、物品、日期还是场景寻找</td>
+                            <td>“这个记录应该放在哪里呢？之后会在哪些场景下需要这个记录呢？”</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="memo-doc-callout">
+                <strong>问题概述：发生时不值一记，需要时不可或缺</strong>
+                <p>现有工具并不是不能记录，而是一次记录对于一件“小事”来说显得太重。</p>
+                <p>只追求低成本输入，内容会变成无法管理的时间流；只提高分类和搜索能力，用户又可能因为启动成本太高，从一开始就没有留下信息。因此，本产品必须同时降低当下的记录成本与未来的找回成本。</p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>2.3 共性需求与个性化需求</h3>
+            <p>通过用户访谈与社媒调研，我进一步区分：哪些能力应该固定为产品底座，哪些设计应该支持用户的个性化设置。</p>
+            <div class="memo-doc-need-grid">
+                <section class="memo-doc-need-card">
+                    <h4><span class="memo-doc-keycap" aria-hidden="true">1️⃣</span>共性需求</h4>
+                    <ul>
+                        <li>输入前不选择分类、不起标题也能记录；</li>
+                        <li>尽量减少应用切换和重复记录；</li>
+                        <li>系统承担整理，但结果必须让用户看得懂、改得动；</li>
+                        <li>信息既可以按熟悉结构浏览，也可以直接搜索；</li>
+                        <li>有日期的事项能够进入统一的时间入口；</li>
+                        <li>原话不能因为 AI 理解失败而消失；</li>
+                        <li>产品不要求用户学习标签、Prompt 或知识管理方法。</li>
+                    </ul>
+                </section>
+                <section class="memo-doc-need-card">
+                    <h4><span class="memo-doc-keycap" aria-hidden="true">2️⃣</span>个性化需求</h4>
+                    <ul>
+                        <li>备忘录的分类，有的人按人物组织，有的人按家庭、宠物、物品或事件组织；</li>
+                        <li>有的人重视出行清单和模板，有的人重视菜谱、收藏和方法沉淀；</li>
+                        <li>有人需要定期回顾，有人更需要当日待办；</li>
+                        <li>有人愿意文字输入，有人更依赖语音；</li>
+                        <li>有人希望尽可能自动，有人希望保留更多手工控制。</li>
+                    </ul>
+                </section>
+            </div>
+            <div class="memo-doc-callout">
+                <strong>由调研推动的产品决策</strong>
+                <p>我否决了 Demo 中“所有用户共用同一套生活分类、分类只由产品定义”的方案。共性应该体现在记录、保存、整理、纠错与找回机制上；分类结构则需要支持用户的个性化需求。</p>
+            </div>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>3 竞品分析与空位洞察</h2>
+        <p>我围绕用户处理生活信息的完整过程 -- 记录、整理、找回和提醒 -- 选择了三类产品、五项竞品：</p>
+        <ol>
+            <li>手机原生备忘录；</li>
+            <li>微信聊天／文件传输助手；</li>
+            <li>垂类 AI+ 记录工具，并重点分析 flomo、Cato（提醒猫）、记岛；</li>
+        </ol>
+        <p>这项工作的核心是回答：</p>
+        <ul>
+            <li>用户为什么愿意记录；</li>
+            <li>内容多了之后还能不能找到；</li>
+            <li>产品是否要求用户去重新学习一种笔记归纳方法。</li>
+        </ul>
+
+        <section class="memo-doc-subsection">
+            <h3>3.1 五项竞品对比</h3>
+            <div class="memo-doc-table-wrap">
+                <table class="memo-doc-table memo-doc-table--5">
+                    <thead>
+                        <tr>
+                            <th scope="col">类型／代表</th>
+                            <th scope="col">为什么选择</th>
+                            <th scope="col">优势</th>
+                            <th scope="col">主要问题</th>
+                            <th scope="col">带来的产品启发</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>手机原生备忘录<br></td>
+                            <td>普通用户最熟悉的记录工具，也是界面和操作基准</td>
+                            <td>概念少，文件夹和备忘录直观；浏览、编辑和搜索成熟</td>
+                            <td>需要主动打开、选择位置、起标题和维护结构；小事仍然懒得记</td>
+                            <td>查看端不重新发明信息架构，沿用“分类—备忘录—内容”及原生操作习惯</td>
+                        </tr>
+                        <tr>
+                            <td>微信聊天<br>／文件传输助手</td>
+                            <td>代表现实中最低成本的输入方式</td>
+                            <td>像聊天一样自然，无需学习，入口高频</td>
+                            <td>信息按时间堆积，很快被新消息淹没；长期管理和找回困难</td>
+                            <td>学习微信的输入方式，但必须用小程序补足稳定结构</td>
+                        </tr>
+                        <tr>
+                            <td>flomo</td>
+                            <td>较主流的轻量记录产品，提供微信入口、AI 归纳和标签整理</td>
+                            <td>捕捉想法轻，记录体验成熟，AI 能力较完整</td>
+                            <td>社媒反馈中，一部分用户认为内容越积越多、缺少清理、越来越难找；功能变多后显得冗余；标签仍需自己学习维护</td>
+                            <td>记录轻不等于长期使用轻；AI 应替用户整理，而不是增加一套新方法</td>
+                        </tr>
+                        <tr>
+                            <td>Cato（提醒猫）</td>
+                            <td>聚焦任务提醒，采用微信生态形态；主推提醒与督促功能</td>
+                            <td>任务输入和提醒闭环清楚；微信触达自然；品牌有亲和力</td>
+                            <td>主要解决“什么时候做”，无法完整管理物品位置、生活经验和长期事实</td>
+                            <td>服务号可以降低输入和触达成本，但本产品不能退化成提醒工具</td>
+                        </tr>
+                        <tr>
+                            <td>记岛</td>
+                            <td>与 Demo 的对话输入、AI 整理和界面构造相似，是最直接的同方向样本</td>
+                            <td>已覆盖对话记录、服务号输入、待办、人物信息、串联和周期总结</td>
+                            <td>App 是主体，微信需先注册绑定；组织方式固化为时间、人物、待办</td>
+                            <td>微信入口不是独家优势；真正差异是提供熟悉的备忘录浏览结构和可自定义的分类方式</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>3.2 flomo：为什么“记录很轻”仍然可能被弃用</h3>
+            <p>flomo 是重点竞品，它的自动归纳能力很成熟，也是较主流的轻记录工具。但在小红书等平台的反馈中，我看到部分用户弃用的原因并不是“不再需要记录”，而是：</p>
+            <ul>
+                <li>内容不断累积，却没有得到自然清理；</li>
+                <li>忘记自己记录过什么，真正需要时仍然找不到；</li>
+                <li>AI 和扩展能力越来越多，反而偏离轻量记录的预期；</li>
+                <li>标签最终仍然需要用户自己设计、学习和维护。</li>
+            </ul>
+            <div class="memo-doc-callout">
+                <strong>思考与启发</strong>
+                <p>因此，本产品的 AI 不能只是基于传统备忘录上的附加功能，更不能要求用户研究怎样设计标签、怎样写更好的输入。AI 的意义是隐藏在产品背后，承担原本需要用户主动完成的整理劳动。</p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>3.3 Cato 猫：微信入口、提醒闭环与运营启发</h3>
+            <p>我在 Cato 猫 这个产品上主要关注了两个问题：</p>
+            <ul>
+                <li>微信生态（小程序+服务号）的记录、提醒、返回形式值得学习；</li>
+                <li>产品的小红书运营方式和定价设计值得参考。调研显示其上线不足一年、付费用户达到 8000+。</li>
+            </ul>
+            <div class="memo-doc-callout">
+                <strong>思考与启发</strong>
+                <p>它同时帮助我划清边界：提醒产品主要解决“什么时候做”；而本产品还要回答“东西放在哪里”“上一次是什么时候”“当时采用了什么方法”“以后怎样找回来”。</p>
+                <p>提醒应是生活信息的一种 时间维度 上的聚合，而不是本产品的全部。</p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>3.4 记岛：同方向产品带来的警醒</h3>
+            <p>基于记岛的调研发现：</p>
+            <ul>
+                <li>记岛和第一版 Demo 的方向高度相似，甚至产品界面、AI 助手“小记”以及命名风格都明显趋同；</li>
+                <li>产品上线 4 个月、但仅更新维护了 1 个月，且仅有 1 评分，无长期运营。</li>
+            </ul>
+            <div class="memo-doc-callout">
+                <strong>思考与启发</strong>
+                <p>若想真正做好一个产品，靠的不是 AI ，而是真实的用户理解、产品取舍和持续交付。AI 很容易生成相似的产品结构和表达，产品的研发不能止步于“AI 帮我想了一个架构或界面”上。</p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>3.5 生态空位洞察</h3>
+            <p>产品不需要在每个单点上替代专业工具，而需要同时完成四件事：</p>
+            <ol>
+                <li>用微信降低记录门槛；</li>
+                <li>用 AI 承担整理工作；</li>
+                <li>用用户熟悉的备忘录结构降低浏览和找回门槛；</li>
+                <li>同时容纳带日期的轻任务和没有日期的生活事实。</li>
+            </ol>
+            <div class="memo-doc-callout">
+                <p>由此确认的产品生态空位是：</p>
+                <p>输入像聊天一样轻，查看像备忘录一样清楚；整理由系统完成，结构和数据最终由用户掌控。</p>
+            </div>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+    <section class="memo-doc-section">
+        <h2>4 产品定位与用户画像的最终确立</h2>
+        <p>Demo、用户调研和竞品分析分别回答了不同问题：</p>
+        <div class="memo-doc-table-wrap">
+            <table class="memo-doc-table memo-doc-table--4">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">帮我确认了什么</th>
+                        <th scope="col">对产品的影响</th>
+                        <th scope="col">对实现边界的影响</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Demo</td>
+                        <td>自动拆解和分类可以实现，但固定体系会让用户学习产品</td>
+                        <td>从模型视角转向用户视角；减少可见概念</td>
+                        <td>原话与整理结果分离，AI 可以异步工作</td>
+                    </tr>
+                    <tr>
+                        <td>用户调研</td>
+                        <td>问题跨年龄和生活状态存在；不记录的原因是成本高，不是没有需求</td>
+                        <td>统一入口、自动整理、低学习成本；保留个性化结构</td>
+                        <td>自动结果必须可见、可改，用户操作优先</td>
+                    </tr>
+                    <tr>
+                        <td>竞品分析</td>
+                        <td>输入轻、结构清楚、提醒闭环分别被不同工具解决，缺少统一产品</td>
+                        <td>服务号＋小程序；原生备忘录式浏览；AI 隐身后台</td>
+                        <td>两端共享同一数据底座，服务号只是新增渠道</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="memo-doc-callout">
+            <strong>三条线共同促成了最重要的定位判断：</strong>
+            <p>既然要做轻量备忘录，就不能要求用户学习产品；应当让产品迎合用户原有习惯。</p>
+        </div>
+
+        <section class="memo-doc-subsection">
+            <h3>4.1 最终产品定位</h3>
+            <div class="memo-doc-callout">
+                <p>产品最终定名<strong>“有备忘”</strong></p>
+                <p>定位是：一个会自动整理的生活备忘录：随口记下，需要时能找到，有日期时会在“今天”出现。</p>
+            </div>
+            <ul>
+                <li>它的本质是面向普通人的“生活外置记忆”，不是专业知识库、完整项目管理工具、AI 陪伴产品、专业日历或专业密码管理器。</li>
+                <li>界面采用用户熟悉的手机备忘录心智：分类、备忘录和内容清楚可见；新建、编辑、移动、删除、搜索等操作尽量遵循原生应用习惯。AI 不作为一个需要学习的独立模块，而是在后台完成理解、拆解和候选收纳。</li>
+            </ul>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>4.2 最终用户画像</h3>
+            <div class="memo-doc-callout">
+                <p>基于行为和问题，定义<strong>用户画像</strong>：</p>
+                <p>经常产生生活碎片信息，已经会用微信、备忘录、日历或提醒事项记录，却不愿长期维护复杂结构，并经常因为懒得记、记得太散、忘记位置或忘记回看而丢失信息的人。</p>
+                <blockquote class="memo-doc-quote">
+                    <p>不重点服务与复杂学术笔记、知识图谱、团队项目审批、专业财务、内容社区、专业密码保险箱或只想和 AI 长对话的用户。</p>
+                </blockquote>
+            </div>
+            <div class="memo-doc-table-wrap">
+                <table class="memo-doc-table memo-doc-table--3">
+                    <thead>
+                        <tr>
+                            <th scope="col">用户类型</th>
+                            <th scope="col">典型需求</th>
+                            <th scope="col">对产品设计的影响</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>轻量事务型</td>
+                            <td>购物补货、一次性事项、家庭待办</td>
+                            <td>输入必须快，“今天”要直观，操作数量要少</td>
+                        </tr>
+                        <tr>
+                            <td>生活沉淀型</td>
+                            <td>菜谱、方法、收藏、物品位置和闪念</td>
+                            <td>备忘录结构要稳定，搜索和导出要可靠</td>
+                        </tr>
+                        <tr>
+                            <td>高事务低技术耐受型</td>
+                            <td>家庭健康、生活安排、睡前想法</td>
+                            <td>概念必须少，最终优先提供语音和微信会话入口</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>4.3 为什么最终形态是“服务号＋小程序”</h3>
+            <blockquote class="memo-doc-quote">
+                <p>这不是两个产品，而是对同一个问题两端成本的分别解决。</p>
+            </blockquote>
+            <ul>
+                <li>服务号接近一个可以置顶的微信联系人，负责降低当下记录和查询的启动成本；</li>
+                <li>小程序界面模拟熟悉的备忘录，负责降低未来浏览、整理和找回成本；</li>
+                <li>AI位于两者背后，帮助拆解、归纳和收纳，但不替用户掌握真实数据；</li>
+                <li>同一数据底座保证用户从哪个入口记录，最终看到的都是同一份生活信息。</li>
+            </ul>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>5 产品演进与关键产品决策</h2>
+        <div class="memo-doc-table-wrap">
+            <table class="memo-doc-table memo-doc-table--4">
+                <thead>
+                    <tr>
+                        <th scope="col">版本</th>
+                        <th scope="col">当时的方案</th>
+                        <th scope="col">解决的问题</th>
+                        <th scope="col">暴露的问题与下一步</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>V1</td>
+                        <td>固定模块和固定 Tag；按标签组织分类，并形成日程、清单和看板</td>
+                        <td>用受控语义空间保障 AI 分类与召回，跑通概念 Demo</td>
+                        <td>用户必须学习“仓库—货架—贴纸—工作台”；准确率建立在用户适应产品之上</td>
+                    </tr>
+                    <tr>
+                        <td>V2</td>
+                        <td>完全允许用户自己填写分类和备忘录定位，减少固定模块限制</td>
+                        <td>尊重不同人的生活结构，支持 DIY</td>
+                        <td>把定义规则和维护结构的责任完全交给用户；模糊定位也会降低 AI 判断质量</td>
+                    </tr>
+                    <tr>
+                        <td>V3.1</td>
+                        <td>回归备忘录框架；一条条目可进入多个备忘录；实现用户自定义和 AI 全托管的多选</td>
+                        <td>同时满足生活信息交叉归属、传统浏览心智和用户控制</td>
+                        <td>仍需收敛入口、历史、日程、安全和 MVP 范围</td>
+                    </tr>
+                    <tr>
+                        <td>V3.2</td>
+                        <td>单一首次入口、统一输入、先保存再整理、自动匹配已有备忘录、联合纠错、今天单列表和安全兜底</td>
+                        <td>将概念方案变成可靠、可见、可纠正、可迁移的真实产品闭环</td>
+                        <td>MVP 已开发完成；完整版按验证结果继续扩展，不再回到复杂标签产品</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="memo-doc-callout">
+            <p>演进路径并不是不断新增功能，而是不断减少用户需要理解的东西：</p>
+            <p>从要求用户适应系统，转向系统适应用户；从让 AI 决定一切，转向 AI 提出候选、程序守住底线、用户拥有最终决定权。</p>
+        </div>
+
+        <section class="memo-doc-subsection">
+            <h3>5.1 十次关键的产品取舍</h3>
+            <div class="memo-doc-table-wrap">
+                <table class="memo-doc-table memo-doc-table--3">
+                    <thead>
+                        <tr>
+                            <th scope="col">早期方案</th>
+                            <th scope="col">最终决策</th>
+                            <th scope="col">为什么改变</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>用户选择固定 Tag</td>
+                            <td>标签退到系统内部，用户只看分类、备忘录和条目</td>
+                            <td>轻量产品不能先教用户一套分类学</td>
+                        </tr>
+                        <tr>
+                            <td>用户必须填写完整定位</td>
+                            <td>定位可空，系统可建议，用户可忽略</td>
+                            <td>尊重 DIY，但不把配置工作强加给用户</td>
+                        </tr>
+                        <tr>
+                            <td>AI 自动建立各种 Tag 和结构</td>
+                            <td>MVP 先高置信匹配已有备忘录；没有合适位置就保留在历史</td>
+                            <td>错误结构会长期污染，漏做一次自动化的成本更低</td>
+                        </tr>
+                        <tr>
+                            <td>历史记录与备忘录并列</td>
+                            <td>历史移入“今天”的输入／对话层</td>
+                            <td>用户主要想浏览的是备忘录，历史只承担回溯和纠错</td>
+                        </tr>
+                        <tr>
+                            <td>首次进入提供多条路径</td>
+                            <td>只保留“开启备忘新体验”，进入后再导入或直接输入</td>
+                            <td>不在用户理解产品之前要求选择工作方式</td>
+                        </tr>
+                        <tr>
+                            <td>“记一下／问一下”模式切换</td>
+                            <td>统一输入，由系统内部判断意图</td>
+                            <td>用户不应理解系统路由</td>
+                        </tr>
+                        <tr>
+                            <td>AI 直接修改真实数据</td>
+                            <td>AI 只给候选，最终写入由规则和用户决定</td>
+                            <td>防止幻觉污染长期信息</td>
+                        </tr>
+                        <tr>
+                            <td>承诺主动提醒</td>
+                            <td>MVP 只承诺到日期后在“今天”看到</td>
+                            <td>产品文案必须服从真实渠道能力</td>
+                        </tr>
+                        <tr>
+                            <td>把密码保护当能力卖点</td>
+                            <td>只作为误输入后的安全兜底</td>
+                            <td>不把产品包装成专业密码管理器</td>
+                        </tr>
+                        <tr>
+                            <td>追求大而全 MVP</td>
+                            <td>只验证“记得住、放得对、改得动、找得到”</td>
+                            <td>MVP 的价值是验证闭环，不是展示功能数量</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>5.2 原型测试如何改变信息架构</h3>
+            <p>早期原型在“备忘录”模块中，把备忘录和历史记录做成一个双选 Tab。我最初认为两者都属于“已记录内容”，放在一起比较完整。但在 5 位用户的无讲解原型测试中，用户明确表达了三个问题：</p>
+            <ul>
+                <li>他们进入“备忘录”就是想直接看到整理后的备忘录；</li>
+                <li>历史记录不是高频浏览对象，不应该与备忘录争夺主入口；</li>
+                <li>两者耦合让页面显得不够简洁，也增加了理解成本。</li>
+            </ul>
+            <p>因此，最终将历史记录移到“今天”的输入／对话层：用户需要回看原话或纠错时，可以从对话位置进入；平时打开备忘录时，只看到独立、清晰的收纳结构。</p>
+            <div class="memo-doc-callout">
+                <strong>思考与反思</strong>
+                <p>系统内部认为完整的信息架构，不一定符合用户实际使用时的主次关系。</p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>5.3 工程问题如何反向促进产品成熟</h3>
+            <div class="memo-doc-callout">
+                <p>让 “可靠、可纠正、用户优先” 变成产品的实际行为：</p>
+            </div>
+            <div class="memo-doc-table-wrap">
+                <table class="memo-doc-table memo-doc-table--2">
+                    <thead>
+                        <tr>
+                            <th scope="col">工程问题</th>
+                            <th scope="col">形成的产品决策</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AI 处理可能超时或失败</td>
+                            <td>先保存原话，再异步整理；页面区分本机暂存、已保存和整理延迟</td>
+                        </tr>
+                        <tr>
+                            <td>同一句话可能包含多个生活事实</td>
+                            <td>原话和拆解结果分离，一条内容可以进入多个备忘录</td>
+                        </tr>
+                        <tr>
+                            <td>AI 可能误拆、放错或产生旧结果</td>
+                            <td>用户可以联合修改原话、拆解和收纳；旧任务不能覆盖人工修改</td>
+                        </tr>
+                        <tr>
+                            <td>多入口可能产生重复或身份错配</td>
+                            <td>服务号与小程序共享同一内部用户和数据，渠道只是入口</td>
+                        </tr>
+                        <tr>
+                            <td>密码不应进入普通模型链路</td>
+                            <td>疑似秘密先截断，用户确认后进入独立密码本；界面简单但安全隔离不降低</td>
+                        </tr>
+                        <tr>
+                            <td>自动化越强，错误影响范围越大</td>
+                            <td>AI 只提出候选，权限、写入、删除和日程由确定性规则控制</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>6 最终产品形态：MVP 与完整版</h2>
+
+        <section class="memo-doc-subsection">
+            <h3>6.1 MVP 要验证什么</h3>
+            <p>只验证中心链路流程的四件事：</p>
+            <ol>
+                <li>记得住：用户输入能够被可靠保存，断网或 AI 故障不会让原话消失；</li>
+                <li>放得对：系统能够把内容高置信放入合适的已有备忘录；</li>
+                <li>改得动：用户看得懂系统做了什么，并能修改、调整或撤销符合条件的自动处理；</li>
+                <li>找得到：用户之后可以通过备忘录、历史、搜索、基础提问或“今天”重新找到内容。</li>
+            </ol>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>6.2 MVP 产品范围</h3>
+            <p>第一阶段只做微信小程序，底部导航固定为：备忘录 | 今天 | 个人设置，另实现导入、安全与数据能力。</p>
+            <section class="memo-doc-scope-block">
+                <h4><span class="memo-doc-keycap" aria-hidden="true">1️⃣</span>备忘录</h4>
+                <ul>
+                    <li>分类—备忘录—条目的熟悉结构；</li>
+                    <li>一条条目可以进入多个备忘录，但底层只保存一份；</li>
+                    <li>新建、编辑、移动、置顶、搜索和删除；</li>
+                    <li>单本 Markdown 导出和复制为文本；</li>
+                    <li>不把历史记录放在备忘录主界面中。</li>
+                </ul>
+            </section>
+            <section class="memo-doc-scope-block">
+                <h4><span class="memo-doc-keycap" aria-hidden="true">2️⃣</span>今天</h4>
+                <ul>
+                    <li>统一输入，不区分“记一下”和“问一下”；</li>
+                    <li>输入后先保存，再自动整理；</li>
+                    <li>展开的历史记录、待确认入口和联合编辑；</li>
+                    <li>一张连续事项列表：未完成在前，完成后沉底；</li>
+                    <li>完成、恢复为未完成、延后和删除；</li>
+                    <li>未来 7 天日期预览；</li>
+                    <li>到日期后在“今天”可见，但 MVP 不承诺主动通知。</li>
+                </ul>
+            </section>
+            <section class="memo-doc-scope-block">
+                <h4><span class="memo-doc-keycap" aria-hidden="true">3️⃣</span>个人设置</h4>
+                <ul>
+                    <li>隐私和账号注销；</li>
+                    <li>产品反馈；</li>
+                </ul>
+            </section>
+            <section class="memo-doc-scope-block">
+                <h4><span class="memo-doc-keycap" aria-hidden="true">4️⃣</span>导入、安全与数据能力</h4>
+                <ul>
+                    <li>“今天”输入区的“＋”和“备忘录”页右上“＋ → 导入”进入同一套粘贴、TXT、Markdown 导入及预览流程；</li>
+                    <li>单本导出位于备忘录详情，不放入个人设置；</li>
+                    <li>疑似密码提示、不发送外部 AI，确认后独立保存到密码本。</li>
+                </ul>
+            </section>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>6.3 为什么 MVP 只做这些</h3>
+            <p>这些能力共同组成一条完整纵向闭环：</p>
+            {{ partial "memo-document-flow.html" (dict "type" "mvp") }}
+            <p>任何一个环节缺失，都无法验证产品核心价值。相比之下，服务号、多模态、周期日程、主动通知、静默大量建本、全库导出、复杂数据视图、协作和长期个性化虽然有价值，却会引入新的渠道、权限、错误和学习成本，因此不应挤占第一阶段的验证资源。</p>
+            <ul>
+                <li>小程序先行：小程序能够展示输入、整理结果、备忘录结构、纠错和找回，是验证产品是否成立最可控的载体。</li>
+                <li>服务号后期补齐：服务号擅长低成本输入，却不适合承担复杂管理；申请企业资质耗时长、流程复杂，会影响整体上线和验证。</li>
+            </ul>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>6.4 完整版：同一底座上的双入口</h3>
+            <p>最终产品由服务号和小程序共同组成：</p>
+            <div class="memo-doc-table-wrap">
+                <table class="memo-doc-table memo-doc-table--3">
+                    <thead>
+                        <tr>
+                            <th scope="col">入口</th>
+                            <th scope="col">核心职责</th>
+                            <th scope="col">用户价值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>微信服务号</td>
+                            <td>文本记录、自然语言查询、快速回执、允许范围内的通知和小程序跳转；后续扩展语音、图片和文件</td>
+                            <td>把记录入口放进用户本来就在使用的微信，降低当下记录成本</td>
+                        </tr>
+                        <tr>
+                            <td>微信小程序</td>
+                            <td>分类—备忘录—条目浏览、搜索、纠错、“今天”、导入导出、设置和复杂管理</td>
+                            <td>提供稳定可见的个人生活数据库，降低未来找回成本</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <blockquote class="memo-doc-quote">
+                <p>两端共享同一份用户身份、原话、条目、备忘录和日程数据。服务号不是另一套数据库，小程序也不是服务号的后台配置页：一个负责让用户随时说出来，一个负责让用户以后看得见、找得到、改得动。</p>
+            </blockquote>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>6.5 最终产品原则</h3>
+            <ol>
+                <li>先保存，后理解。</li>
+                <li>输入无结构，查看有结构。</li>
+                <li>产品适应用户，不让用户学习标签、规则或 AI 提示词。</li>
+                <li>自动整理是默认，调整和撤销是底线。</li>
+                <li>宁少拆，不多拆；不补写原话中不存在的事实。</li>
+                <li>不确定也先存好；技术失败不转化为用户待确认。</li>
+                <li>用户手工操作永远优先于模型判断。</li>
+                <li>敏感内容先隔离，AI 不能接触不该接触的内容。</li>
+                <li>导入尊重原结构，支持导出、数据可以带走。</li>
+                <li>不以使用了多少 AI 衡量价值；关闭 AI 后，产品仍然能够记录、修改和找回。</li>
+            </ol>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>6.6 当前项目状态</h3>
+            <p>截至 2026 年 8 月 31 日：</p>
+            <ul>
+                <li>MVP 产品范围、正式原型和开发已经完成；</li>
+                <li>项目尚未正式上线，因此没有真实生产用户和留存数据；</li>
+                <li>完整版正在开发，重点是小程序增强与后续服务号接入；</li>
+                <li>服务号和企业小程序需要相应主体资质，个人工商户注册／主体申请正在进行；</li>
+                <li>渠道申请、正式上线和完整效果评测是下一阶段的重要工作。</li>
+            </ul>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>7 效果评测：已经验证什么，还没有验证什么</h2>
+
+        <section class="memo-doc-subsection">
+            <h3>7.1 当前完成的原型功能性与可理解性测试</h3>
+            <p>在正式开发前，我邀请了 5 位用户体验交互原型。测试过程中我不讲解产品规则，让用户自行判断：</p>
+            <ul>
+                <li>能否理解这个产品解决什么问题；</li>
+                <li>能否找到主要输入、备忘录和“今天”；</li>
+                <li>能否理解每个主要功能的用途；</li>
+                <li>页面结构是否符合他们对备忘录的直觉。</li>
+            </ul>
+            <p>这轮测试发现的最重要问题，是“备忘录”和“历史记录”被耦合在同一模块的双 Tab 中。用户认为这种结构既不美观，也不符合实际使用习惯：他们不会高频查看历史，只想在进入备忘录时直接看到独立、简洁的收纳结果。</p>
+            <p>我据此完成了信息架构调整：</p>
+            <ul>
+                <li>修改前：备忘录模块 → 备忘录 / 历史记录 双 Tab</li>
+                <li>修改后：备忘录模块 → 只展示分类和备忘录；今天输入层 → 按需展开历史记录</li>
+            </ul>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>7.2 上线后的评测重点</h3>
+            <p>正式上线后，评测将围绕“是否真正同时实现降低「记录和找回」的成本”展开：</p>
+            <div class="memo-doc-table-wrap">
+                <table class="memo-doc-table memo-doc-table--3">
+                    <thead>
+                        <tr>
+                            <th scope="col">方向</th>
+                            <th scope="col">需要回答的问题</th>
+                            <th scope="col">代表指标／方法</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>记录</td>
+                            <td>用户是否愿意把过去懒得记的小事留下来</td>
+                            <td>首次记录完成率、连续记录天数、放弃节点访谈</td>
+                        </tr>
+                        <tr>
+                            <td>可靠保存</td>
+                            <td>用户是否相信内容不会丢</td>
+                            <td>保存失败率、重复率、异常恢复用例</td>
+                        </tr>
+                        <tr>
+                            <td>自动整理</td>
+                            <td>系统是否放得足够准确</td>
+                            <td>高置信收纳准确率、调整率、撤销率、Badcase</td>
+                        </tr>
+                        <tr>
+                            <td>找回</td>
+                            <td>记下的内容之后是否真的能找到</td>
+                            <td>真实任务完成率、找回耗时、无结果率</td>
+                        </tr>
+                        <tr>
+                            <td>理解成本</td>
+                            <td>用户是否无需教学即可使用</td>
+                            <td>首次任务成功率、求助次数、可用性访谈</td>
+                        </tr>
+                        <tr>
+                            <td>长期价值</td>
+                            <td>产品是否从新鲜感变成习惯</td>
+                            <td>周期留存、重复使用场景、主动回访</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>思考</h2>
+        <div class="memo-doc-panel memo-doc-panel--thought">
+            <span aria-hidden="true">💭</span>
+            <p>什么才是用户真正需要承担的步骤，什么应该留给产品内部完成。</p>
+        </div>
+        <ul>
+            <li>最初，我想要通过固定模块和固定标签，让 AI 更容易把内容放对；</li>
+            <li>但用户调研让我看到，记录问题的根源恰恰是用户不愿意承担额外的判断和整理；</li>
+            <li>竞品分析又进一步证明，输入、结构、提醒和 AI 能力分别并不稀缺，真正稀缺的是一个不要求用户学习新方法的完整闭环。</li>
+        </ul>
+        <p>因此，“有备忘”最终选择了一个看似朴素、实际上更难的方向：</p>
+        <blockquote class="memo-doc-quote">
+            <p><strong>让记录像聊天一样轻，让查看像备忘录一样熟悉，让复杂的整理和可靠性留在系统内部。</strong></p>
+        </blockquote>
+        <div class="memo-doc-panel memo-doc-panel--conclusion">
+            <span aria-hidden="true">💡</span>
+            <div>
+                <p>这也是我在整个项目中对 AI 生态位的思考：</p>
+                <p>AI 产品的价值，不是让用户看到更多 AI，而是让 AI 代替用户去完成那些用户不愿做、也不擅长做的事情。</p>
+            </div>
+        </div>
+    </section>
+</article>
