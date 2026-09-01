@@ -229,17 +229,19 @@
                     </div>
 
                     <div class="excerpt-demo-pair" data-excerpt-demo-pair role="group" aria-label="摘录中转站使用前后的同步演示">
-                        <div class="excerpt-demo-pair__media">
-                            <video data-excerpt-demo-video="before" autoplay muted playsinline preload="auto" aria-label="传统复制粘贴流程演示">
+                        <div class="excerpt-demo-pair__media excerpt-demo-pair__media--before">
+                            <video data-excerpt-demo-video="before" autoplay muted playsinline preload="auto" aria-label="传统复制粘贴流程演示" aria-describedby="excerpt-before-caption">
                                 <source src="{{ "media/excerpt-station/excerpt-before.mp4" | relURL }}" type="video/mp4">
                             </video>
                         </div>
                         <span class="excerpt-demo-pair__arrow" aria-hidden="true"><i></i></span>
-                        <div class="excerpt-demo-pair__media">
-                            <video data-excerpt-demo-video="after" autoplay muted playsinline preload="auto" aria-label="摘录中转站优化流程演示">
+                        <div class="excerpt-demo-pair__media excerpt-demo-pair__media--after">
+                            <video data-excerpt-demo-video="after" autoplay muted playsinline preload="auto" aria-label="摘录中转站优化流程演示" aria-describedby="excerpt-after-caption">
                                 <source src="{{ "media/excerpt-station/excerpt-after.mp4" | relURL }}" type="video/mp4">
                             </video>
                         </div>
+                        <p id="excerpt-before-caption" class="excerpt-demo-pair__caption excerpt-demo-pair__caption--before">“ctrl c - ctrl v - ctrl c - ctrl v - ctrl c - ctrl v ··· ···”</p>
+                        <p id="excerpt-after-caption" class="excerpt-demo-pair__caption excerpt-demo-pair__caption--after">“ctrl cccccc··· - ctrl v”</p>
                     </div>
                 </div>
 
