@@ -1972,6 +1972,12 @@ html {
         flex: 1 1 0;
         min-width: 0;
     }
+
+    .excerpt-discovery-flow__milestone {
+        margin-top: 8px;
+        color: var(--portfolio-ink);
+        font-weight: 700;
+    }
 }
 
 .memo-scene-wall {
