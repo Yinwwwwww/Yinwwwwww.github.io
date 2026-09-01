@@ -1,0 +1,176 @@
+{{- $type := .type -}}
+
+{{- if eq $type "demo" -}}
+<figure class="memo-doc-flow excerpt-doc-flow excerpt-doc-flow--demo" aria-label="浏览器 Demo 的核心产品结构">
+    <div class="excerpt-doc-flow__viewport" tabindex="0" aria-label="横向滚动查看浏览器 Demo 的完整流程">
+        <ol class="excerpt-doc-flow__track excerpt-doc-flow__track--demo" role="list">
+            <li class="excerpt-doc-flow__step">
+                <span class="excerpt-doc-flow__node">网页内容层</span>
+                <span class="excerpt-doc-flow__connector excerpt-doc-flow__connector--labeled" aria-hidden="true">
+                    <span class="excerpt-doc-flow__connector-label">两次点击定位</span>
+                    <span class="excerpt-doc-flow__connector-line"></span>
+                    <span class="excerpt-doc-flow__connector-arrow">→</span>
+                </span>
+            </li>
+            <li class="excerpt-doc-flow__step">
+                <span class="excerpt-doc-flow__node">片段生成层</span>
+                <span class="excerpt-doc-flow__connector excerpt-doc-flow__connector--labeled" aria-hidden="true">
+                    <span class="excerpt-doc-flow__connector-label">HTML + 纯文本</span>
+                    <span class="excerpt-doc-flow__connector-line"></span>
+                    <span class="excerpt-doc-flow__connector-arrow">→</span>
+                </span>
+            </li>
+            <li class="excerpt-doc-flow__step">
+                <span class="excerpt-doc-flow__node">悬浮中转站</span>
+                <span class="excerpt-doc-flow__connector excerpt-doc-flow__connector--labeled" aria-hidden="true">
+                    <span class="excerpt-doc-flow__connector-label">勾选 / 删除 / 排序</span>
+                    <span class="excerpt-doc-flow__connector-line"></span>
+                    <span class="excerpt-doc-flow__connector-arrow">→</span>
+                </span>
+            </li>
+            <li class="excerpt-doc-flow__step excerpt-doc-flow__step--last">
+                <span class="excerpt-doc-flow__node">组合复制</span>
+            </li>
+        </ol>
+    </div>
+</figure>
+
+{{- else if eq $type "macos" -}}
+<div class="excerpt-doc-flow-group" aria-label="macOS 版的完整用户流程">
+    <figure class="memo-doc-flow excerpt-doc-flow excerpt-doc-flow--macos" aria-label="macOS 版摘录与组合复制流程">
+        <div class="excerpt-doc-flow__viewport" tabindex="0" aria-label="横向滚动查看 macOS 版完整流程">
+            <div class="excerpt-doc-flow__canvas excerpt-doc-flow__canvas--macos">
+                <svg class="excerpt-doc-flow__loopback" viewBox="0 0 1000 92" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                    <path class="excerpt-doc-flow__loopback-path" pathLength="1" d="M 625 82 L 625 24 Q 625 14 615 14 L 25 14 Q 15 14 15 24 L 15 82"></path>
+                    <path class="excerpt-doc-flow__loopback-arrow" d="M 9 73 L 15 83 L 21 73"></path>
+                </svg>
+                <span class="excerpt-doc-flow__loopback-label" aria-hidden="true">是</span>
+
+                <ol class="excerpt-doc-flow__track excerpt-doc-flow__track--macos" role="list">
+                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-a">
+                        <span class="excerpt-doc-flow__node">点击悬浮“+”或面板“新建片段”</span>
+                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                            <span class="excerpt-doc-flow__connector-line"></span>
+                            <span class="excerpt-doc-flow__connector-arrow">→</span>
+                        </span>
+                    </li>
+                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-b">
+                        <span class="excerpt-doc-flow__node">系统光标旁显示定位标记</span>
+                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                            <span class="excerpt-doc-flow__connector-line"></span>
+                            <span class="excerpt-doc-flow__connector-arrow">→</span>
+                        </span>
+                    </li>
+                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-c">
+                        <span class="excerpt-doc-flow__node">点击第一个端点字符</span>
+                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                            <span class="excerpt-doc-flow__connector-line"></span>
+                            <span class="excerpt-doc-flow__connector-arrow">→</span>
+                        </span>
+                    </li>
+                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-d">
+                        <span class="excerpt-doc-flow__node">正常滚动或移动到另一位置</span>
+                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                            <span class="excerpt-doc-flow__connector-line"></span>
+                            <span class="excerpt-doc-flow__connector-arrow">→</span>
+                        </span>
+                    </li>
+                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-e">
+                        <span class="excerpt-doc-flow__node">点击第二个端点字符</span>
+                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                            <span class="excerpt-doc-flow__connector-line"></span>
+                            <span class="excerpt-doc-flow__connector-arrow">→</span>
+                        </span>
+                    </li>
+                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-f">
+                        <span class="excerpt-doc-flow__node">生成片段并自动复制</span>
+                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                            <span class="excerpt-doc-flow__connector-line"></span>
+                            <span class="excerpt-doc-flow__connector-arrow">→</span>
+                        </span>
+                    </li>
+                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-g">
+                        <span class="excerpt-doc-flow__node">“+”按钮轻微闪动</span>
+                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                            <span class="excerpt-doc-flow__connector-line"></span>
+                            <span class="excerpt-doc-flow__connector-arrow">→</span>
+                        </span>
+                    </li>
+                    <li class="excerpt-doc-flow__step excerpt-doc-flow__step--decision" id="excerpt-macos-step-h">
+                        <span class="excerpt-doc-flow__node excerpt-doc-flow__node--decision">继续摘录？</span>
+                        <span class="excerpt-doc-flow__connector excerpt-doc-flow__connector--labeled" aria-hidden="true">
+                            <span class="excerpt-doc-flow__connector-label">否</span>
+                            <span class="excerpt-doc-flow__connector-line"></span>
+                            <span class="excerpt-doc-flow__connector-arrow">→</span>
+                        </span>
+                    </li>
+                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-i">
+                        <span class="excerpt-doc-flow__node">展开中转站</span>
+                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                            <span class="excerpt-doc-flow__connector-line"></span>
+                            <span class="excerpt-doc-flow__connector-arrow">→</span>
+                        </span>
+                    </li>
+                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-j">
+                        <span class="excerpt-doc-flow__node">勾选 / 删除 / 拖拽排序</span>
+                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                            <span class="excerpt-doc-flow__connector-line"></span>
+                            <span class="excerpt-doc-flow__connector-arrow">→</span>
+                        </span>
+                    </li>
+                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-k">
+                        <span class="excerpt-doc-flow__node">复制所选</span>
+                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                            <span class="excerpt-doc-flow__connector-line"></span>
+                            <span class="excerpt-doc-flow__connector-arrow">→</span>
+                        </span>
+                    </li>
+                    <li class="excerpt-doc-flow__step excerpt-doc-flow__step--last" id="excerpt-macos-step-l">
+                        <span class="excerpt-doc-flow__node">按当前顺序一次粘贴到目标位置</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </figure>
+
+    <p>如果当前界面无法直接读取文字进行摘录，则使用输入框：</p>
+
+    <figure class="memo-doc-flow excerpt-doc-flow excerpt-doc-flow--manual" aria-label="界面文字不可直接读取时的输入框流程">
+        <div class="excerpt-doc-flow__viewport" tabindex="0" aria-label="横向滚动查看手动输入兜底流程">
+            <ol class="excerpt-doc-flow__track excerpt-doc-flow__track--manual" role="list">
+                <li class="excerpt-doc-flow__step">
+                    <span class="excerpt-doc-flow__node">输入或粘贴内容</span>
+                    <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                        <span class="excerpt-doc-flow__connector-line"></span>
+                        <span class="excerpt-doc-flow__connector-arrow">→</span>
+                    </span>
+                </li>
+                <li class="excerpt-doc-flow__step">
+                    <span class="excerpt-doc-flow__node">在固定高度输入框中检查、编辑</span>
+                    <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                        <span class="excerpt-doc-flow__connector-line"></span>
+                        <span class="excerpt-doc-flow__connector-arrow">→</span>
+                    </span>
+                </li>
+                <li class="excerpt-doc-flow__step">
+                    <span class="excerpt-doc-flow__node">必要时 Shift+回车换行</span>
+                    <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                        <span class="excerpt-doc-flow__connector-line"></span>
+                        <span class="excerpt-doc-flow__connector-arrow">→</span>
+                    </span>
+                </li>
+                <li class="excerpt-doc-flow__step">
+                    <span class="excerpt-doc-flow__node">回车生成片段</span>
+                    <span class="excerpt-doc-flow__connector" aria-hidden="true">
+                        <span class="excerpt-doc-flow__connector-line"></span>
+                        <span class="excerpt-doc-flow__connector-arrow">→</span>
+                    </span>
+                </li>
+                <li class="excerpt-doc-flow__step excerpt-doc-flow__step--last">
+                    <span class="excerpt-doc-flow__node">与其他摘录片段一起排序和复制</span>
+                </li>
+            </ol>
+        </div>
+    </figure>
+</div>
+{{- end -}}

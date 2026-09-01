@@ -3105,3 +3105,474 @@ html {
         background: rgba(255, 255, 255, 0.04);
     }
 }
+
+/* 摘录中转站 · 飞书正文中的动态流程图 */
+.excerpt-document {
+    code {
+        display: inline-block;
+        padding: 0 6px;
+        color: var(--memo-doc-ink);
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 0.9em;
+        line-height: 1.55;
+        background: var(--memo-doc-fill);
+        border: 1px solid var(--memo-doc-line);
+        border-radius: 4px;
+    }
+
+    .memo-doc-table {
+        table-layout: fixed;
+
+        th,
+        td {
+            overflow-wrap: break-word;
+            word-break: normal;
+        }
+
+        tbody td:first-child {
+            background: var(--memo-doc-head);
+        }
+    }
+
+    table.excerpt-doc-table--pain,
+    table.excerpt-doc-table--scenarios {
+        min-width: 900px;
+    }
+
+    table.excerpt-doc-table--pain {
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 24%;
+            text-align: center;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 37%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 39%;
+        }
+    }
+
+    table.excerpt-doc-table--scenarios {
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 20%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2),
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 40%;
+        }
+    }
+
+    table.excerpt-doc-table--competitors {
+        min-width: 1100px;
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 26%;
+            text-align: center;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 24%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3),
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 25%;
+        }
+    }
+
+    table.excerpt-doc-table--value {
+        min-width: 720px;
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 26%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 74%;
+        }
+    }
+
+    table.excerpt-doc-table--tradeoffs {
+        min-width: 980px;
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 24%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 33%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 43%;
+        }
+    }
+
+    table.excerpt-doc-table--engineering {
+        min-width: 820px;
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 41%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 59%;
+        }
+    }
+
+    table.excerpt-doc-table--support,
+    table.excerpt-doc-table--platforms {
+        min-width: 1040px;
+    }
+
+    table.excerpt-doc-table--support {
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 21%;
+            text-align: center;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 36%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 43%;
+        }
+    }
+
+    table.excerpt-doc-table--platforms {
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 17%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 41%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 42%;
+        }
+    }
+
+    table.excerpt-doc-table--metrics {
+        min-width: 960px;
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 14%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 36%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 50%;
+        }
+    }
+}
+
+.excerpt-doc-flow-group {
+    width: 100%;
+    min-width: 0;
+}
+
+.memo-document .excerpt-doc-flow {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+
+    &__viewport {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 30px 20px 22px;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        scrollbar-width: thin;
+        scrollbar-color: #c8c9cc transparent;
+        -webkit-overflow-scrolling: touch;
+
+        &:focus-visible {
+            outline: 2px solid color-mix(in srgb, var(--memo-doc-blue) 48%, transparent);
+            outline-offset: -2px;
+        }
+    }
+
+    &__canvas {
+        position: relative;
+        width: max-content;
+        min-width: 100%;
+    }
+
+    &__canvas--macos {
+        width: 2628px;
+        padding-top: 82px;
+    }
+
+    &__track {
+        display: flex;
+        gap: 0;
+        align-items: center;
+        width: max-content;
+        min-width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    &__track--demo {
+        width: 100%;
+        min-width: 780px;
+    }
+
+    &__track--macos {
+        min-width: 2628px;
+    }
+
+    &__track--manual {
+        width: 100%;
+        min-width: 960px;
+    }
+
+    &__step {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+        min-width: 0;
+        padding: 0;
+
+        &::marker {
+            content: "";
+        }
+    }
+
+    &__node {
+        display: grid;
+        flex: 0 0 176px;
+        min-width: 0;
+        min-height: 72px;
+        padding: 12px 14px;
+        color: var(--memo-doc-ink);
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 1.5;
+        text-align: center;
+        background: #fff;
+        border: 1px solid var(--memo-doc-line);
+        border-radius: 6px;
+        place-items: center;
+    }
+
+    &__track--demo &__node {
+        flex-basis: 165px;
+    }
+
+    &__track--manual &__node {
+        flex-basis: 176px;
+    }
+
+    &__node--decision {
+        color: var(--memo-doc-blue);
+        font-weight: 650;
+        background: color-mix(in srgb, var(--memo-doc-blue) 7%, #fff);
+        border-color: color-mix(in srgb, var(--memo-doc-blue) 42%, var(--memo-doc-line));
+    }
+
+    &__connector {
+        position: relative;
+        display: flex;
+        flex: 0 0 43px;
+        align-items: center;
+        justify-content: center;
+        min-width: 43px;
+        height: 28px;
+        color: var(--memo-doc-blue);
+    }
+
+    &__track--demo &__connector {
+        flex-basis: calc((100% - 660px) / 3);
+        min-width: 40px;
+    }
+
+    &__track--manual &__connector {
+        flex-basis: 20px;
+        min-width: 20px;
+    }
+
+    &__connector-line {
+        position: relative;
+        display: block;
+        flex: 1 1 auto;
+        height: 1px;
+        overflow: visible;
+        background: color-mix(in srgb, var(--memo-doc-blue) 34%, var(--memo-doc-line));
+
+        &::after {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 5px;
+            height: 5px;
+            background: var(--memo-doc-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--memo-doc-blue) 12%, transparent);
+            content: "";
+            transform: translate(-50%, -50%);
+            animation: excerpt-doc-flow-forward 2.2s linear infinite;
+        }
+    }
+
+    &__connector-arrow {
+        flex: 0 0 auto;
+        margin-left: -1px;
+        font-size: 1.8rem;
+        font-weight: 400;
+        line-height: 1;
+    }
+
+    &__connector-label {
+        position: absolute;
+        right: 0;
+        bottom: calc(50% + 12px);
+        left: 0;
+        color: var(--memo-doc-muted);
+        font-size: 1.15rem;
+        font-weight: 400;
+        line-height: 1.35;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    &__loopback {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 92px;
+        overflow: visible;
+        pointer-events: none;
+    }
+
+    &__loopback-path,
+    &__loopback-arrow {
+        fill: none;
+        stroke: color-mix(in srgb, var(--memo-doc-blue) 62%, var(--memo-doc-line));
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.25;
+        vector-effect: non-scaling-stroke;
+    }
+
+    &__loopback-path {
+        stroke-dasharray: 0.055 0.03;
+        animation: excerpt-doc-flow-loop 5s linear infinite;
+    }
+
+    &__loopback-label {
+        position: absolute;
+        top: 12px;
+        left: 60.2%;
+        z-index: 1;
+        padding: 1px 6px;
+        color: var(--memo-doc-blue);
+        font-size: 1.15rem;
+        line-height: 1.4;
+        background: var(--memo-doc-fill);
+        border-radius: 4px;
+    }
+}
+
+@keyframes excerpt-doc-flow-forward {
+    from {
+        left: 0;
+        opacity: 0;
+    }
+
+    12%,
+    82% {
+        opacity: 1;
+    }
+
+    to {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes excerpt-doc-flow-loop {
+    to {
+        stroke-dashoffset: -0.34;
+    }
+}
+
+@media (max-width: 767px) {
+    .memo-document .excerpt-doc-flow {
+        &__viewport {
+            padding: 26px 14px 18px;
+        }
+
+        &__node {
+            flex-basis: 164px;
+            min-height: 68px;
+            padding: 10px 12px;
+        }
+
+        &__track--demo {
+            min-width: 748px;
+        }
+
+        &__track--demo &__node {
+            flex-basis: 158px;
+        }
+
+        &__track--manual &__node {
+            flex-basis: 164px;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .memo-document .excerpt-doc-flow__connector-line::after,
+    .memo-document .excerpt-doc-flow__loopback-path {
+        animation: none;
+    }
+}
+
+[data-scheme="dark"] .excerpt-document {
+    .excerpt-doc-flow__node {
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    .excerpt-doc-flow__node--decision {
+        background: color-mix(in srgb, var(--memo-doc-blue) 15%, transparent);
+    }
+}

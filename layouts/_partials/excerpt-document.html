@@ -1,0 +1,687 @@
+<article class="memo-document excerpt-document">
+    <section class="memo-doc-section">
+        <h2>1 Demo先行：基于「浏览器扩展」把想法做成可运行 Demo</h2>
+
+        <section class="memo-doc-subsection">
+            <h3>1.1 Demo 的目标</h3>
+            <p>最初的高频场景发生在网页和 Agent 界面中，因此 Chrome 浏览器扩展是验证构想最快的载体。</p>
+            <p>Demo的核心是解决<strong>“长文段选择困难”</strong>和<strong>“剪贴板互斥”</strong>两大痛点，实际跑通三件事：</p>
+            <ol>
+                <li>点击一个字符作为一端，再点击另一个字符作为另一端；</li>
+                <li>把两端之间的网页内容保存成一个片段；</li>
+                <li>多个片段可以在悬浮面板中组合复制。</li>
+            </ol>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>1.2 浏览器 Demo 的核心产品结构</h3>
+            {{ partial "excerpt-document-flow.html" (dict "type" "demo") }}
+            <div class="memo-doc-callout">
+                <p>Demo证明了：复制不一定必须是“拖过全部文字”，系统只要能够准确理解两个端点，就可以替用户完成中间范围的提取。</p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>1.3 Demo暴露出的边界</h3>
+            <p>Demo 验证了产品核心链路，但也明确限制了产品使用范围：</p>
+            <ul>
+                <li>只能处理当前标签页的标准网页 DOM；</li>
+                <li>不能覆盖其他桌面软件、跨标签页或跨应用场景；</li>
+                <li>可摘录的范围有限：浏览器内置 PDF、Canvas、视频画面、输入框、关闭的 Shadow DOM 和跨域 iframe 不可直接摘录。</li>
+            </ul>
+            <div class="memo-doc-callout">
+                <strong>这指向了下一阶段最核心的问题：</strong>
+                <p>如果“摘录中转站”只在浏览器里存在，那么它解决的就只是网页内的复制，而不是用户在电脑上的全场景复制工作流。</p>
+            </div>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>2 用户调研与问题验证</h2>
+        <p>为了确认问题是否真的普遍存在，同时补充场景和指导产品取舍，我围绕以下问题访谈了 5 位用户：</p>
+        <ul>
+            <li>你在什么情况下需要复制内容</li>
+            <li>复制时最麻烦的步骤是什么</li>
+            <li>完成多段内容复制任务时的流程</li>
+        </ul>
+
+        <section class="memo-doc-subsection">
+            <h3>2.1 访谈中最明确的四类痛点</h3>
+            <div class="memo-doc-table-wrap" tabindex="0" role="region" aria-label="访谈中的四类痛点表格，可横向滚动查看完整内容">
+                <table class="memo-doc-table memo-doc-table--3 excerpt-doc-table--pain">
+                    <thead>
+                        <tr>
+                            <th scope="col">痛点</th>
+                            <th scope="col">用户的实际困难</th>
+                            <th scope="col">为什么现有复制方式不够好</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>长段落首尾难定位</td>
+                            <td>使用触控板时要一直按住，跨屏拖动容易窜位；回调起点、终点也很难</td>
+                            <td>系统选择手势要求用户持续控制整段路径，而用户真正只关心两个端点</td>
+                        </tr>
+                        <tr>
+                            <td>同一页面内选取多处</td>
+                            <td>想保留一篇内容中的几段，只能复制、粘贴、返回，多次重复</td>
+                            <td>剪贴板一次只保存当前项，没有“暂存多个候选片段”的空间</td>
+                        </tr>
+                        <tr>
+                            <td>跨界面组合内容</td>
+                            <td>需要从网页、聊天、文档或多个页面取材时，必须频繁切换窗口</td>
+                            <td>复制动作把信息收集与最终整理强制绑在一起</td>
+                        </tr>
+                        <tr>
+                            <td>想保存当前内容才能继续复制</td>
+                            <td>一旦复制了下一项，上一项就会被覆盖，因此必须先找地方粘贴</td>
+                            <td>用户被迫过早决定保存位置和最终结构，打断当前任务</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>2.2 可类推的真实场景</h3>
+            <p>以下场景是基于访谈问题和实际工作流程做出的产品推演：</p>
+            <div class="memo-doc-table-wrap" tabindex="0" role="region" aria-label="可类推的真实场景表格，可横向滚动查看完整内容">
+                <table class="memo-doc-table memo-doc-table--3 memo-doc-table--center excerpt-doc-table--scenarios">
+                    <thead>
+                        <tr>
+                            <th scope="col">用户／场景</th>
+                            <th scope="col">需要摘取什么</th>
+                            <th scope="col">中转站的作用</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Agent 使用者</td>
+                            <td>从需求、日志、文档和对话中拼出完整上下文</td>
+                            <td>先收集事实，再按 Prompt 顺序组合</td>
+                        </tr>
+                        <tr>
+                            <td>学生／研究者</td>
+                            <td>从长文中摘定义、论据、案例和结论</td>
+                            <td>不离开阅读页，读完后统一形成笔记</td>
+                        </tr>
+                        <tr>
+                            <td>客服</td>
+                            <td>从知识库不同段落组合一条针对性答复</td>
+                            <td>避免在知识库和聊天窗口之间多次往返</td>
+                        </tr>
+                        <tr>
+                            <td>答疑／技术支持</td>
+                            <td>从文档、报错和解决步骤中组合回应</td>
+                            <td>按“问题—原因—步骤”重新排序片段</td>
+                        </tr>
+                        <tr>
+                            <td>HR／招聘</td>
+                            <td>从 JD 和公司资料中挑选候选人需要的信息</td>
+                            <td>形成个性化职位介绍，而不是机械转发全文</td>
+                        </tr>
+                        <tr>
+                            <td>运营／编辑</td>
+                            <td>从多个资料源提取事实、引用和标题</td>
+                            <td>在正式写作前建立临时素材组</td>
+                        </tr>
+                        <tr>
+                            <td>普通办公用户</td>
+                            <td>从邮件、网页、聊天和文档中复制多项信息</td>
+                            <td>让多项内容共存，最后一次粘贴到目标处</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>2.3 用户问题的本质</h3>
+            <p>通过访谈我意识到，用户面对的并不是单一的复制困难场景，而是一条「复制粘贴」工作流中存在的四个断点：</p>
+            <ol>
+                <li>如何更容易地确定范围；</li>
+                <li>如何让多个复制项同时存在；</li>
+                <li>怎么在复制前调整取舍和顺序；</li>
+                <li>如何把结果一次性送到真正要使用的地方。</li>
+            </ol>
+            <div class="memo-doc-callout">
+                <p>因此，产品不能只做选中文字方式上的升级，也不能只做一个无限保存历史的剪贴板。</p>
+                <p>它必须同时提供<strong>“定位、暂存、编排、输出”</strong>四个环节。</p>
+            </div>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>3 竞品分析：市场不缺大而全的工作区，缺的是轻量摘录的中转站</h2>
+
+        <section class="memo-doc-subsection">
+            <h3>3.1 竞品选型与调研</h3>
+            <p>本项目的竞品调研是基于用户从“看到内容”到“组合并使用内容”的完整过程，而非限于相关产品。</p>
+            <div class="memo-doc-table-wrap" tabindex="0" role="region" aria-label="竞品选型与调研表格，可横向滚动查看完整内容">
+                <table class="memo-doc-table memo-doc-table--4 excerpt-doc-table--competitors">
+                    <thead>
+                        <tr>
+                            <th scope="col">类型</th>
+                            <th scope="col">擅长什么</th>
+                            <th scope="col">与本需求的差异</th>
+                            <th scope="col">对本产品的启发</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>系统原生复制／剪贴板</td>
+                            <td>学习成本最低，任何软件都能使用</td>
+                            <td>一次通常只承载一项；不负责多片段编排</td>
+                            <td>保留原有复制心智，不创造复杂工作流</td>
+                        </tr>
+                        <tr>
+                            <td>剪贴板历史工具</td>
+                            <td>保存文本、图片、文件等历史，支持搜索、收藏</td>
+                            <td>功能全面但信息量大；主要围绕“找回过去复制过什么”，不是“围绕当前任务组装几段内容”</td>
+                            <td>不做无限历史，把当前任务所需内容放在最前面</td>
+                        </tr>
+                        <tr>
+                            <td>笔记／知识库工具</td>
+                            <td>长期保存、分类、链接和检索</td>
+                            <td>用户必须立即切换过去、选择位置并粘贴；记录结构较重</td>
+                            <td>中转站只负责临时收集，不替代长期笔记库</td>
+                        </tr>
+                        <tr>
+                            <td>现有中转站类工具<br>（多为个人 vibe coding 作品）</td>
+                            <td>文本、文件、图片、链接等多形态内容的暂存</td>
+                            <td>可暂存的种类很多、也通常带有派生功能如番茄钟等</td>
+                            <td>做轻量文本中转站，而非兼容全部格式、形态的工作区</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>3.2 现有中转站类产品为什么容易显得“大”</h3>
+            <p>许多相关产品同时承担剪贴板历史、图片暂存、文件管理、搜索、收藏、标签、同步甚至自动化。功能越完整，产品越接近一个长期资料库，界面也需要展示更多类型、时间、来源和管理入口。</p>
+            <p>这些能力虽然本身有价值，但会带来两个与本项目目标相反的结果：</p>
+            <ul>
+                <li>用户要先理解一个新的内容管理系统；</li>
+                <li>临时摘取几段文字时，也要面对全局资料管理的复杂度。</li>
+            </ul>
+            <div class="memo-doc-callout">
+                <p>“摘录中转站”选择了一个更“窄”的位置：不保存全部复制历史，不承担长期资料管理，只服务“当前这次文本摘录任务”。</p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>3.3 市场空位</h3>
+            <p>本产品不追求兼容的类型的种数，而追求用户在阅读过程中的无感复制体验。</p>
+            <div class="memo-doc-callout">
+                <strong>由此形成的产品空位是：</strong>
+                <p>在系统剪贴板、全能工作暂存区和长期笔记工具之间，提供一个能够精准定位、多项共存、按序组合、用完即清的<strong>轻量摘录工作区</strong>。</p>
+            </div>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>4 产品定位与用户画像的最终确立</h2>
+        <div class="memo-doc-callout">
+            <strong>产品定位</strong>
+            <p>一个用两次定位代替长距离拖选，让多处内容先暂存、再按顺序一次性复制的桌面轻量摘录中转站。</p>
+        </div>
+
+        <section class="memo-doc-subsection">
+            <h3>4.1 解决的问题和核心价值</h3>
+            <blockquote class="memo-doc-quote">
+                <p>当我在阅读网页、Agent 对话、文档或业务资料时，如果需要摘取多个不连续位置的内容，我希望不用反复切换到目标应用，而是先连续收集、调整顺序，再一次复制，从而保持阅读和思考的连续性。</p>
+            </blockquote>
+            <div class="memo-doc-table-wrap" tabindex="0" role="region" aria-label="核心价值表格，可横向滚动查看完整内容">
+                <table class="memo-doc-table memo-doc-table--2 memo-doc-table--center excerpt-doc-table--value">
+                    <thead>
+                        <tr>
+                            <th scope="col">价值</th>
+                            <th scope="col">产品如何实现</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>更容易选准</td>
+                            <td>用户只指定首字和尾字，不必拖过中间全部内容</td>
+                        </tr>
+                        <tr>
+                            <td>不打断当前任务</td>
+                            <td>悬浮按钮常驻，片段先进入中转站，用户继续阅读</td>
+                        </tr>
+                        <tr>
+                            <td>多项可以共存</td>
+                            <td>每个片段独立保存、选择和删除，不被下一次复制覆盖</td>
+                        </tr>
+                        <tr>
+                            <td>结果可重新组织</td>
+                            <td>六点拖拽改变顺序，组合复制遵循看板顺序</td>
+                        </tr>
+                        <tr>
+                            <td>用完即清</td>
+                            <td>片段只属于当前会话，退出或主动清空后不形成长期负担</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>4.2 核心用户画像</h3>
+            <ul>
+                <li>经常在长内容中选择多个非连续段落的人；</li>
+                <li>习惯使用触控板、对长距离拖选控制困难的人；</li>
+                <li>需要把网页、文档、聊天或多个软件中的信息组合起来的人；</li>
+                <li>希望保持阅读流，不愿每次摘录都切换笔记工具的人；</li>
+                <li>HR、客服、答疑、运营、研究、写作和 Agent 重度使用者。</li>
+            </ul>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>4.3 明确不做什么</h3>
+            <ul>
+                <li>不做无限期保存所有复制记录的剪贴板历史库；</li>
+                <li>不做完整笔记、知识图谱或文件管理系统；</li>
+                <li>不做文件、图片、链接等多形态内容的暂存；</li>
+                <li>不要求用户学习标签、分类和自动化规则。</li>
+            </ul>
+            <div class="memo-doc-callout">
+                <p>产品边界越清楚，悬浮中转站才越可能保持轻量。</p>
+            </div>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>5 产品演进与关键决策：从浏览器到 macOS</h2>
+
+        <section class="memo-doc-subsection">
+            <h3>5.1 MVP版本</h3>
+            <p>已有的浏览器 Demo 版本，经 10+ 项功能补足和 ui 调试之后，形成本产品的<strong>MVP</strong>。浏览器最终版支持 Chrome 116+ 与 Edge，采用 Manifest V3。核心能力包括：</p>
+            <ul>
+                <li>精确到字素的两次点击定位，包含首尾两个字符，避免截断 Emoji 和组合字符；</li>
+                <li>起点确定后可跨多屏滚动，也支持先点末尾、再点开头；</li>
+                <li>定位第二端时，动态显示起点到当前字符之间的文字衬色；只有第二次点击才真正生成片段；</li>
+                <li>支持标准网页 DOM 中的标题、段落、粗体、链接、列表、表格、代码块和标准图片；</li>
+                <li>多片段暂存、勾选、全选、逐条删除、批量删除、撤销删除和六点拖拽排序；</li>
+                <li>新片段自动复制，组合复制严格遵循看板当前顺序；</li>
+                <li>双按钮／单按钮两种最小化形态，均可整体拖动；</li>
+                <li>四种颜色设置：蓝色、黄色、红色、绿色，默认蓝色；</li>
+                <li>片段上限 50 段、合计约 8 MB；内容只保留在当前页面内存中。</li>
+            </ul>
+            <div class="memo-doc-callout">
+                <p>下一阶段的开发目标是为解决“<strong>频繁切换页面</strong>”这一痛点，而开发<strong>macOS全局版应用</strong>。</p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>5.2 产品决策一：从范围衬色改为首尾定点</h3>
+            <p>浏览器版基于 DOM Range，可以较自然地拿到每一行文字的矩形，因此最终保留了“起点到当前字符之间的文字衬色”作为动态预览。</p>
+            <p>到了 macOS 全局版，产品最初也尝试复刻这套体验，但连续遇到三个问题：</p>
+            <ol>
+                <li>有些应用只能返回一整行或一个大矩形，无法精确展示从哪个字到哪个字；</li>
+                <li>跨段落时，辅助功能树可能把内容拆成多个不同节点，难以得到连续、稳定的每行几何范围；</li>
+                <li>鼠标移动过程中不断查询多段文字矩形会产生明显卡顿，选中衬色只能在同一行生效，无法丝滑覆盖长内容。</li>
+            </ol>
+            <p>若继续追求“像系统拖选一样给全部文字上色”，会让产品投入大量适配成本，同时仍无法保证能够在所有应用中稳定成立。因此最终做出整体调整：</p>
+            <ul>
+                <li>不再展示中间范围衬色；</li>
+                <li>第一次点击锁定首字或尾字，并给该字符加底色；</li>
+                <li>第二次点击锁定另一端字符，同样加底色；</li>
+                <li>系统只需准确表达“这两个字是范围端点”，中间内容由文字结构计算，不再要求绘制完整选区。</li>
+            </ul>
+            <p>最早的端点只用竖直光标表示，视觉不够明显。最终提供三种可选定位标记：</p>
+            <ul>
+                <li>小旗；</li>
+                <li>地图定位点；</li>
+                <li>准星。</li>
+            </ul>
+            <p>标记与系统原光标同时显示，尺寸足够清楚；选中的首尾字符底色、定位标记和悬浮按钮统一使用用户自定义选择的颜色。</p>
+            <div class="memo-doc-callout">
+                <p>这个决策不是降低效果的无奈之举，而是通过剖析用户行为本意（选中首尾）产生的替代方案，并重新明确产品承诺：<strong>不能为了保留形态而牺牲产品的使用流畅度和稳定性。</strong></p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>5.3 产品决策二：增加输入框，而不是假装全局识别无边界</h3>
+            <p>macOS 辅助功能接口能否返回文字，取决于目标应用是否具有公开可访问结构。我调研了Canvas、视频、图片、部分 PDF／Office 页面和一些复杂编辑器，发现这些应用并没有直接的可供读取的文字范围。如果想要兼容全部应用，必然耗费大量的精细调研及开发成本，也不是短期内能达成的目标。而如果产品只提供全局取词，一旦识别失败，用户的整个工作流就会中断。</p>
+            <p>为此，我为展开面板增加了手动输入框：</p>
+            <ul>
+                <li>用户可以直接输入自定义文字；</li>
+                <li>也可以把其他方式（如手动粘贴）获得的内容粘贴进来；</li>
+                <li>粘贴后不会立即生成片段，内容完整保留在输入框中；</li>
+                <li>普通回车才确认并加入片段，<code>Shift + 回车</code>换行。</li>
+            </ul>
+            <p>这个输入框不只是技术兜底，也扩大了产品的可玩性：用户可以在摘录片段之间加入标题、解释、过渡句或自己的判断，主动组织出一段更完整的最终复制内容。</p>
+            <div class="memo-doc-callout">
+                <p>因此，产品从“只能摘取现有内容”扩展为：</p>
+                <p><strong>摘取外部内容＋补充自定义内容＋按意图重新编排。</strong></p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>5.4 产品决策三：新片段加入时的头插 or 尾插</h3>
+            <p>对于“新片段加入时，应位于片段列表顶端还是尾端”这一问题，Demo 中最初的设定是默认尾插，即新加入的片段会出现在片段列表的末尾。<br>在加入“输入框”相关功能后，为了使用户在回车后对“成功加入片段”有明确感知、新加入的内容会直接出现在列表最顶端，我将新片段加入的方式改为了头插 -- 片段列表倒序、新加入的内容置顶。</p>
+            <p>但实际使用时却暴露了更严重的问题：中转站不只是确认列表，它还决定最终组合复制的顺序。例如，用户按照文章顺序依次摘取“背景—问题—结论”，倒序会自然变成“结论—问题—背景”，这与产品的组合功能相冲突。</p>
+            <p>最终调整为：</p>
+            <ul>
+                <li>新片段按录入时间正序追加到列表末尾；</li>
+                <li>第一条“片段1”在最上方，最后加入的片段在最后；</li>
+                <li>自动反馈由整个“+”按钮轻微闪动承担，同时在输入框中写明提示“回车即可新增片段”，不再依赖置顶确认；</li>
+                <li>用户仍可通过六点按钮拖拽改变最终组合顺序；</li>
+                <li>“复制所选”严格按照看板从上到下拼接。</li>
+            </ul>
+            <div class="memo-doc-callout">
+                <strong>这次取舍的思考与反思：</strong>
+                <p>产品功能不能在逻辑上相悖；新增一个功能或改动时要先从用户视角体验路径，全局思考判断。</p>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>5.5 其他关键取舍</h3>
+            <div class="memo-doc-table-wrap" tabindex="0" role="region" aria-label="其他关键取舍表格，可横向滚动查看完整内容">
+                <table class="memo-doc-table memo-doc-table--3 memo-doc-table--center excerpt-doc-table--tradeoffs">
+                    <thead>
+                        <tr>
+                            <th scope="col">早期方案／问题</th>
+                            <th scope="col">最终决策</th>
+                            <th scope="col">判断依据</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>起止光标带左右箭头</td>
+                            <td>取消箭头，只保留光标＋定位标记</td>
+                            <td>支持反向选取时，方向箭头会翻转并误导</td>
+                        </tr>
+                        <tr>
+                            <td>新增成功显示说明文字</td>
+                            <td>整个“+”按钮轻微闪动</td>
+                            <td>提供可感知但不抢眼的反馈</td>
+                        </tr>
+                        <tr>
+                            <td>片段卡片展示类型标签</td>
+                            <td>删除全部“代码X、图片X、列表”等标签</td>
+                            <td>用户关心内容和顺序，不关心临时统计元数据</td>
+                        </tr>
+                        <tr>
+                            <td>卡片展示两整行头尾内容</td>
+                            <td>收敛为前 15 字素＋后 15 字素</td>
+                            <td>在有限面板中提供足够辨识度，不让单卡过高</td>
+                        </tr>
+                        <tr>
+                            <td>只有固定双按钮悬浮形态</td>
+                            <td>双按钮／单按钮可选</td>
+                            <td>同时满足信息可见性和最小常驻面积</td>
+                        </tr>
+                        <tr>
+                            <td>粘贴后立即自动建片段</td>
+                            <td>粘贴只进入输入框，回车后提交</td>
+                            <td>给用户检查、编辑和补充内容的机会</td>
+                        </tr>
+                        <tr>
+                            <td>中转站删空后编号继续累计</td>
+                            <td>新一轮从“片段1”开始</td>
+                            <td>空面板代表新的临时摘录任务，编号应符合新任务心智</td>
+                        </tr>
+                        <tr>
+                            <td>关闭与最小化语义容易混淆</td>
+                            <td>横线只最小化；“×”退出并清空</td>
+                            <td>把“暂时收起”和“结束本次任务”明确分开</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>5.6 工程问题反向促进产品成熟</h3>
+            <div class="memo-doc-table-wrap" tabindex="0" role="region" aria-label="工程问题与产品行为表格，可横向滚动查看完整内容">
+                <table class="memo-doc-table memo-doc-table--2 memo-doc-table--center excerpt-doc-table--engineering">
+                    <thead>
+                        <tr>
+                            <th scope="col">工程问题</th>
+                            <th scope="col">最终形成的产品行为</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Chrome／Codex 标准 AXRange 不足</td>
+                            <td>增加网页常用的 AXTextMarker 路径和首次可访问树准备重试</td>
+                        </tr>
+                        <tr>
+                            <td>飞书暴露的辅助功能结构与普通 Chromium 不一致</td>
+                            <td>增加飞书专用 AX 适配器，并限定在已确认的应用标识上启用</td>
+                        </tr>
+                        <tr>
+                            <td>全局选取时系统光标偶尔消失</td>
+                            <td>统一为“系统原光标＋定位标记”并存，不用图标替代系统光标</td>
+                        </tr>
+                        <tr>
+                            <td>非激活悬浮面板难以稳定接收中文输入和粘贴</td>
+                            <td>使用原生多行文本编辑器，显式处理焦点、输入法组合态和滚动</td>
+                        </tr>
+                        <tr>
+                            <td>SwiftUI 卡片拖拽在悬浮窗中不稳定</td>
+                            <td>六点区域使用独立原生拖拽处理，卡片数组同时作为展示和复制顺序来源</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>6 最终产品形态</h2>
+
+        <section class="memo-doc-subsection">
+            <h3>6.1 macOS 版的完整用户流程</h3>
+            {{ partial "excerpt-document-flow.html" (dict "type" "macos") }}
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>6.2 当前可以在哪些界面摘录</h3>
+            <p>macOS 版依赖目标应用公开的辅助功能文字结构，因此应按能力分级理解，而不是承诺“任何界面都能复制”。同时给出输入框手动粘贴内容的替代方案。</p>
+            <div class="memo-doc-table-wrap" tabindex="0" role="region" aria-label="界面摘录能力表格，可横向滚动查看完整内容">
+                <table class="memo-doc-table memo-doc-table--3 excerpt-doc-table--support">
+                    <thead>
+                        <tr>
+                            <th scope="col">能力级别</th>
+                            <th scope="col">典型界面</th>
+                            <th scope="col">当前表现</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>通常支持</td>
+                            <td>TextEdit、Pages 等标准 macOS 文字控件</td>
+                            <td>通过 AXRange 精确到字符，来源提供时可能保留富文本</td>
+                        </tr>
+                        <tr>
+                            <td>已重点适配</td>
+                            <td>Chrome、Safari、Codex 和公开网页文字结构的 Chromium／Electron 应用</td>
+                            <td>通过 AXTextMarker 摘录普通可访问文字；首次可能需要短暂准备可访问树</td>
+                        </tr>
+                        <tr>
+                            <td>已做专项适配</td>
+                            <td>飞书 macOS 正式应用</td>
+                            <td>在普通 TextMarker 不可用时，使用飞书专用可访问树与文字范围映射；支持结果仍取决于具体版本和文档结构</td>
+                        </tr>
+                        <tr>
+                            <td>可能支持但需逐版本验证</td>
+                            <td>Edge、Brave、Arc、Vivaldi、Opera、Lark 等 Chromium／Electron 应用</td>
+                            <td>会尝试启用公开的增强辅助功能结构；可能成功，也可能降级或失败</td>
+                        </tr>
+                        <tr>
+                            <td>部分支持</td>
+                            <td>PDF 阅读器、Office、复杂网页编辑器、虚拟列表</td>
+                            <td>可能只能取得纯文本、同一文字容器，或无法跨段；取决于应用暴露的 AX 结构</td>
+                        </tr>
+                        <tr>
+                            <td>明确不支持直接取词</td>
+                            <td>Canvas、视频画面、游戏、远程桌面、扫描图片、未公开文字的自绘控件</td>
+                            <td>无可读文字结构；需使用输入／粘贴兜底</td>
+                        </tr>
+                        <tr>
+                            <td>主动拒绝</td>
+                            <td>密码框、受保护／安全输入内容</td>
+                            <td>出于安全原因不读取</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>6.3 浏览器版与 macOS 版的关系</h3>
+            <blockquote class="memo-doc-quote">
+                <p>两者不是互相替代，而是同一产品在不同环境中的能力实现，亦可满足不同使用需求和使用场景的用户自行选用。</p>
+            </blockquote>
+            <div class="memo-doc-table-wrap" tabindex="0" role="region" aria-label="浏览器版与 macOS 版对比表格，可横向滚动查看完整内容">
+                <table class="memo-doc-table memo-doc-table--3 memo-doc-table--center excerpt-doc-table--platforms">
+                    <thead>
+                        <tr>
+                            <th scope="col">对比项</th>
+                            <th scope="col">Chrome／Edge 扩展</th>
+                            <th scope="col">macOS 应用</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>覆盖范围</td>
+                            <td>当前网页标签页</td>
+                            <td>多个桌面应用中的可访问文字</td>
+                        </tr>
+                        <tr>
+                            <td>文字来源</td>
+                            <td>DOM Range</td>
+                            <td>AXRange、AXTextMarker、飞书专用适配</td>
+                        </tr>
+                        <tr>
+                            <td>中间衬色</td>
+                            <td>支持动态文字范围衬色</td>
+                            <td>只显示首尾字符和定位标记</td>
+                        </tr>
+                        <tr>
+                            <td>网页富文本</td>
+                            <td>更可靠，可保留 HTML、列表、表格、代码和标准图片引用</td>
+                            <td>取决于目标 AX 数据，常降级为基础富文本或纯文本</td>
+                        </tr>
+                        <tr>
+                            <td>不可读内容兜底</td>
+                            <td>无手动输入框</td>
+                            <td>支持输入／粘贴后回车建片段</td>
+                        </tr>
+                        <tr>
+                            <td>跨应用</td>
+                            <td>不支持</td>
+                            <td>多个片段可以分别来自不同应用</td>
+                        </tr>
+                        <tr>
+                            <td>数据生命周期</td>
+                            <td>当前页面内存</td>
+                            <td>当前应用运行会话内存</td>
+                        </tr>
+                        <tr>
+                            <td>共同能力</td>
+                            <td>两次定位、多片段、选择、删除、排序、组合复制、自动复制、双／单悬浮形态</td>
+                            <td>同左</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>6.4 隐私、权限与发布边界</h3>
+            <ul>
+                <li>浏览器扩展只在用户主动点击后访问当前标签页，不读取剪贴板、不上传内容、不发送分析请求；只在本地保存颜色和悬浮形态偏好。</li>
+                <li>macOS 应用本地运行，不包含云同步和内容上传；日志只记录不含正文的失败类型、界面角色、进程和耗时。</li>
+                <li>macOS 全局取词必须获得“系统设置 → 隐私与安全性 → 辅助功能”权限。</li>
+                <li>权限绑定具体应用身份和副本；升级、签名变化或存在多个同名副本时，可能需要移除旧权限条目并重新添加当前应用。</li>
+                <li>当前本机包采用本地验证签名。正式公开分发前仍需稳定 Developer ID、Hardened Runtime、安全时间戳、Apple 公证与票据装订。</li>
+            </ul>
+        </section>
+    </section>
+
+    <hr class="memo-doc-divider">
+
+    <section class="memo-doc-section">
+        <h2>7 产品原则与展望</h2>
+
+        <section class="memo-doc-subsection">
+            <h3>7.1 产品原则</h3>
+            <ol>
+                <li>先保持用户的阅读节奏，再追求功能完整。</li>
+                <li>用户只给首尾，系统处理过程。</li>
+                <li>多个内容先共存，最终结构稍后决定。</li>
+                <li>中转站服务当前任务，不制造新的长期整理负担。</li>
+                <li>默认顺序必须符合最终输出语义。</li>
+                <li>成功反馈要可感知，但不能抢夺注意力。</li>
+                <li>界面只展示完成当前任务真正需要的信息。</li>
+                <li>无法稳定实现的效果不伪装成通用能力。</li>
+                <li>遇到技术边界时提供可理解的兜底，而不是让任务中断。</li>
+                <li>浏览器和桌面层各做自己最擅长的事，不用一个入口勉强覆盖所有内容。</li>
+            </ol>
+        </section>
+
+        <section class="memo-doc-subsection">
+            <h3>7.2 下一阶段关注的指标与开发计划</h3>
+            <div class="memo-doc-table-wrap" tabindex="0" role="region" aria-label="下一阶段指标与计划表格，可横向滚动查看完整内容">
+                <table class="memo-doc-table memo-doc-table--3 memo-doc-table--center excerpt-doc-table--metrics">
+                    <thead>
+                        <tr>
+                            <th scope="col">方向</th>
+                            <th scope="col">要回答的问题</th>
+                            <th scope="col">指标／方法</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>摘录效率</td>
+                            <td>两次定位是否真的比拖选更快、更准</td>
+                            <td>长段落任务完成时间、首尾修正次数、失败率</td>
+                        </tr>
+                        <tr>
+                            <td>阅读连续性</td>
+                            <td>用户是否减少了应用切换</td>
+                            <td>单次任务切换次数、连续摘录段数、主观打断评分</td>
+                        </tr>
+                        <tr>
+                            <td>多片段价值</td>
+                            <td>用户是否真的组合多段，而不只是复制一段</td>
+                            <td>每次会话片段数、组合复制比例、拖拽排序比例</td>
+                        </tr>
+                        <tr>
+                            <td>兜底能力</td>
+                            <td>输入框是否弥补不可访问界面</td>
+                            <td>手动输入／粘贴占比、失败后成功完成率</td>
+                        </tr>
+                        <tr>
+                            <td>支持矩阵</td>
+                            <td>哪些应用最值得优先适配</td>
+                            <td>按目标应用统计成功率、纯文本降级率、Badcase</td>
+                        </tr>
+                        <tr>
+                            <td>长期价值</td>
+                            <td>产品是否从演示功能变成真实习惯</td>
+                            <td>周留存、重复场景、用户回访与卸载原因</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <blockquote class="memo-doc-quote">
+                <p>Windows 版将在 macOS 的产品交互和数据模型稳定后，复用产品规范继续开发。</p>
+            </blockquote>
+        </section>
+    </section>
+</article>
