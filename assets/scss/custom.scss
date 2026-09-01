@@ -2769,6 +2769,41 @@ html {
         }
     }
 
+    .memo-prototype-gallery {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(200px, 1fr));
+        gap: 12px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 1px 0 8px;
+        margin: 24px 0 0;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        scrollbar-width: thin;
+        scrollbar-color: #c8c9cc transparent;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .memo-prototype-gallery__item {
+        min-width: 200px;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        aspect-ratio: 9 / 19;
+        background: var(--memo-doc-fill);
+        border: 1px solid var(--memo-doc-line);
+        border-radius: 8px;
+
+        video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: var(--memo-doc-fill);
+        }
+    }
+
     blockquote,
     .memo-doc-quote {
         width: 100%;
