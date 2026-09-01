@@ -1588,53 +1588,44 @@ html {
     }
 }
 
-.excerpt-story__copy {
-    margin-top: 24px;
-    color: var(--portfolio-muted);
-    font-size: 1.12rem;
-    font-weight: 400;
-    line-height: 1.85;
-
-    p {
-        margin: 0;
-
-        + p {
-            margin-top: 24px;
-        }
-    }
-}
-
 .excerpt-pain-points {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(18px, 4vw, 72px);
-    padding: 12px 18px;
+    padding: 20px 0;
     margin: 28px 0;
+    list-style: none;
+    border-top: 1px solid var(--portfolio-border);
+    border-bottom: 1px solid var(--portfolio-border);
 
-    strong {
-        display: flex;
-        gap: 13px;
-        align-items: center;
-        color: var(--portfolio-ink);
-        font-size: 1.18rem;
-        font-weight: 720;
-        line-height: 1.45;
-        white-space: nowrap;
+    li {
+        display: grid;
+        gap: 7px;
+        min-width: 0;
+        padding: 0 clamp(16px, 2.2vw, 34px);
+        border-left: 1px solid var(--portfolio-border);
+
+        &:first-child {
+            padding-left: 0;
+            border-left: 0;
+        }
+
+        &:last-child {
+            padding-right: 0;
+        }
     }
 
     span {
-        display: inline-grid;
-        flex: 0 0 auto;
-        width: 30px;
-        height: 30px;
-        color: var(--portfolio-panel);
-        font-size: 0.9rem;
+        color: var(--portfolio-accent);
+        font-size: 0.72rem;
         font-weight: 800;
-        background: linear-gradient(145deg, color-mix(in srgb, var(--portfolio-accent) 72%, #8ec5ff), color-mix(in srgb, var(--portfolio-accent) 72%, var(--portfolio-ink)));
-        border: 1px solid color-mix(in srgb, var(--portfolio-accent) 58%, var(--portfolio-border));
-        border-radius: 8px;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 10px color-mix(in srgb, var(--portfolio-accent) 14%, transparent);
-        place-items: center;
+        letter-spacing: 0.12em;
+    }
+
+    strong {
+        color: var(--portfolio-ink);
+        font-size: 1.08rem;
+        font-weight: 700;
+        line-height: 1.45;
     }
 }
 
@@ -1700,36 +1691,6 @@ html {
     }
 }
 
-.excerpt-exploration {
-    .skill-diagram {
-        margin-bottom: 0;
-    }
-}
-
-.excerpt-discovery-diagram {
-    margin: 18px 0 0;
-    overflow: visible;
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-
-    .skill-diagram__header {
-        display: none;
-    }
-
-    .skill-diagram__viewport {
-        background-color: transparent;
-        background-image: none;
-        border: 1px solid var(--portfolio-border);
-        border-radius: 12px;
-    }
-
-    .skill-diagram__legend {
-        padding: 12px 0 0;
-        border-top: 0;
-    }
-}
-
 .memo-story {
     position: relative;
     padding: 0;
@@ -1750,8 +1711,9 @@ html {
 
     .memo-story__lead {
         color: var(--portfolio-ink);
+        font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
         font-size: clamp(1.55rem, 2.4vw, 2.15rem);
-        font-weight: 750;
+        font-weight: 700;
         line-height: 1.45;
         letter-spacing: -0.025em;
     }
@@ -1759,6 +1721,7 @@ html {
     .memo-story__concept {
         margin-top: 22px;
         color: var(--portfolio-muted);
+        font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
         font-weight: 400;
         line-height: 1.75;
 
@@ -1970,6 +1933,14 @@ html {
             color: var(--portfolio-ink);
             font-size: 0.8rem;
         }
+    }
+}
+
+.excerpt-discovery-flow {
+    > article,
+    > .memo-discovery-flow__parallel {
+        flex: 1 1 0;
+        min-width: 0;
     }
 }
 
@@ -2264,18 +2235,23 @@ html {
         }
     }
 
-    .excerpt-story__copy {
-        font-size: 1rem;
-    }
-
     .excerpt-pain-points {
         grid-template-columns: 1fr;
-        gap: 13px;
-        padding: 8px 0;
+        padding: 0;
         margin: 22px 0;
 
+        li {
+            padding: 14px 0;
+            border-top: 1px solid var(--portfolio-border);
+            border-left: 0;
+
+            &:first-child {
+                border-top: 0;
+            }
+        }
+
         strong {
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
     }
 
@@ -2293,16 +2269,6 @@ html {
     .excerpt-demo-pair__arrow {
         width: 42px;
         height: 42px;
-    }
-
-    .excerpt-discovery-diagram {
-        .skill-diagram__viewport svg {
-            min-width: 980px;
-        }
-
-        .skill-diagram__legend {
-            align-items: flex-start;
-        }
     }
 
     .memo-exploration {
