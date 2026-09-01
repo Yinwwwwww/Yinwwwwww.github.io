@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  deployments: write
   pages: write
   id-token: write
 
@@ -118,7 +119,21 @@ jobs:
             exit 1
           fi
 
-          sleep 15
+          delete_code=$(curl -sS -L \
+            -o /dev/null \
+            -w "%{http_code}" \
+            -X DELETE \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/deployments/6206327801")
+
+          if [[ "${delete_code}" != "204" && "${delete_code}" != "404" ]]; then
+            echo "Unable to delete stale deployment record (HTTP ${delete_code})."
+            exit 1
+          fi
+
+          sleep 10
 
       - name: Deploy to GitHub Pages
         id: deployment
