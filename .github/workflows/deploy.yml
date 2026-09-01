@@ -118,6 +118,8 @@ jobs:
             exit 1
           fi
 
+          sleep 15
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
