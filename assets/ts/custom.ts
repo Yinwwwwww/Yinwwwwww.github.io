@@ -11,6 +11,7 @@ function setupDiagramZoom() {
         if (!viewport || !svg || !zoomOut || !zoomIn || !zoomLabel) return;
 
         let zoomIndex = 0;
+        let fittedWidth = Math.max(svg.getBoundingClientRect().width, viewport.clientWidth);
 
         const renderZoom = (nextIndex: number) => {
             const previousWidth = Math.max(viewport.scrollWidth, 1);
@@ -18,7 +19,7 @@ function setupDiagramZoom() {
 
             zoomIndex = Math.max(0, Math.min(nextIndex, DIAGRAM_ZOOM_STEPS.length - 1));
             const zoom = DIAGRAM_ZOOM_STEPS[zoomIndex];
-            svg.style.width = `${zoom * 100}%`;
+            svg.style.width = zoomIndex === 0 ? '100%' : `${fittedWidth * zoom}px`;
 
             zoomOut.disabled = zoomIndex === 0;
             zoomIn.disabled = zoomIndex === DIAGRAM_ZOOM_STEPS.length - 1;
@@ -26,6 +27,7 @@ function setupDiagramZoom() {
 
             requestAnimationFrame(() => {
                 if (zoomIndex === 0) {
+                    fittedWidth = Math.max(svg.getBoundingClientRect().width, viewport.clientWidth);
                     viewport.scrollLeft = 0;
                     return;
                 }
@@ -115,9 +117,74 @@ function setupMemoSceneWalls() {
     });
 }
 
+function setupExcerptDemoPairs() {
+    document.querySelectorAll<HTMLElement>('[data-excerpt-demo-pair]').forEach((pair) => {
+        const videos = Array.from(pair.querySelectorAll<HTMLVideoElement>('[data-excerpt-demo-video]'));
+        if (videos.length !== 2) return;
+
+        const [master, follower] = videos;
+        let isRestarting = false;
+
+        videos.forEach((video) => {
+            video.muted = true;
+            video.defaultMuted = true;
+            video.playsInline = true;
+            video.pause();
+        });
+
+        const waitUntilPlayable = (video: HTMLVideoElement) => new Promise<void>((resolve) => {
+            if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+                resolve();
+                return;
+            }
+            video.addEventListener('canplay', () => resolve(), { once: true });
+        });
+
+        const playTogether = async (restart: boolean) => {
+            if (isRestarting) return;
+            isRestarting = true;
+
+            videos.forEach((video) => video.pause());
+            if (restart) {
+                videos.forEach((video) => {
+                    video.currentTime = 0;
+                });
+            } else {
+                follower.currentTime = master.currentTime;
+            }
+
+            await Promise.all(videos.map((video) => video.play().catch(() => undefined)));
+            isRestarting = false;
+        };
+
+        const keepInSync = () => {
+            if (!master.paused && !follower.paused && Math.abs(master.currentTime - follower.currentTime) > 0.1) {
+                follower.currentTime = master.currentTime;
+            }
+        };
+
+        const restartPair = () => void playTogether(true);
+        videos.forEach((video) => video.addEventListener('ended', restartPair));
+        master.addEventListener('timeupdate', keepInSync);
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                videos.forEach((video) => video.pause());
+                return;
+            }
+            void playTogether(true);
+        });
+
+        Promise.all(videos.map(waitUntilPlayable)).then(() => {
+            void playTogether(true);
+        });
+    });
+}
+
 function setupPortfolioInteractions() {
     setupDiagramZoom();
     setupMemoSceneWalls();
+    setupExcerptDemoPairs();
 }
 
 if (document.readyState === 'loading') {

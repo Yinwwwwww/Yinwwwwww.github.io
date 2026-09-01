@@ -1,0 +1,150 @@
+<div class="skill-diagram excerpt-discovery-diagram" role="group" aria-label="摘录中转站产品探索与收敛路径">
+    <header class="skill-diagram__header">
+        <span>PRODUCT DISCOVERY</span>
+        <span class="skill-diagram__live"><em>初始全览 · 放大查看细节</em><i></i> LIVE</span>
+    </header>
+    <div class="skill-diagram__viewport">
+        <svg width="2840" height="560" viewBox="0 0 2840 560" role="img" aria-labelledby="excerpt-discovery-title excerpt-discovery-desc">
+            <title id="excerpt-discovery-title">摘录中转站产品探索与收敛路径</title>
+            <desc id="excerpt-discovery-desc">从频繁摘取内容的使用问题出发，经过浏览器扩展 Demo、用户访谈和替代方案分析，收敛产品定位并开发 macOS 全局版，完成当前 macOS MVP，后续适配 Windows。</desc>
+            <defs>
+                <marker id="arrow-excerpt-discovery" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M0 0L10 5L0 10Z"></path>
+                </marker>
+            </defs>
+
+            <g class="diagram-edges" marker-end="url(#arrow-excerpt-discovery)">
+                <path d="M230 272H280"></path>
+                <path d="M480 272H530"></path>
+
+                <path d="M750 272Q785 272 820 72" class="is-branch"></path>
+                <path d="M750 272H820" class="is-branch"></path>
+                <path d="M750 272Q785 272 820 472" class="is-branch"></path>
+
+                <path d="M1030 72H1100"></path>
+                <path d="M1030 272Q1065 272 1100 372"></path>
+                <path d="M1030 472Q1065 472 1100 372"></path>
+
+                <path d="M1310 72H1390"></path>
+                <path d="M1320 372H1390"></path>
+
+                <path d="M1600 72Q1645 72 1690 272"></path>
+                <path d="M1620 372Q1655 372 1690 272"></path>
+
+                <path d="M1890 272Q1930 272 1970 72" class="is-branch"></path>
+                <path d="M1890 272H1970" class="is-branch"></path>
+                <path d="M1890 272Q1930 272 1970 472" class="is-branch"></path>
+
+                <path d="M2220 72Q2255 72 2290 272"></path>
+                <path d="M2220 272H2290"></path>
+                <path d="M2220 472Q2255 472 2290 272"></path>
+
+                <path d="M2500 272H2570"></path>
+            </g>
+
+            <g class="diagram-edge-labels">
+                <text x="785" y="258">三路并行验证</text>
+                <text x="1650" y="258">工程与产品收敛</text>
+                <text x="1930" y="258">三项关键改进</text>
+                <text x="2535" y="260">后续</text>
+            </g>
+
+            <g class="diagram-node is-input" transform="translate(30 240)">
+                <rect width="200" height="64" rx="32"></rect>
+                <text x="100" y="27">Agent 使用与网页学习中</text>
+                <text class="node-sub" x="100" y="46">频繁摘取多处内容</text>
+            </g>
+            <g class="diagram-node" transform="translate(280 240)">
+                <rect width="200" height="64" rx="10"></rect>
+                <text x="100" y="27">发现复制动作</text>
+                <text class="node-sub" x="100" y="46">会打断阅读</text>
+            </g>
+            <g class="diagram-node is-ai" transform="translate(530 240)">
+                <rect width="220" height="64" rx="10"></rect>
+                <text x="110" y="27">提出“临时摘录中转站”</text>
+                <text class="node-sub" x="110" y="46">构想</text>
+            </g>
+
+            <g class="diagram-node is-script" transform="translate(820 40)">
+                <rect width="210" height="64" rx="10"></rect>
+                <text x="105" y="37">Chrome 扩展 Demo</text>
+            </g>
+            <g class="diagram-node is-human" transform="translate(820 240)">
+                <rect width="210" height="64" rx="10"></rect>
+                <text x="105" y="37">5 位用户痛点访谈</text>
+            </g>
+            <g class="diagram-node is-script" transform="translate(820 440)">
+                <rect width="210" height="64" rx="10"></rect>
+                <text x="105" y="27">相关工具与</text>
+                <text class="node-sub" x="105" y="46">替代方案分析</text>
+            </g>
+
+            <g class="diagram-node is-script" transform="translate(1100 40)">
+                <rect width="210" height="64" rx="10"></rect>
+                <text x="105" y="37">浏览器扩展 v0.7.2</text>
+            </g>
+            <g class="diagram-node is-human" transform="translate(1100 340)">
+                <rect width="220" height="64" rx="10"></rect>
+                <text x="110" y="27">确认问题不只是</text>
+                <text class="node-sub" x="110" y="46">个人习惯</text>
+            </g>
+
+            <g class="diagram-node is-stop" transform="translate(1390 40)">
+                <rect width="210" height="64" rx="10"></rect>
+                <text x="105" y="37">发现浏览器边界</text>
+            </g>
+            <g class="diagram-node is-ai" transform="translate(1390 340)">
+                <rect width="230" height="64" rx="10"></rect>
+                <text x="115" y="27">收敛产品定位</text>
+                <text class="node-sub" x="115" y="46">与交互原则</text>
+            </g>
+
+            <g class="diagram-node is-system" transform="translate(1690 240)">
+                <rect width="200" height="64" rx="10"></rect>
+                <text x="100" y="37">macOS 全局版</text>
+            </g>
+
+            <g class="diagram-node is-script" transform="translate(1970 40)">
+                <rect width="250" height="64" rx="10"></rect>
+                <text x="125" y="27">AXRange / AXTextMarker</text>
+                <text class="node-sub" x="125" y="46">飞书适配</text>
+            </g>
+            <g class="diagram-node is-ai" transform="translate(1970 240)">
+                <rect width="250" height="64" rx="10"></rect>
+                <text x="125" y="27">从范围衬色改为</text>
+                <text class="node-sub" x="125" y="46">首尾定点</text>
+            </g>
+            <g class="diagram-node is-system" transform="translate(1970 440)">
+                <rect width="250" height="64" rx="10"></rect>
+                <text x="125" y="27">增加手动输入</text>
+                <text class="node-sub" x="125" y="46">与粘贴兜底</text>
+            </g>
+
+            <g class="diagram-node is-output" transform="translate(2290 240)">
+                <rect width="210" height="64" rx="10"></rect>
+                <text x="105" y="37">当前 macOS MVP</text>
+            </g>
+            <g class="diagram-node is-muted" transform="translate(2570 240)">
+                <rect width="210" height="64" rx="10"></rect>
+                <text x="105" y="37">后续 Windows 适配</text>
+            </g>
+        </svg>
+    </div>
+    <div class="skill-diagram__legend">
+        <div class="skill-diagram__legend-items" aria-hidden="true">
+            <span class="is-script">Demo / 工程验证</span>
+            <span class="is-ai">定位 / 交互收敛</span>
+            <span class="is-human">用户验证</span>
+            <span class="is-output">当前版本里程碑</span>
+        </div>
+        <div class="skill-diagram__zoom" aria-label="摘录中转站产品探索与收敛路径缩放控制">
+            <button type="button" data-diagram-zoom="out" aria-label="缩小摘录中转站产品探索与收敛路径" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6"></path></svg>
+            </button>
+            <output aria-live="polite">适配</output>
+            <button type="button" data-diagram-zoom="in" aria-label="放大摘录中转站产品探索与收敛路径">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6M10.5 7.5v6"></path></svg>
+            </button>
+        </div>
+    </div>
+</div>
