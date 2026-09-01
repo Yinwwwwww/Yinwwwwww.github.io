@@ -1,176 +1,135 @@
 {{- $type := .type -}}
 
 {{- if eq $type "demo" -}}
-<figure class="memo-doc-flow excerpt-doc-flow excerpt-doc-flow--demo" aria-label="浏览器 Demo 的核心产品结构">
-    <div class="excerpt-doc-flow__viewport" tabindex="0" aria-label="横向滚动查看浏览器 Demo 的完整流程">
-        <ol class="excerpt-doc-flow__track excerpt-doc-flow__track--demo" role="list">
-            <li class="excerpt-doc-flow__step">
-                <span class="excerpt-doc-flow__node">网页内容层</span>
-                <span class="excerpt-doc-flow__connector excerpt-doc-flow__connector--labeled" aria-hidden="true">
-                    <span class="excerpt-doc-flow__connector-label">两次点击定位</span>
-                    <span class="excerpt-doc-flow__connector-line"></span>
-                    <span class="excerpt-doc-flow__connector-arrow">→</span>
-                </span>
-            </li>
-            <li class="excerpt-doc-flow__step">
-                <span class="excerpt-doc-flow__node">片段生成层</span>
-                <span class="excerpt-doc-flow__connector excerpt-doc-flow__connector--labeled" aria-hidden="true">
-                    <span class="excerpt-doc-flow__connector-label">HTML + 纯文本</span>
-                    <span class="excerpt-doc-flow__connector-line"></span>
-                    <span class="excerpt-doc-flow__connector-arrow">→</span>
-                </span>
-            </li>
-            <li class="excerpt-doc-flow__step">
-                <span class="excerpt-doc-flow__node">悬浮中转站</span>
-                <span class="excerpt-doc-flow__connector excerpt-doc-flow__connector--labeled" aria-hidden="true">
-                    <span class="excerpt-doc-flow__connector-label">勾选 / 删除 / 排序</span>
-                    <span class="excerpt-doc-flow__connector-line"></span>
-                    <span class="excerpt-doc-flow__connector-arrow">→</span>
-                </span>
-            </li>
-            <li class="excerpt-doc-flow__step excerpt-doc-flow__step--last">
-                <span class="excerpt-doc-flow__node">组合复制</span>
-            </li>
-        </ol>
+<figure class="skill-diagram excerpt-doc-diagram excerpt-doc-diagram--demo" role="group" aria-label="浏览器 Demo 的核心产品结构">
+    <header class="skill-diagram__header">
+        <span>HORIZONTAL PROCESS</span>
+        <span class="skill-diagram__live"><em>初始全览 · 放大查看细节</em><i></i> LIVE</span>
+    </header>
+    <div class="skill-diagram__viewport" tabindex="0" aria-label="横向滚动查看浏览器 Demo 的完整流程">
+        <svg width="1120" height="300" viewBox="0 0 1120 300" role="img" aria-labelledby="excerpt-demo-diagram-title excerpt-demo-diagram-desc">
+            <title id="excerpt-demo-diagram-title">浏览器 Demo 的核心产品结构</title>
+            <desc id="excerpt-demo-diagram-desc">网页内容层通过两次点击定位生成片段，以 HTML 和纯文本进入悬浮中转站，经过勾选、删除和排序后组合复制。</desc>
+            <defs><marker id="arrow-excerpt-demo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z"></path></marker></defs>
+            <g class="diagram-edges" marker-end="url(#arrow-excerpt-demo)">
+                <path d="M220 150H310"></path>
+                <path d="M490 150H600"></path>
+                <path d="M780 150H900"></path>
+            </g>
+            <g class="diagram-edge-labels">
+                <text x="265" y="132">两次点击定位</text>
+                <text x="545" y="132">HTML + 纯文本</text>
+                <text x="840" y="132">勾选 / 删除 / 排序</text>
+            </g>
+            <g class="diagram-node is-input" transform="translate(40 115)"><rect width="180" height="70" rx="35"></rect><text x="90" y="39">网页内容层</text></g>
+            <g class="diagram-node is-script" transform="translate(310 115)"><rect width="180" height="70" rx="10"></rect><text x="90" y="39">片段生成层</text></g>
+            <g class="diagram-node is-system" transform="translate(600 115)"><rect width="180" height="70" rx="10"></rect><text x="90" y="39">悬浮中转站</text></g>
+            <g class="diagram-node is-output" transform="translate(900 115)"><rect width="180" height="70" rx="10"></rect><text x="90" y="39">组合复制</text></g>
+        </svg>
     </div>
+    <figcaption class="skill-diagram__legend">
+        <div class="skill-diagram__legend-items" aria-hidden="true">
+            <span class="is-script">确定性处理</span><span class="is-system">内容暂存</span><span class="is-output">组合输出</span>
+        </div>
+        <div class="skill-diagram__zoom" aria-label="浏览器 Demo 流程图缩放控制">
+            <button type="button" data-diagram-zoom="out" aria-label="缩小浏览器 Demo 流程图" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6"></path></svg></button>
+            <output aria-live="polite">适配</output>
+            <button type="button" data-diagram-zoom="in" aria-label="放大浏览器 Demo 流程图"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6M10.5 7.5v6"></path></svg></button>
+        </div>
+    </figcaption>
 </figure>
 
 {{- else if eq $type "macos" -}}
 <div class="excerpt-doc-flow-group" aria-label="macOS 版的完整用户流程">
-    <figure class="memo-doc-flow excerpt-doc-flow excerpt-doc-flow--macos" aria-label="macOS 版摘录与组合复制流程">
-        <div class="excerpt-doc-flow__viewport" tabindex="0" aria-label="横向滚动查看 macOS 版完整流程">
-            <div class="excerpt-doc-flow__canvas excerpt-doc-flow__canvas--macos">
-                <svg class="excerpt-doc-flow__loopback" viewBox="0 0 1000 92" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                    <path class="excerpt-doc-flow__loopback-path" pathLength="1" d="M 625 82 L 625 24 Q 625 14 615 14 L 25 14 Q 15 14 15 24 L 15 82"></path>
-                    <path class="excerpt-doc-flow__loopback-arrow" d="M 9 73 L 15 83 L 21 73"></path>
-                </svg>
-                <span class="excerpt-doc-flow__loopback-label" aria-hidden="true">是</span>
-
-                <ol class="excerpt-doc-flow__track excerpt-doc-flow__track--macos" role="list">
-                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-a">
-                        <span class="excerpt-doc-flow__node">点击悬浮“+”或面板“新建片段”</span>
-                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                            <span class="excerpt-doc-flow__connector-line"></span>
-                            <span class="excerpt-doc-flow__connector-arrow">→</span>
-                        </span>
-                    </li>
-                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-b">
-                        <span class="excerpt-doc-flow__node">系统光标旁显示定位标记</span>
-                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                            <span class="excerpt-doc-flow__connector-line"></span>
-                            <span class="excerpt-doc-flow__connector-arrow">→</span>
-                        </span>
-                    </li>
-                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-c">
-                        <span class="excerpt-doc-flow__node">点击第一个端点字符</span>
-                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                            <span class="excerpt-doc-flow__connector-line"></span>
-                            <span class="excerpt-doc-flow__connector-arrow">→</span>
-                        </span>
-                    </li>
-                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-d">
-                        <span class="excerpt-doc-flow__node">正常滚动或移动到另一位置</span>
-                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                            <span class="excerpt-doc-flow__connector-line"></span>
-                            <span class="excerpt-doc-flow__connector-arrow">→</span>
-                        </span>
-                    </li>
-                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-e">
-                        <span class="excerpt-doc-flow__node">点击第二个端点字符</span>
-                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                            <span class="excerpt-doc-flow__connector-line"></span>
-                            <span class="excerpt-doc-flow__connector-arrow">→</span>
-                        </span>
-                    </li>
-                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-f">
-                        <span class="excerpt-doc-flow__node">生成片段并自动复制</span>
-                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                            <span class="excerpt-doc-flow__connector-line"></span>
-                            <span class="excerpt-doc-flow__connector-arrow">→</span>
-                        </span>
-                    </li>
-                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-g">
-                        <span class="excerpt-doc-flow__node">“+”按钮轻微闪动</span>
-                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                            <span class="excerpt-doc-flow__connector-line"></span>
-                            <span class="excerpt-doc-flow__connector-arrow">→</span>
-                        </span>
-                    </li>
-                    <li class="excerpt-doc-flow__step excerpt-doc-flow__step--decision" id="excerpt-macos-step-h">
-                        <span class="excerpt-doc-flow__node excerpt-doc-flow__node--decision">继续摘录？</span>
-                        <span class="excerpt-doc-flow__connector excerpt-doc-flow__connector--labeled" aria-hidden="true">
-                            <span class="excerpt-doc-flow__connector-label">否</span>
-                            <span class="excerpt-doc-flow__connector-line"></span>
-                            <span class="excerpt-doc-flow__connector-arrow">→</span>
-                        </span>
-                    </li>
-                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-i">
-                        <span class="excerpt-doc-flow__node">展开中转站</span>
-                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                            <span class="excerpt-doc-flow__connector-line"></span>
-                            <span class="excerpt-doc-flow__connector-arrow">→</span>
-                        </span>
-                    </li>
-                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-j">
-                        <span class="excerpt-doc-flow__node">勾选 / 删除 / 拖拽排序</span>
-                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                            <span class="excerpt-doc-flow__connector-line"></span>
-                            <span class="excerpt-doc-flow__connector-arrow">→</span>
-                        </span>
-                    </li>
-                    <li class="excerpt-doc-flow__step" id="excerpt-macos-step-k">
-                        <span class="excerpt-doc-flow__node">复制所选</span>
-                        <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                            <span class="excerpt-doc-flow__connector-line"></span>
-                            <span class="excerpt-doc-flow__connector-arrow">→</span>
-                        </span>
-                    </li>
-                    <li class="excerpt-doc-flow__step excerpt-doc-flow__step--last" id="excerpt-macos-step-l">
-                        <span class="excerpt-doc-flow__node">按当前顺序一次粘贴到目标位置</span>
-                    </li>
-                </ol>
-            </div>
+    <figure class="skill-diagram excerpt-doc-diagram excerpt-doc-diagram--macos" role="group" aria-label="macOS 版摘录与组合复制流程">
+        <header class="skill-diagram__header">
+            <span>HORIZONTAL PROCESS</span>
+            <span class="skill-diagram__live"><em>初始全览 · 放大查看细节</em><i></i> LIVE</span>
+        </header>
+        <div class="skill-diagram__viewport" tabindex="0" aria-label="横向滚动查看 macOS 版完整流程">
+            <svg width="2810" height="470" viewBox="0 0 2810 470" role="img" aria-labelledby="excerpt-macos-diagram-title excerpt-macos-diagram-desc">
+                <title id="excerpt-macos-diagram-title">macOS 版摘录、继续摘录判断与组合复制完整流程</title>
+                <desc id="excerpt-macos-diagram-desc">从新建片段开始，通过首尾端点定位生成片段；继续摘录时返回第一个端点字符，否则展开中转站、整理片段并按当前顺序一次粘贴。</desc>
+                <defs><marker id="arrow-excerpt-macos" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z"></path></marker></defs>
+                <g class="diagram-edges" marker-end="url(#arrow-excerpt-macos)">
+                    <path d="M230 220H270"></path>
+                    <path d="M460 220H510"></path>
+                    <path d="M680 220H730"></path>
+                    <path d="M930 220H980"></path>
+                    <path d="M1150 220H1200"></path>
+                    <path d="M1380 220H1430"></path>
+                    <path d="M1600 220H1625"></path>
+                    <path d="M1795 220H1835"></path>
+                    <path d="M2015 220H2065"></path>
+                    <path d="M2255 220H2305"></path>
+                    <path d="M2455 220H2505"></path>
+                    <path class="is-return" d="M1710 165V66Q1710 46 1690 46H595Q575 46 575 66V184"></path>
+                </g>
+                <g class="diagram-edge-labels">
+                    <text x="1815" y="205">否</text>
+                    <text x="1135" y="36">是 · 继续摘录</text>
+                </g>
+                <g class="diagram-node is-input" transform="translate(30 184)"><rect width="200" height="72" rx="36"></rect><text x="100" y="30"><tspan x="100">点击悬浮“+”或面板</tspan><tspan x="100" dy="18">“新建片段”</tspan></text></g>
+                <g class="diagram-node is-system" transform="translate(270 184)"><rect width="190" height="72" rx="10"></rect><text x="95" y="30"><tspan x="95">系统光标旁显示</tspan><tspan x="95" dy="18">定位标记</tspan></text></g>
+                <g class="diagram-node is-script" transform="translate(510 184)"><rect width="170" height="72" rx="10"></rect><text x="85" y="39">点击第一个端点字符</text></g>
+                <g class="diagram-node is-script" transform="translate(730 184)"><rect width="200" height="72" rx="10"></rect><text x="100" y="30"><tspan x="100">正常滚动或移动到</tspan><tspan x="100" dy="18">另一位置</tspan></text></g>
+                <g class="diagram-node is-script" transform="translate(980 184)"><rect width="170" height="72" rx="10"></rect><text x="85" y="39">点击第二个端点字符</text></g>
+                <g class="diagram-node is-system" transform="translate(1200 184)"><rect width="180" height="72" rx="10"></rect><text x="90" y="39">生成片段并自动复制</text></g>
+                <g class="diagram-node is-system" transform="translate(1430 184)"><rect width="170" height="72" rx="10"></rect><text x="85" y="39">“+”按钮轻微闪动</text></g>
+                <g class="diagram-node is-decision"><polygon points="1710,165 1795,220 1710,275 1625,220"></polygon><text x="1710" y="216">继续摘录？</text></g>
+                <g class="diagram-node is-system" transform="translate(1835 184)"><rect width="180" height="72" rx="10"></rect><text x="90" y="39">展开中转站</text></g>
+                <g class="diagram-node is-script" transform="translate(2065 184)"><rect width="190" height="72" rx="10"></rect><text x="95" y="30"><tspan x="95">勾选 / 删除 /</tspan><tspan x="95" dy="18">拖拽排序</tspan></text></g>
+                <g class="diagram-node is-script" transform="translate(2305 184)"><rect width="150" height="72" rx="10"></rect><text x="75" y="39">复制所选</text></g>
+                <g class="diagram-node is-output" transform="translate(2505 184)"><rect width="230" height="72" rx="10"></rect><text x="115" y="30"><tspan x="115">按当前顺序一次粘贴</tspan><tspan x="115" dy="18">到目标位置</tspan></text></g>
+            </svg>
         </div>
+        <figcaption class="skill-diagram__legend">
+            <div class="skill-diagram__legend-items" aria-hidden="true">
+                <span class="is-script">确定性处理</span><span class="is-system">系统反馈</span><span class="is-ai">流程判断</span><span class="is-output">组合输出</span>
+            </div>
+            <div class="skill-diagram__zoom" aria-label="macOS 版主流程图缩放控制">
+                <button type="button" data-diagram-zoom="out" aria-label="缩小 macOS 版主流程图" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6"></path></svg></button>
+                <output aria-live="polite">适配</output>
+                <button type="button" data-diagram-zoom="in" aria-label="放大 macOS 版主流程图"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6M10.5 7.5v6"></path></svg></button>
+            </div>
+        </figcaption>
     </figure>
 
     <p>如果当前界面无法直接读取文字进行摘录，则使用输入框：</p>
 
-    <figure class="memo-doc-flow excerpt-doc-flow excerpt-doc-flow--manual" aria-label="界面文字不可直接读取时的输入框流程">
-        <div class="excerpt-doc-flow__viewport" tabindex="0" aria-label="横向滚动查看手动输入兜底流程">
-            <ol class="excerpt-doc-flow__track excerpt-doc-flow__track--manual" role="list">
-                <li class="excerpt-doc-flow__step">
-                    <span class="excerpt-doc-flow__node">输入或粘贴内容</span>
-                    <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                        <span class="excerpt-doc-flow__connector-line"></span>
-                        <span class="excerpt-doc-flow__connector-arrow">→</span>
-                    </span>
-                </li>
-                <li class="excerpt-doc-flow__step">
-                    <span class="excerpt-doc-flow__node">在固定高度输入框中检查、编辑</span>
-                    <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                        <span class="excerpt-doc-flow__connector-line"></span>
-                        <span class="excerpt-doc-flow__connector-arrow">→</span>
-                    </span>
-                </li>
-                <li class="excerpt-doc-flow__step">
-                    <span class="excerpt-doc-flow__node">必要时 Shift+回车换行</span>
-                    <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                        <span class="excerpt-doc-flow__connector-line"></span>
-                        <span class="excerpt-doc-flow__connector-arrow">→</span>
-                    </span>
-                </li>
-                <li class="excerpt-doc-flow__step">
-                    <span class="excerpt-doc-flow__node">回车生成片段</span>
-                    <span class="excerpt-doc-flow__connector" aria-hidden="true">
-                        <span class="excerpt-doc-flow__connector-line"></span>
-                        <span class="excerpt-doc-flow__connector-arrow">→</span>
-                    </span>
-                </li>
-                <li class="excerpt-doc-flow__step excerpt-doc-flow__step--last">
-                    <span class="excerpt-doc-flow__node">与其他摘录片段一起排序和复制</span>
-                </li>
-            </ol>
+    <figure class="skill-diagram excerpt-doc-diagram excerpt-doc-diagram--manual" role="group" aria-label="界面文字不可直接读取时的输入框流程">
+        <header class="skill-diagram__header">
+            <span>HORIZONTAL PROCESS</span>
+            <span class="skill-diagram__live"><em>初始全览 · 放大查看细节</em><i></i> LIVE</span>
+        </header>
+        <div class="skill-diagram__viewport" tabindex="0" aria-label="横向滚动查看手动输入兜底流程">
+            <svg width="1400" height="300" viewBox="0 0 1400 300" role="img" aria-labelledby="excerpt-manual-diagram-title excerpt-manual-diagram-desc">
+                <title id="excerpt-manual-diagram-title">界面文字不可直接读取时的输入框流程</title>
+                <desc id="excerpt-manual-diagram-desc">输入或粘贴内容，在固定高度输入框中检查编辑，必要时换行，回车生成片段，再与其他片段一起排序和复制。</desc>
+                <defs><marker id="arrow-excerpt-manual" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z"></path></marker></defs>
+                <g class="diagram-edges" marker-end="url(#arrow-excerpt-manual)">
+                    <path d="M220 150H270"></path>
+                    <path d="M500 150H550"></path>
+                    <path d="M780 150H830"></path>
+                    <path d="M1020 150H1070"></path>
+                </g>
+                <g class="diagram-node is-input" transform="translate(40 115)"><rect width="180" height="70" rx="35"></rect><text x="90" y="39">输入或粘贴内容</text></g>
+                <g class="diagram-node is-script" transform="translate(270 115)"><rect width="230" height="70" rx="10"></rect><text x="115" y="30"><tspan x="115">在固定高度输入框中</tspan><tspan x="115" dy="18">检查、编辑</tspan></text></g>
+                <g class="diagram-node is-script" transform="translate(550 115)"><rect width="230" height="70" rx="10"></rect><text x="115" y="39">必要时 Shift+回车换行</text></g>
+                <g class="diagram-node is-system" transform="translate(830 115)"><rect width="190" height="70" rx="10"></rect><text x="95" y="39">回车生成片段</text></g>
+                <g class="diagram-node is-output" transform="translate(1070 115)"><rect width="280" height="70" rx="10"></rect><text x="140" y="30"><tspan x="140">与其他摘录片段一起</tspan><tspan x="140" dy="18">排序和复制</tspan></text></g>
+            </svg>
         </div>
+        <figcaption class="skill-diagram__legend">
+            <div class="skill-diagram__legend-items" aria-hidden="true">
+                <span class="is-script">确定性处理</span><span class="is-system">片段生成</span><span class="is-output">组合输出</span>
+            </div>
+            <div class="skill-diagram__zoom" aria-label="手动输入兜底流程图缩放控制">
+                <button type="button" data-diagram-zoom="out" aria-label="缩小手动输入兜底流程图" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6"></path></svg></button>
+                <output aria-live="polite">适配</output>
+                <button type="button" data-diagram-zoom="in" aria-label="放大手动输入兜底流程图"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6M10.5 7.5v6"></path></svg></button>
+            </div>
+        </figcaption>
     </figure>
 </div>
 {{- end -}}

@@ -3303,6 +3303,55 @@ html {
 .excerpt-doc-flow-group {
     width: 100%;
     min-width: 0;
+
+    > p {
+        margin: 18px 0 12px;
+    }
+}
+
+.memo-document .excerpt-doc-diagram {
+    padding: 0;
+    overflow: hidden;
+    background: var(--portfolio-panel);
+    border: 1px solid var(--portfolio-border);
+    border-radius: 12px;
+
+    .skill-diagram__viewport {
+        min-width: 0;
+
+        &:focus-visible {
+            outline: 2px solid color-mix(in srgb, var(--portfolio-accent) 52%, transparent);
+            outline-offset: -2px;
+        }
+    }
+
+    .skill-diagram__legend-items .is-system::before {
+        background: var(--portfolio-green);
+    }
+}
+
+@media (max-width: 520px) {
+    .memo-document .excerpt-doc-diagram {
+        .skill-diagram__header,
+        .skill-diagram__legend {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        .skill-diagram__live em {
+            max-width: 7.5em;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .skill-diagram__legend {
+            gap: 8px 12px;
+        }
+
+        .skill-diagram__legend-items {
+            gap: 8px 12px;
+        }
+    }
 }
 
 .memo-document .excerpt-doc-flow {

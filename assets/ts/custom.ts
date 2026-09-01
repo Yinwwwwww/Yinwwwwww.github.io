@@ -41,6 +41,16 @@ function setupDiagramZoom() {
 
         zoomOut.addEventListener('click', () => renderZoom(zoomIndex - 1));
         zoomIn.addEventListener('click', () => renderZoom(zoomIndex + 1));
+
+        if ('ResizeObserver' in window) {
+            const resizeObserver = new ResizeObserver(() => {
+                if (zoomIndex !== 0) return;
+                fittedWidth = Math.max(svg.getBoundingClientRect().width, viewport.clientWidth);
+            });
+
+            resizeObserver.observe(viewport);
+        }
+
         renderZoom(0);
     });
 }
