@@ -3194,6 +3194,11 @@ html {
 
 /* 摘录中转站 · 飞书正文中的动态流程图 */
 .excerpt-document {
+    .memo-doc-panel--thought,
+    .memo-doc-panel--conclusion {
+        background: transparent;
+    }
+
     code {
         display: inline-block;
         padding: 0 6px;
