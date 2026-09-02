@@ -209,11 +209,12 @@ html {
 
     #main-menu.portfolio-nav {
         --portfolio-nav-index-width: 30px;
-        --portfolio-nav-label-width: 136px;
+        --portfolio-nav-label-width: 76px;
         --portfolio-nav-toggle-width: 16px;
         --portfolio-nav-column-gap: 8px;
         --portfolio-nav-row-width: 198px;
-        --portfolio-nav-label-start: 38px;
+        --portfolio-nav-content-offset: calc(50% - 46px);
+        --portfolio-nav-label-start: calc(50% - 8px);
 
         display: none;
         flex: 1;
@@ -262,8 +263,9 @@ html {
             grid-template-columns: var(--portfolio-nav-index-width) minmax(0, var(--portfolio-nav-label-width)) var(--portfolio-nav-toggle-width);
             column-gap: var(--portfolio-nav-column-gap);
             align-items: center;
+            box-sizing: border-box;
             width: 100%;
-            padding: 11px 0;
+            padding: 11px 0 11px var(--portfolio-nav-content-offset);
             color: var(--portfolio-ink);
             font-weight: 700;
             text-align: left;
@@ -281,8 +283,9 @@ html {
             grid-template-columns: var(--portfolio-nav-index-width) minmax(0, var(--portfolio-nav-label-width)) var(--portfolio-nav-toggle-width);
             column-gap: var(--portfolio-nav-column-gap);
             align-items: center;
+            box-sizing: border-box;
             width: 100%;
-            padding: 11px 0;
+            padding: 11px 0 11px var(--portfolio-nav-content-offset);
             color: var(--portfolio-ink);
             font-weight: 700;
             text-align: left;
@@ -332,7 +335,7 @@ html {
                 display: block;
                 box-sizing: border-box;
                 width: 100%;
-                padding: 6px 8px 6px 52px;
+                padding: 6px 8px 6px calc(50% + 6px);
                 color: var(--portfolio-muted);
                 text-align: left;
                 border-radius: 8px;
