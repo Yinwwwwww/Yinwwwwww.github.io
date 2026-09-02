@@ -726,54 +726,65 @@ html {
     }
 }
 
-.pdf-placeholder {
+.resume-pdf {
     overflow: hidden;
     background: var(--body-background);
     border: 1px solid var(--portfolio-border);
     border-radius: 14px;
 }
 
-.pdf-placeholder__toolbar {
+.resume-pdf__toolbar {
     display: flex;
+    gap: 12px;
+    align-items: center;
     justify-content: space-between;
     padding: 10px 14px;
     color: var(--portfolio-muted);
     font-size: 1.1rem;
     background: var(--portfolio-panel);
     border-bottom: 1px solid var(--portfolio-border);
+
+    > div {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    a {
+        color: var(--portfolio-accent-strong);
+        font-weight: 700;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
-.pdf-placeholder__page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 330px;
-    padding: 30px;
+.resume-pdf__viewer {
+    display: block;
+    width: 100%;
+    height: clamp(520px, 68vh, 720px);
+    background: #fff;
+    border: 0;
+}
+
+.resume-pdf__fallback {
+    display: grid;
+    place-items: center;
+    min-height: 520px;
+    padding: 28px;
+    color: var(--portfolio-muted);
     text-align: center;
-    background-image: radial-gradient(var(--portfolio-border) 1px, transparent 1px);
-    background-size: 14px 14px;
-
-    .pdf-mark {
-        display: grid;
-        place-items: center;
-        width: 62px;
-        height: 76px;
-        margin-bottom: 18px;
-        color: #fff;
-        font-size: 1.2rem;
-        font-weight: 700;
-        background: var(--portfolio-accent);
-        border-radius: 8px 8px 18px;
-    }
-
-    strong {
-        font-size: 1.5rem;
-    }
 
     p {
-        margin: 6px 0 0;
-        color: var(--portfolio-muted);
+        margin: 0 0 10px;
+    }
+
+    a {
+        color: var(--portfolio-accent-strong);
+        font-weight: 700;
     }
 }
 

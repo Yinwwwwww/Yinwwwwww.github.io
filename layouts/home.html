@@ -70,20 +70,31 @@
             </article>
 
             <article class="portfolio-card resume-card" id="about-resume">
+                {{- $resumeURL := "media/resume/lejia-zhang-resume.pdf" | relURL -}}
                 <div class="portfolio-card__heading">
                     <span class="portfolio-label">RESUME</span>
                     <h3>简历在线浏览</h3>
                 </div>
-                <div class="pdf-placeholder" role="img" aria-label="简历 PDF 在线浏览占位">
-                    <div class="pdf-placeholder__toolbar">
-                        <span>Resume.pdf</span>
-                        <span>1 / —</span>
+                <div class="resume-pdf" aria-label="张乐佳的简历 PDF 在线浏览">
+                    <div class="resume-pdf__toolbar">
+                        <span>张乐佳的简历.pdf</span>
+                        <div>
+                            <span>1 / 1</span>
+                            <a href="{{ $resumeURL }}" target="_blank" rel="noopener">新窗口打开</a>
+                            <a href="{{ $resumeURL }}" download="张乐佳的简历.pdf">下载 PDF</a>
+                        </div>
                     </div>
-                    <div class="pdf-placeholder__page">
-                        <span class="pdf-mark">PDF</span>
-                        <strong>简历 PDF 在线浏览占位</strong>
-                        <p>待补充正式简历文件</p>
-                    </div>
+                    <object
+                        class="resume-pdf__viewer"
+                        data="{{ $resumeURL }}#page=1&amp;view=FitH"
+                        type="application/pdf"
+                        aria-label="张乐佳的简历 PDF 在线浏览"
+                    >
+                        <div class="resume-pdf__fallback">
+                            <p>当前浏览器不支持内嵌 PDF 浏览。</p>
+                            <a href="{{ $resumeURL }}" target="_blank" rel="noopener">打开张乐佳的简历 PDF</a>
+                        </div>
+                    </object>
                 </div>
             </article>
         </div>
