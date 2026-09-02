@@ -242,6 +242,26 @@ html {
             }
         }
 
+        .portfolio-nav__single {
+            display: grid;
+            grid-template-columns: 30px max-content;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 4px;
+            color: var(--portfolio-ink);
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            border-bottom: 1px solid var(--portfolio-border);
+            transition: color 150ms ease;
+
+            &:hover,
+            &.is-active {
+                color: var(--portfolio-accent-strong);
+            }
+        }
+
         summary {
             display: grid;
             grid-template-columns: 30px max-content 16px;
