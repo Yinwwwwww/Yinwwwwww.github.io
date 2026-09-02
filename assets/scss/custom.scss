@@ -124,6 +124,12 @@
     --portfolio-border: rgba(36, 31, 56, 0.1);
     --portfolio-panel: #ffffff;
     --portfolio-placeholder: #e9e7ef;
+    --portfolio-oldtime-deep: #706b64;
+    --portfolio-oldtime-mid: #a29d96;
+    --portfolio-oldtime-light: #c4c1bc;
+    --portfolio-oldtime-canvas: #e1dfdb;
+    --portfolio-oldtime-copy: #706b64;
+    --portfolio-oldtime-tag: color-mix(in srgb, #e1dfdb 62%, #ffffff);
 
     &[data-scheme="dark"] {
         --portfolio-accent: #a99cff;
@@ -136,6 +142,8 @@
         --portfolio-border: rgba(255, 255, 255, 0.1);
         --portfolio-panel: #3b3b3b;
         --portfolio-placeholder: rgba(255, 255, 255, 0.1);
+        --portfolio-oldtime-copy: #e1dfdb;
+        --portfolio-oldtime-tag: rgba(196, 193, 188, 0.14);
     }
 }
 
@@ -3891,5 +3899,153 @@ html {
 
     .excerpt-doc-flow__node--decision {
         background: color-mix(in srgb, var(--memo-doc-blue) 15%, transparent);
+    }
+}
+
+/* 旧时光 · 仅作用于作品集外层、标签与英文辅助信息 */
+[data-scheme="light"] body.portfolio-home {
+    --body-background: var(--portfolio-oldtime-canvas);
+}
+
+body.portfolio-home {
+    background:
+        radial-gradient(circle at 78% 4%, color-mix(in srgb, var(--portfolio-oldtime-mid) 20%, transparent), transparent 28%),
+        var(--body-background);
+}
+
+.portfolio-page > .portfolio-hero {
+    background:
+        linear-gradient(110deg, rgba(112, 107, 100, 0.06), rgba(112, 107, 100, 0.76)),
+        linear-gradient(135deg, var(--portfolio-oldtime-deep), var(--portfolio-oldtime-mid));
+    box-shadow: 0 18px 42px rgba(112, 107, 100, 0.2);
+
+    .portfolio-kicker {
+        color: var(--portfolio-oldtime-canvas);
+    }
+
+    h1 span {
+        color: var(--portfolio-oldtime-light);
+    }
+
+    .portfolio-chip {
+        color: var(--portfolio-ink);
+        background: var(--portfolio-oldtime-light);
+        border-color: color-mix(in srgb, var(--portfolio-oldtime-canvas) 58%, transparent);
+    }
+}
+
+.portfolio-sidebar {
+    .site-name a,
+    #main-menu.portfolio-nav .portfolio-nav__single,
+    #main-menu.portfolio-nav summary {
+        color: var(--portfolio-oldtime-copy);
+    }
+
+    .menu-social a {
+        color: var(--portfolio-oldtime-copy);
+        background: var(--portfolio-oldtime-tag);
+        border-color: var(--portfolio-oldtime-light);
+
+        &:hover,
+        &:focus-visible {
+            color: var(--portfolio-oldtime-deep);
+            border-color: var(--portfolio-oldtime-mid);
+        }
+    }
+
+    #main-menu.portfolio-nav {
+        .portfolio-nav__single:hover,
+        .portfolio-nav__single.is-active,
+        summary:hover {
+            color: var(--portfolio-oldtime-copy);
+        }
+
+        .portfolio-nav__links a:hover,
+        .portfolio-nav__links a.is-active {
+            background: color-mix(in srgb, var(--portfolio-oldtime-light) 44%, transparent);
+        }
+
+        .portfolio-nav__links a[href$="#work-workflow"],
+        .portfolio-nav__links a[href$="#work-skill"] {
+            color: var(--portfolio-oldtime-copy);
+        }
+    }
+}
+
+.portfolio-page > .portfolio-section > .portfolio-section__header > div > p,
+.portfolio-page .portfolio-label,
+#idea > .project-stack > .skill-card > .memo-exploration .memo-flow-title > span,
+#idea > .project-stack > .skill-card > .memo-story .memo-scene-wall__header > span,
+#work > .work-area > .work-area__header > h3,
+#work .skill-card > .skill-card__header .skill-card__identity > code,
+#work .skill-diagram__header > span:first-child,
+#work .skill-diagram__live,
+.portfolio-page > .portfolio-footer > span,
+.portfolio-page > .portfolio-footer > a {
+    color: var(--portfolio-oldtime-copy);
+}
+
+#about .ability-tags > span,
+#about .personal-keywords > span,
+#idea > .project-stack > .skill-card > .memo-exploration > .memo-story__scenes > span,
+.memo-scene-group > button,
+.memo-scene-group > span,
+.project-type,
+.placeholder-button {
+    color: var(--portfolio-oldtime-copy);
+    background: var(--portfolio-oldtime-tag);
+    border-color: var(--portfolio-oldtime-light);
+}
+
+.memo-scene-group > button:hover,
+.memo-scene-group > button:focus-visible,
+.memo-scene-group > button.is-active {
+    color: var(--portfolio-ink);
+    background: var(--portfolio-oldtime-light);
+    border-color: var(--portfolio-oldtime-mid);
+}
+
+.memo-scene-detail > div > span {
+    color: var(--portfolio-oldtime-copy);
+}
+
+[data-scheme="light"] {
+    .portfolio-home .resume-pdf,
+    .portfolio-home .resume-pdf__viewport {
+        background: var(--portfolio-oldtime-light);
+    }
+
+    #idea > .project-stack > .skill-card > .memo-story .memo-scene-wall {
+        background:
+            radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--portfolio-oldtime-light) 58%, transparent), transparent 29%),
+            color-mix(in srgb, var(--portfolio-oldtime-canvas) 52%, #ffffff);
+    }
+
+    #idea > .project-stack > .skill-card > .memo-exploration {
+        background: color-mix(in srgb, var(--portfolio-oldtime-canvas) 54%, #ffffff);
+    }
+
+    #idea > .project-stack > .skill-card > .memo-exploration .memo-discovery-flow {
+        article {
+            background: color-mix(in srgb, var(--portfolio-oldtime-canvas) 34%, #ffffff);
+        }
+
+        .memo-discovery-flow__parallel {
+            background: color-mix(in srgb, var(--portfolio-oldtime-canvas) 62%, #ffffff);
+
+            article {
+                background: #ffffff;
+            }
+        }
+
+        .is-current,
+        .is-result {
+            background: var(--portfolio-oldtime-tag);
+        }
+    }
+
+    #idea > .project-stack > .skill-card .excerpt-pain-points > li,
+    #work .skill-decisions {
+        background: var(--portfolio-oldtime-tag);
     }
 }
