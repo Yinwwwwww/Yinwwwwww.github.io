@@ -47,33 +47,34 @@
     {{- end -}}
 
     <nav class="portfolio-nav" id="main-menu" aria-label="作品集目录">
-        <a class="portfolio-nav__single" href="{{ .Site.Home.RelPermalink }}#about">
-            <span class="portfolio-nav__index">01</span><span>About me</span>
-        </a>
+        <div class="portfolio-nav__group">
+            <a class="portfolio-nav__single" href="{{ .Site.Home.RelPermalink }}#about">
+                <span class="portfolio-nav__index">01</span><span>About me</span>
+            </a>
 
-        <a class="portfolio-nav__single" href="{{ .Site.Home.RelPermalink }}#internship">
-            <span class="portfolio-nav__index">02</span><span>Internship</span>
-        </a>
+            <a class="portfolio-nav__single" href="{{ .Site.Home.RelPermalink }}#internship">
+                <span class="portfolio-nav__index">02</span><span>Internship</span>
+            </a>
 
-        <details open>
-            <summary><span class="portfolio-nav__index">03</span><span>AI × idea</span></summary>
-            <div class="portfolio-nav__links">
-                <a href="{{ .Site.Home.RelPermalink }}#idea-memo">有备忘</a>
-                <a href="{{ .Site.Home.RelPermalink }}#idea-excerpt">摘录中转站</a>
-            </div>
-        </details>
+            <details open>
+                <summary><span class="portfolio-nav__index">03</span><span>AI × idea</span></summary>
+                <div class="portfolio-nav__links">
+                    <a href="{{ .Site.Home.RelPermalink }}#idea-memo">有备忘</a>
+                    <a href="{{ .Site.Home.RelPermalink }}#idea-excerpt">摘录中转站</a>
+                </div>
+            </details>
 
-        <details open>
-            <summary><span class="portfolio-nav__index">04</span><span>AI × work</span></summary>
-            <div class="portfolio-nav__links">
-                <a href="{{ .Site.Home.RelPermalink }}#work-workflow">Workflow</a>
-                <a href="{{ .Site.Home.RelPermalink }}#work-skill">Skill</a>
-            </div>
-        </details>
+            <details open>
+                <summary><span class="portfolio-nav__index">04</span><span>AI × work</span></summary>
+                <div class="portfolio-nav__links">
+                    <a href="{{ .Site.Home.RelPermalink }}#work-workflow">Workflow</a>
+                    <a href="{{ .Site.Home.RelPermalink }}#work-skill">Skill</a>
+                </div>
+            </details>
 
-        <a class="portfolio-nav__single" href="{{ .Site.Home.RelPermalink }}#learning">
-            <span class="portfolio-nav__index">05</span><span>AI × learning</span>
-        </a>
-
+            <a class="portfolio-nav__single" href="{{ .Site.Home.RelPermalink }}#learning">
+                <span class="portfolio-nav__index">05</span><span>AI × learning</span>
+            </a>
+        </div>
     </nav>
 </aside>
