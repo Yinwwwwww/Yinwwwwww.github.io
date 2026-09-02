@@ -483,6 +483,44 @@
     <section class="memo-doc-section">
         <h2>6 最终产品形态</h2>
 
+        <div class="excerpt-prototype-grid" role="group" aria-label="摘录中转站原型交互演示">
+            <figure class="excerpt-prototype-card">
+                <div class="excerpt-prototype-card__media">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="复制多个文段原型交互演示">
+                        <source src="{{ "media/excerpt-station/prototype-copy-multiple.mp4" | relURL }}" type="video/mp4">
+                    </video>
+                </div>
+                <figcaption>复制多个文段</figcaption>
+            </figure>
+
+            <figure class="excerpt-prototype-card">
+                <div class="excerpt-prototype-card__media">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="输入或粘贴文段原型交互演示">
+                        <source src="{{ "media/excerpt-station/prototype-input-paste.mp4" | relURL }}" type="video/mp4">
+                    </video>
+                </div>
+                <figcaption>输入或粘贴文段</figcaption>
+            </figure>
+
+            <figure class="excerpt-prototype-card">
+                <div class="excerpt-prototype-card__media">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="调整文段顺序并复制原型交互演示">
+                        <source src="{{ "media/excerpt-station/prototype-reorder-copy.mp4" | relURL }}" type="video/mp4">
+                    </video>
+                </div>
+                <figcaption>调整文段顺序并复制</figcaption>
+            </figure>
+
+            <figure class="excerpt-prototype-card">
+                <div class="excerpt-prototype-card__media">
+                    <video autoplay muted loop playsinline preload="metadata" aria-label="个性化设置原型交互演示">
+                        <source src="{{ "media/excerpt-station/prototype-settings.mp4" | relURL }}" type="video/mp4">
+                    </video>
+                </div>
+                <figcaption>个性化设置</figcaption>
+            </figure>
+        </div>
+
         <section class="memo-doc-subsection">
             <h3>6.1 macOS 版的完整用户流程</h3>
             {{ partial "excerpt-document-flow.html" (dict "type" "macos") }}
