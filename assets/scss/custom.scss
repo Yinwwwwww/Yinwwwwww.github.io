@@ -638,62 +638,10 @@ html {
         color: var(--portfolio-muted);
         font-size: 1.12rem;
         line-height: 1.65;
-
-        strong {
-            color: var(--portfolio-ink);
-            font-size: 1rem;
-            white-space: nowrap;
-        }
     }
 }
 
-.ability-groups {
-    display: grid;
-    gap: 16px;
-
-    article {
-        padding: 0;
-        background: transparent;
-        border: 0;
-    }
-
-    header {
-        display: flex;
-        gap: 9px;
-        align-items: baseline;
-        margin-bottom: 13px;
-
-        span {
-            color: var(--portfolio-accent);
-            font-size: 0.88rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-        }
-
-        h5 {
-            margin: 0;
-            color: var(--portfolio-ink);
-            font-size: 1.2rem;
-        }
-    }
-}
-
-.ability-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-
-    span {
-        padding: 8px 12px;
-        color: var(--portfolio-accent-strong);
-        font-size: 1.05rem;
-        font-weight: 700;
-        background: color-mix(in srgb, var(--portfolio-accent) 8%, var(--portfolio-panel));
-        border: 1px solid color-mix(in srgb, var(--portfolio-accent) 18%, var(--portfolio-border));
-        border-radius: 999px;
-    }
-}
-
+.ability-tags,
 .personal-keywords {
     display: flex;
     flex-wrap: wrap;
@@ -771,32 +719,19 @@ html {
     display: block;
     width: 100%;
     height: clamp(520px, 68vh, 720px);
-    background: #fff;
+    box-sizing: border-box;
+    padding: 14px;
+    object-fit: contain;
+    object-position: center top;
+    background: color-mix(in srgb, var(--portfolio-ink) 7%, var(--portfolio-panel));
     border: 0;
-}
-
-.resume-pdf__fallback {
-    display: grid;
-    place-items: center;
-    min-height: 520px;
-    padding: 28px;
-    color: var(--portfolio-muted);
-    text-align: center;
-
-    p {
-        margin: 0 0 10px;
-    }
-
-    a {
-        color: var(--portfolio-accent-strong);
-        font-weight: 700;
-    }
 }
 
 @include respond(lg) {
     .resume-card {
         display: flex;
         flex-direction: column;
+        contain: size;
         min-height: 0;
     }
 
@@ -817,10 +752,18 @@ html {
         min-height: 0;
         height: 0;
     }
+}
 
-    .resume-pdf__fallback {
-        min-height: 0;
-        height: 100%;
+@media (max-width: 767px) {
+    .resume-pdf__toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+
+        > div {
+            width: 100%;
+            flex-wrap: wrap;
+            white-space: normal;
+        }
     }
 }
 

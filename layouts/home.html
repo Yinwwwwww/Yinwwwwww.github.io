@@ -33,31 +33,23 @@
         <div class="about-grid">
             <article class="portfolio-card about-copy" id="about-intro">
                 <div class="content-block">
-                    <h4>教育背景</h4>
                     <div class="education-list">
                         <article class="education-entry">
                             <header><h5>复旦大学 <span>· 计算与智能创新学院 · 硕士</span></h5><time datetime="2025-09/2028-06">2025.09 — 2028.06</time></header>
-                            <p><strong>主修课程</strong><span>软件过程管理、互联网应用技术、大模型应用技术等。</span></p>
+                            <p><span>主修课程</span><span>软件过程管理、互联网应用技术、大模型应用技术等。</span></p>
                         </article>
                         <article class="education-entry">
                             <header><h5>吉林大学 <span>· 计算机科学与技术学院 · 学士</span></h5><time datetime="2020-09/2024-06">2020.09 — 2024.06</time></header>
-                            <p><strong>主修课程</strong><span>人工智能基础、强化学习、C / C++ / Java 程序设计等。</span></p>
-                            <p><strong>学生工作</strong><span>院团委副书记、宣传部负责人、新生辅导员助理、团支书；统筹各类活动组织与团队管理工作。</span></p>
+                            <p><span>主修课程</span><span>人工智能基础、强化学习、C / C++ / Java 程序设计等。</span></p>
+                            <p><span>学生工作</span><span>院团委副书记、宣传部负责人、新生辅导员助理、团支书；统筹各类活动组织与团队管理工作。</span></p>
                         </article>
                     </div>
                 </div>
 
                 <div class="content-block">
                     <h4>技能点</h4>
-                    <div class="ability-groups">
-                        <article>
-                            <header><h5>产品能力</h5></header>
-                            <div class="ability-tags"><span>需求洞察</span><span>问题拆解</span><span>PRD</span><span>原型图</span><span>用户分析</span><span>竞品分析</span><span>数据分析 · SQL</span></div>
-                        </article>
-                        <article>
-                            <header><h5>AI 能力</h5></header>
-                            <div class="ability-tags"><span>Vibe Coding</span><span>LLM</span><span>Agent</span><span>Skill</span><span>知识库</span><span>评测</span></div>
-                        </article>
+                    <div class="ability-tags">
+                        <span>#需求洞察</span><span>#问题拆解</span><span>#PRD</span><span>#原型图</span><span>#用户分析</span><span>#竞品分析</span><span>#数据分析 · SQL</span><span>#Vibe Coding</span><span>#LLM</span><span>#Agent</span><span>#Skill</span><span>#知识库</span><span>#评测</span>
                     </div>
                 </div>
 
@@ -71,6 +63,7 @@
 
             <article class="portfolio-card resume-card" id="about-resume">
                 {{- $resumeURL := "media/resume/lejia-zhang-resume.pdf" | relURL -}}
+                {{- $resumePreviewURL := "media/resume/lejia-zhang-resume-preview.png" | relURL -}}
                 <div class="portfolio-card__heading">
                     <span class="portfolio-label">RESUME</span>
                     <h3>简历在线浏览</h3>
@@ -84,17 +77,15 @@
                             <a href="{{ $resumeURL }}" download="张乐佳的简历.pdf">下载 PDF</a>
                         </div>
                     </div>
-                    <object
+                    <img
                         class="resume-pdf__viewer"
-                        data="{{ $resumeURL }}#page=1&amp;view=FitH"
-                        type="application/pdf"
-                        aria-label="张乐佳的简历 PDF 在线浏览"
+                        src="{{ $resumePreviewURL }}"
+                        alt="张乐佳的个人简历预览"
+                        width="1538"
+                        height="2175"
+                        decoding="async"
+                        loading="lazy"
                     >
-                        <div class="resume-pdf__fallback">
-                            <p>当前浏览器不支持内嵌 PDF 浏览。</p>
-                            <a href="{{ $resumeURL }}" target="_blank" rel="noopener">打开张乐佳的简历 PDF</a>
-                        </div>
-                    </object>
                 </div>
             </article>
         </div>
