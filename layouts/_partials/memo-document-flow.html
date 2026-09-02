@@ -1,34 +1,76 @@
 {{- $type := .type -}}
 {{- if eq $type "demo" -}}
-<div class="memo-doc-flow" role="img" aria-label="输入一段自然语言，保留原话，拆成原子条目，匹配固定标签，聚合到模块、日程、清单和看板，最后浏览、搜索和后续整理">
-    <div class="memo-doc-flow__track">
-        <div class="memo-doc-flow__node">输入一段自然语言</div>
-        <span class="memo-doc-flow__arrow" aria-hidden="true">→</span>
-        <div class="memo-doc-flow__node">保留原话</div>
-        <span class="memo-doc-flow__arrow" aria-hidden="true">→</span>
-        <div class="memo-doc-flow__node">拆成原子条目</div>
-        <span class="memo-doc-flow__arrow" aria-hidden="true">→</span>
-        <div class="memo-doc-flow__node">匹配固定标签</div>
-        <span class="memo-doc-flow__arrow" aria-hidden="true">→</span>
-        <div class="memo-doc-flow__node">聚合到模块、日程、清单和看板</div>
-        <span class="memo-doc-flow__arrow" aria-hidden="true">→</span>
-        <div class="memo-doc-flow__node">浏览、搜索和后续整理</div>
+<figure class="skill-diagram excerpt-doc-diagram memo-doc-diagram memo-doc-diagram--demo" role="group" aria-label="Demo 输入、拆解、归类与使用流程">
+    <header class="skill-diagram__header">
+        <span>HORIZONTAL PROCESS</span>
+        <span class="skill-diagram__live"><em>初始全览 · 放大查看细节</em><i></i> LIVE</span>
+    </header>
+    <div class="skill-diagram__viewport" tabindex="0" aria-label="横向滚动查看 Demo 跑通的完整流程">
+        <svg width="1480" height="300" viewBox="0 0 1480 300" role="img" aria-labelledby="memo-demo-diagram-title memo-demo-diagram-desc">
+            <title id="memo-demo-diagram-title">Demo 跑通的输入、拆解、归类与使用流程</title>
+            <desc id="memo-demo-diagram-desc">输入一段自然语言，保留原话，拆成原子条目，匹配固定标签，聚合到模块、日程、清单和看板，最后浏览、搜索和后续整理。</desc>
+            <defs><marker id="arrow-memo-demo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z"></path></marker></defs>
+            <g class="diagram-edges" marker-end="url(#arrow-memo-demo)">
+                <path d="M220 150H260"></path>
+                <path d="M430 150H470"></path>
+                <path d="M650 150H690"></path>
+                <path d="M870 150H910"></path>
+                <path d="M1170 150H1210"></path>
+            </g>
+            <g class="diagram-node is-input" transform="translate(30 115)"><rect width="190" height="70" rx="35"></rect><text x="95" y="39">输入一段自然语言</text></g>
+            <g class="diagram-node is-script" transform="translate(260 115)"><rect width="170" height="70" rx="10"></rect><text x="85" y="39">保留原话</text></g>
+            <g class="diagram-node is-ai" transform="translate(470 115)"><rect width="180" height="70" rx="10"></rect><text x="90" y="39">拆成原子条目</text></g>
+            <g class="diagram-node is-ai" transform="translate(690 115)"><rect width="180" height="70" rx="10"></rect><text x="90" y="39">匹配固定标签</text></g>
+            <g class="diagram-node is-system" transform="translate(910 115)"><rect width="260" height="70" rx="10"></rect><text x="130" y="30"><tspan x="130">聚合到模块、日程、</tspan><tspan x="130" dy="18">清单和看板</tspan></text></g>
+            <g class="diagram-node is-output" transform="translate(1210 115)"><rect width="240" height="70" rx="10"></rect><text x="120" y="39">浏览、搜索和后续整理</text></g>
+        </svg>
     </div>
-</div>
+    <figcaption class="skill-diagram__legend">
+        <div class="skill-diagram__legend-items" aria-hidden="true">
+            <span class="is-script">确定性处理</span><span class="is-ai">AI 拆解与归类</span><span class="is-system">结构化聚合</span><span class="is-output">浏览与使用</span>
+        </div>
+        <div class="skill-diagram__zoom" aria-label="Demo 流程图缩放控制">
+            <button type="button" data-diagram-zoom="out" aria-label="缩小 Demo 流程图" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6"></path></svg></button>
+            <output aria-live="polite">适配</output>
+            <button type="button" data-diagram-zoom="in" aria-label="放大 Demo 流程图"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6M10.5 7.5v6"></path></svg></button>
+        </div>
+    </figcaption>
+</figure>
 {{- else if eq $type "mvp" -}}
-<div class="memo-doc-flow" role="img" aria-label="随口输入，可靠保存，自动拆解与收纳，用户看懂并纠正，通过备忘录、搜索、提问或今天找回，最后确认记下之后真的有用">
-    <div class="memo-doc-flow__track">
-        <div class="memo-doc-flow__node">随口输入</div>
-        <span class="memo-doc-flow__arrow" aria-hidden="true">→</span>
-        <div class="memo-doc-flow__node">可靠保存</div>
-        <span class="memo-doc-flow__arrow" aria-hidden="true">→</span>
-        <div class="memo-doc-flow__node">自动拆解与收纳</div>
-        <span class="memo-doc-flow__arrow" aria-hidden="true">→</span>
-        <div class="memo-doc-flow__node">用户看懂并纠正</div>
-        <span class="memo-doc-flow__arrow" aria-hidden="true">→</span>
-        <div class="memo-doc-flow__node">备忘录 / 搜索 / 提问 / 今天找回</div>
-        <span class="memo-doc-flow__arrow" aria-hidden="true">→</span>
-        <div class="memo-doc-flow__node">确认记下之后真的有用</div>
+<figure class="skill-diagram excerpt-doc-diagram memo-doc-diagram memo-doc-diagram--mvp" role="group" aria-label="MVP 核心价值验证闭环">
+    <header class="skill-diagram__header">
+        <span>HORIZONTAL PROCESS</span>
+        <span class="skill-diagram__live"><em>初始全览 · 放大查看细节</em><i></i> LIVE</span>
+    </header>
+    <div class="skill-diagram__viewport" tabindex="0" aria-label="横向滚动查看 MVP 核心价值验证闭环">
+        <svg width="1480" height="300" viewBox="0 0 1480 300" role="img" aria-labelledby="memo-mvp-diagram-title memo-mvp-diagram-desc">
+            <title id="memo-mvp-diagram-title">MVP 核心价值验证闭环</title>
+            <desc id="memo-mvp-diagram-desc">从随口输入开始，可靠保存并自动拆解与收纳，用户看懂并纠正，通过备忘录、搜索、提问或今天找回，最终确认记下之后真的有用。</desc>
+            <defs><marker id="arrow-memo-mvp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z"></path></marker></defs>
+            <g class="diagram-edges" marker-end="url(#arrow-memo-mvp)">
+                <path d="M200 150H240"></path>
+                <path d="M410 150H450"></path>
+                <path d="M660 150H700"></path>
+                <path d="M910 150H950"></path>
+                <path d="M1210 150H1250"></path>
+            </g>
+            <g class="diagram-node is-input" transform="translate(30 115)"><rect width="170" height="70" rx="35"></rect><text x="85" y="39">随口输入</text></g>
+            <g class="diagram-node is-script" transform="translate(240 115)"><rect width="170" height="70" rx="10"></rect><text x="85" y="39">可靠保存</text></g>
+            <g class="diagram-node is-ai" transform="translate(450 115)"><rect width="210" height="70" rx="10"></rect><text x="105" y="39">自动拆解与收纳</text></g>
+            <g class="diagram-node is-human" transform="translate(700 115)"><rect width="210" height="70" rx="10"></rect><text x="105" y="39">用户看懂并纠正</text></g>
+            <g class="diagram-node is-system" transform="translate(950 115)"><rect width="260" height="70" rx="10"></rect><text x="130" y="30"><tspan x="130">备忘录 / 搜索 / 提问 /</tspan><tspan x="130" dy="18">今天找回</tspan></text></g>
+            <g class="diagram-node is-output" transform="translate(1250 115)"><rect width="200" height="70" rx="10"></rect><text x="100" y="30"><tspan x="100">确认记下之后</tspan><tspan x="100" dy="18">真的有用</tspan></text></g>
+        </svg>
     </div>
-</div>
+    <figcaption class="skill-diagram__legend">
+        <div class="skill-diagram__legend-items" aria-hidden="true">
+            <span class="is-script">可靠保存</span><span class="is-ai">AI 拆解与收纳</span><span class="is-human">用户纠正</span><span class="is-system">多路径找回</span><span class="is-output">价值验证</span>
+        </div>
+        <div class="skill-diagram__zoom" aria-label="MVP 流程图缩放控制">
+            <button type="button" data-diagram-zoom="out" aria-label="缩小 MVP 流程图" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6"></path></svg></button>
+            <output aria-live="polite">适配</output>
+            <button type="button" data-diagram-zoom="in" aria-label="放大 MVP 流程图"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6M10.5 7.5v6"></path></svg></button>
+        </div>
+    </figcaption>
+</figure>
 {{- end -}}
