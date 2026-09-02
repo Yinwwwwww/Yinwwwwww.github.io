@@ -208,6 +208,13 @@ html {
     }
 
     #main-menu.portfolio-nav {
+        --portfolio-nav-index-width: 30px;
+        --portfolio-nav-label-width: 136px;
+        --portfolio-nav-toggle-width: 16px;
+        --portfolio-nav-column-gap: 8px;
+        --portfolio-nav-row-width: 198px;
+        --portfolio-nav-label-start: 38px;
+
         display: none;
         flex: 1;
         flex-direction: column;
@@ -235,8 +242,6 @@ html {
         }
 
         details {
-            border-bottom: 1px solid var(--portfolio-border);
-
             &[open] summary::after {
                 transform: rotate(45deg);
             }
@@ -244,16 +249,17 @@ html {
 
         .portfolio-nav__single {
             display: grid;
-            grid-template-columns: 30px max-content;
-            gap: 8px;
+            grid-template-columns: var(--portfolio-nav-index-width) minmax(0, var(--portfolio-nav-label-width)) var(--portfolio-nav-toggle-width);
+            column-gap: var(--portfolio-nav-column-gap);
             align-items: center;
-            justify-content: center;
-            padding: 11px 4px;
+            width: var(--portfolio-nav-row-width);
+            max-width: 100%;
+            margin-inline: auto;
+            padding: 11px 0;
             color: var(--portfolio-ink);
             font-weight: 700;
-            text-align: center;
+            text-align: left;
             text-decoration: none;
-            border-bottom: 1px solid var(--portfolio-border);
             transition: color 150ms ease;
 
             &:hover,
@@ -264,14 +270,16 @@ html {
 
         summary {
             display: grid;
-            grid-template-columns: 30px max-content 16px;
-            gap: 8px;
+            grid-template-columns: var(--portfolio-nav-index-width) minmax(0, var(--portfolio-nav-label-width)) var(--portfolio-nav-toggle-width);
+            column-gap: var(--portfolio-nav-column-gap);
             align-items: center;
-            justify-content: center;
-            padding: 11px 4px;
+            width: var(--portfolio-nav-row-width);
+            max-width: 100%;
+            margin-inline: auto;
+            padding: 11px 0;
             color: var(--portfolio-ink);
             font-weight: 700;
-            text-align: center;
+            text-align: left;
             cursor: pointer;
             list-style: none;
             user-select: none;
@@ -282,6 +290,7 @@ html {
 
             &::after {
                 content: "+";
+                justify-self: center;
                 color: var(--portfolio-muted);
                 font-size: 1.6rem;
                 font-weight: 400;
@@ -291,40 +300,50 @@ html {
         }
 
         .portfolio-nav__index {
+            justify-self: start;
             color: var(--portfolio-accent);
             font-size: 1rem;
+            font-variant-numeric: tabular-nums;
             letter-spacing: 0.08em;
+        }
+
+        .portfolio-nav__single > span:last-child,
+        summary > span:nth-child(2) {
+            justify-self: start;
+            text-align: left;
         }
 
         .portfolio-nav__links {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: stretch;
             gap: 2px;
+            width: var(--portfolio-nav-row-width);
+            max-width: 100%;
+            margin-inline: auto;
             padding: 0 0 10px;
 
             a {
                 position: relative;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                max-width: 100%;
-                padding: 6px 14px 6px 26px;
+                display: block;
+                box-sizing: border-box;
+                width: 100%;
+                padding: 6px 8px 6px 52px;
                 color: var(--portfolio-muted);
-                text-align: center;
+                text-align: left;
                 border-radius: 8px;
                 transition: color 150ms ease, background 150ms ease;
 
                 &::before {
                     position: absolute;
                     top: 50%;
-                    left: 12px;
+                    left: var(--portfolio-nav-label-start);
                     width: 4px;
                     height: 4px;
                     background: currentColor;
                     border-radius: 50%;
                     content: "";
-                    transform: translateY(-50%);
+                    transform: translate(-50%, -50%);
                 }
 
                 &:hover,
