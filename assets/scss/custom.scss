@@ -209,12 +209,11 @@ html {
 
     #main-menu.portfolio-nav {
         --portfolio-nav-index-width: 30px;
-        --portfolio-nav-label-width: 76px;
-        --portfolio-nav-toggle-width: 16px;
+        --portfolio-nav-label-width: 104px;
         --portfolio-nav-column-gap: 8px;
         --portfolio-nav-row-width: 198px;
-        --portfolio-nav-content-offset: calc(50% - 46px);
-        --portfolio-nav-label-start: calc(50% - 8px);
+        --portfolio-nav-content-offset: calc(50% - 58px);
+        --portfolio-nav-label-start: calc(50% - 20px);
 
         display: none;
         flex: 1;
@@ -224,7 +223,7 @@ html {
         padding: var(--spacing-lg) var(--container-padding);
         overflow-y: auto;
         color: var(--portfolio-ink);
-        font-size: 1.25rem;
+        font-size: 1.6rem;
         text-align: left;
         background: var(--card-background);
         box-shadow: var(--shadow-l1);
@@ -252,15 +251,11 @@ html {
 
         details {
             width: 100%;
-
-            &[open] summary::after {
-                transform: rotate(45deg);
-            }
         }
 
         .portfolio-nav__single {
             display: grid;
-            grid-template-columns: var(--portfolio-nav-index-width) minmax(0, var(--portfolio-nav-label-width)) var(--portfolio-nav-toggle-width);
+            grid-template-columns: var(--portfolio-nav-index-width) minmax(0, var(--portfolio-nav-label-width));
             column-gap: var(--portfolio-nav-column-gap);
             align-items: center;
             box-sizing: border-box;
@@ -280,7 +275,7 @@ html {
 
         summary {
             display: grid;
-            grid-template-columns: var(--portfolio-nav-index-width) minmax(0, var(--portfolio-nav-label-width)) var(--portfolio-nav-toggle-width);
+            grid-template-columns: var(--portfolio-nav-index-width) minmax(0, var(--portfolio-nav-label-width));
             column-gap: var(--portfolio-nav-column-gap);
             align-items: center;
             box-sizing: border-box;
@@ -296,22 +291,12 @@ html {
             &::-webkit-details-marker {
                 display: none;
             }
-
-            &::after {
-                content: "+";
-                justify-self: center;
-                color: var(--portfolio-muted);
-                font-size: 1.6rem;
-                font-weight: 400;
-                line-height: 1;
-                transition: transform 160ms ease;
-            }
         }
 
         .portfolio-nav__index {
             justify-self: start;
             color: var(--portfolio-accent);
-            font-size: 1rem;
+            font-size: 1.25rem;
             font-variant-numeric: tabular-nums;
             letter-spacing: 0.08em;
         }
@@ -335,7 +320,7 @@ html {
                 display: block;
                 box-sizing: border-box;
                 width: 100%;
-                padding: 6px 8px 6px calc(50% + 6px);
+                padding: 6px 8px 6px calc(50% - 6px);
                 color: var(--portfolio-muted);
                 text-align: left;
                 border-radius: 8px;
