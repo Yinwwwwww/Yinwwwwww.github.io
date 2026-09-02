@@ -7,7 +7,7 @@ favicon        = "img/avatar.png"
 
 [sidebar]
     subtitle = "产品 on the way ～"
-    avatar   = "img/avatar.png"
+    avatar   = "img/avatar.jpg"
 
 [article]
     [article.license]
