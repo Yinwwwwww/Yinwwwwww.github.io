@@ -124,6 +124,8 @@
     --portfolio-border: rgba(36, 31, 56, 0.1);
     --portfolio-panel: #ffffff;
     --portfolio-placeholder: #e9e7ef;
+    --portfolio-canvas: #fafafe;
+    --portfolio-canvas-glow: rgba(108, 92, 231, 0.045);
 
     &[data-scheme="dark"] {
         --portfolio-accent: #a99cff;
@@ -136,6 +138,8 @@
         --portfolio-border: rgba(255, 255, 255, 0.1);
         --portfolio-panel: #3b3b3b;
         --portfolio-placeholder: rgba(255, 255, 255, 0.1);
+        --portfolio-canvas: var(--body-background);
+        --portfolio-canvas-glow: rgba(108, 92, 231, 0.08);
     }
 }
 
@@ -145,8 +149,8 @@ html {
 
 .portfolio-home {
     background:
-        radial-gradient(circle at 78% 4%, rgba(108, 92, 231, 0.08), transparent 28%),
-        var(--body-background);
+        radial-gradient(circle at 78% 4%, var(--portfolio-canvas-glow), transparent 28%),
+        var(--portfolio-canvas);
 
     .main-container {
         gap: var(--spacing-xl);
@@ -388,7 +392,7 @@ html {
     transition: color 160ms ease, opacity 160ms ease;
 
     @include respond(md) {
-        top: -40px;
+        top: calc(10px - var(--main-top-padding));
     }
 
     &:hover {
@@ -423,6 +427,11 @@ html {
         linear-gradient(135deg, #28233f, #6c5ce7 62%, #8979ff);
     border-radius: 28px;
     box-shadow: var(--shadow-l2);
+
+    @include respond(md) {
+        min-height: calc(100vh - var(--main-top-padding) - var(--main-top-padding));
+        min-height: calc(100svh - var(--main-top-padding) - var(--main-top-padding));
+    }
 
     &::after {
         position: absolute;
