@@ -175,67 +175,317 @@ function setupMemoSceneWalls() {
     });
 }
 
+function prepareLazyVideo(video: HTMLVideoElement) {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.pause();
+}
+
+function hydrateLazyVideo(video: HTMLVideoElement) {
+    if (video.dataset.videoLoaded === 'true') return;
+
+    const sources = Array.from(video.querySelectorAll<HTMLSourceElement>('source[data-src]'));
+    let hasSource = false;
+
+    sources.forEach((source) => {
+        const pendingSource = source.dataset.src;
+        if (!pendingSource) return;
+
+        source.src = pendingSource;
+        source.removeAttribute('data-src');
+        hasSource = true;
+    });
+
+    if (!hasSource) return;
+
+    video.dataset.videoLoaded = 'true';
+    video.load();
+}
+
+function playLazyVideo(video: HTMLVideoElement) {
+    if (document.hidden) return;
+    hydrateLazyVideo(video);
+    void video.play().catch(() => undefined);
+}
+
+function isElementVisible(element: HTMLElement) {
+    const rect = element.getBoundingClientRect();
+    return rect.bottom > 0 && rect.top < window.innerHeight && rect.right > 0 && rect.left < window.innerWidth;
+}
+
+function setupOffscreenAnimations() {
+    const regions = Array.from(
+        document.querySelectorAll<HTMLElement>('.skill-diagram, [data-memo-scene-wall]')
+    );
+    if (regions.length === 0 || !('IntersectionObserver' in window)) return;
+
+    const visibleRegions = new Set<HTMLElement>();
+    const render = () => {
+        regions.forEach((region) => {
+            region.classList.toggle(
+                'is-animation-paused',
+                document.hidden || !visibleRegions.has(region)
+            );
+        });
+    };
+
+    regions.forEach((region) => region.classList.add('is-animation-paused'));
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            const region = entry.target as HTMLElement;
+            if (entry.isIntersecting) {
+                visibleRegions.add(region);
+            } else {
+                visibleRegions.delete(region);
+            }
+        });
+        render();
+    }, { threshold: 0.01 });
+
+    regions.forEach((region) => observer.observe(region));
+    document.addEventListener('visibilitychange', render);
+}
+
+function setupLazyVideos() {
+    const videos = Array.from(
+        document.querySelectorAll<HTMLVideoElement>('[data-lazy-video]:not([data-excerpt-demo-video])')
+    );
+    if (videos.length === 0) return;
+
+    const visibleVideos = new Set<HTMLVideoElement>();
+    videos.forEach(prepareLazyVideo);
+
+    const pauseAll = () => videos.forEach((video) => video.pause());
+    const resumeVisible = () => visibleVideos.forEach(playLazyVideo);
+
+    if (!('IntersectionObserver' in window)) {
+        let animationFrame = 0;
+        const updateFallback = () => {
+            animationFrame = 0;
+            videos.forEach((video) => {
+                const rect = video.getBoundingClientRect();
+                const isNearViewport = rect.bottom > -600 && rect.top < window.innerHeight + 600;
+                const isVisible = isElementVisible(video);
+
+                if (isNearViewport) hydrateLazyVideo(video);
+                if (isVisible) {
+                    visibleVideos.add(video);
+                    playLazyVideo(video);
+                } else {
+                    visibleVideos.delete(video);
+                    video.pause();
+                }
+            });
+        };
+        const scheduleFallbackUpdate = () => {
+            if (animationFrame) return;
+            animationFrame = window.requestAnimationFrame(updateFallback);
+        };
+
+        updateFallback();
+        window.addEventListener('scroll', scheduleFallbackUpdate, { passive: true });
+        window.addEventListener('resize', scheduleFallbackUpdate);
+    } else {
+        const preloadObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const video = entry.target as HTMLVideoElement;
+                hydrateLazyVideo(video);
+                observer.unobserve(video);
+            });
+        }, { rootMargin: '600px 0px', threshold: 0 });
+
+        const playbackObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const video = entry.target as HTMLVideoElement;
+                const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.1;
+
+                if (isVisible) {
+                    visibleVideos.add(video);
+                    playLazyVideo(video);
+                    return;
+                }
+
+                visibleVideos.delete(video);
+                video.pause();
+            });
+        }, { threshold: [0, 0.1, 0.5] });
+
+        videos.forEach((video) => {
+            preloadObserver.observe(video);
+            playbackObserver.observe(video);
+        });
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            pauseAll();
+            return;
+        }
+        resumeVisible();
+    });
+
+    window.addEventListener('pagehide', pauseAll);
+    window.addEventListener('pageshow', resumeVisible);
+}
+
 function setupExcerptDemoPairs() {
     document.querySelectorAll<HTMLElement>('[data-excerpt-demo-pair]').forEach((pair) => {
         const videos = Array.from(pair.querySelectorAll<HTMLVideoElement>('[data-excerpt-demo-video]'));
         if (videos.length !== 2) return;
 
         const [master, follower] = videos;
-        let isRestarting = false;
+        let isVisible = false;
+        let isStarting = false;
+        let playablePromise: Promise<boolean> | null = null;
+        let lastSyncAt = 0;
 
-        videos.forEach((video) => {
-            video.muted = true;
-            video.defaultMuted = true;
-            video.playsInline = true;
-            video.pause();
-        });
+        videos.forEach(prepareLazyVideo);
 
-        const waitUntilPlayable = (video: HTMLVideoElement) => new Promise<void>((resolve) => {
-            if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-                resolve();
+        const waitUntilPlayable = (video: HTMLVideoElement) => new Promise<boolean>((resolve) => {
+            if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+                resolve(true);
                 return;
             }
-            video.addEventListener('canplay', () => resolve(), { once: true });
+
+            const cleanup = () => {
+                window.clearTimeout(timeout);
+                video.removeEventListener('loadeddata', handleReady);
+                video.removeEventListener('canplay', handleReady);
+                video.removeEventListener('error', handleError);
+            };
+            const settle = (ready: boolean) => {
+                cleanup();
+                resolve(ready);
+            };
+            const handleReady = () => settle(true);
+            const handleError = () => settle(false);
+            const timeout = window.setTimeout(() => {
+                settle(video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA);
+            }, 12000);
+
+            video.addEventListener('loadeddata', handleReady, { once: true });
+            video.addEventListener('canplay', handleReady, { once: true });
+            video.addEventListener('error', handleError, { once: true });
         });
 
+        const ensurePlayable = () => {
+            if (playablePromise) return playablePromise;
+
+            videos.forEach(hydrateLazyVideo);
+            playablePromise = Promise.all(videos.map(waitUntilPlayable)).then((results) => {
+                const isPlayable = results.every(Boolean);
+                if (!isPlayable) playablePromise = null;
+                return isPlayable;
+            });
+            return playablePromise;
+        };
+
         const playTogether = async (restart: boolean) => {
-            if (isRestarting) return;
-            isRestarting = true;
+            if (isStarting || !isVisible || document.hidden) return;
+            isStarting = true;
 
-            videos.forEach((video) => video.pause());
-            if (restart) {
-                videos.forEach((video) => {
-                    video.currentTime = 0;
-                });
-            } else {
-                follower.currentTime = master.currentTime;
+            try {
+                const isPlayable = await ensurePlayable();
+                if (!isPlayable || !isVisible || document.hidden) return;
+
+                videos.forEach((video) => video.pause());
+                if (restart) {
+                    videos.forEach((video) => {
+                        video.currentTime = 0;
+                    });
+                } else if (Math.abs(master.currentTime - follower.currentTime) > 0.35) {
+                    follower.currentTime = master.currentTime;
+                }
+
+                videos.forEach((video) => void video.play().catch(() => undefined));
+            } finally {
+                isStarting = false;
             }
-
-            await Promise.all(videos.map((video) => video.play().catch(() => undefined)));
-            isRestarting = false;
         };
 
         const keepInSync = () => {
-            if (!master.paused && !follower.paused && Math.abs(master.currentTime - follower.currentTime) > 0.1) {
-                follower.currentTime = master.currentTime;
-            }
+            if (!isVisible || document.hidden || master.paused || follower.paused) return;
+
+            const now = performance.now();
+            if (now - lastSyncAt < 1000) return;
+            if (Math.abs(master.currentTime - follower.currentTime) <= 0.35) return;
+
+            follower.currentTime = master.currentTime;
+            lastSyncAt = now;
+        };
+
+        const pauseTogether = () => {
+            videos.forEach((video) => video.pause());
         };
 
         const restartPair = () => void playTogether(true);
-        videos.forEach((video) => video.addEventListener('ended', restartPair));
+        master.addEventListener('ended', restartPair);
         master.addEventListener('timeupdate', keepInSync);
+
+        if (!('IntersectionObserver' in window)) {
+            let animationFrame = 0;
+            const updateFallback = () => {
+                animationFrame = 0;
+                const nextVisible = isElementVisible(pair);
+                if (nextVisible === isVisible) return;
+
+                isVisible = nextVisible;
+                if (isVisible) {
+                    void playTogether(master.ended || master.currentTime === 0);
+                } else {
+                    pauseTogether();
+                }
+            };
+            const scheduleFallbackUpdate = () => {
+                if (animationFrame) return;
+                animationFrame = window.requestAnimationFrame(updateFallback);
+            };
+
+            updateFallback();
+            window.addEventListener('scroll', scheduleFallbackUpdate, { passive: true });
+            window.addEventListener('resize', scheduleFallbackUpdate);
+        } else {
+            const preloadObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    void ensurePlayable();
+                    observer.unobserve(pair);
+                });
+            }, { rootMargin: '600px 0px', threshold: 0 });
+
+            const playbackObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    const nextVisible = entry.isIntersecting && entry.intersectionRatio >= 0.1;
+                    if (nextVisible === isVisible) return;
+
+                    isVisible = nextVisible;
+                    if (!nextVisible) {
+                        pauseTogether();
+                        return;
+                    }
+
+                    const shouldRestart = master.ended || master.currentTime >= master.duration - 0.1;
+                    void playTogether(shouldRestart);
+                });
+            }, { threshold: [0, 0.1, 0.5] });
+
+            preloadObserver.observe(pair);
+            playbackObserver.observe(pair);
+        }
 
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                videos.forEach((video) => video.pause());
+                pauseTogether();
                 return;
             }
-            void playTogether(true);
+            void playTogether(false);
         });
 
-        Promise.all(videos.map(waitUntilPlayable)).then(() => {
-            void playTogether(true);
-        });
+        window.addEventListener('pagehide', pauseTogether);
+        window.addEventListener('pageshow', () => void playTogether(false));
     });
 }
 
@@ -243,6 +493,8 @@ function setupPortfolioInteractions() {
     setupDiagramZoom();
     setupResumeZoom();
     setupMemoSceneWalls();
+    setupOffscreenAnimations();
+    setupLazyVideos();
     setupExcerptDemoPairs();
 }
 

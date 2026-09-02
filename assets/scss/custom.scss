@@ -1381,6 +1381,11 @@ html {
     max-width: none;
 }
 
+.is-animation-paused,
+.is-animation-paused * {
+    animation-play-state: paused !important;
+}
+
 .skill-diagram {
     margin: 22px 0 24px;
     overflow: hidden;
