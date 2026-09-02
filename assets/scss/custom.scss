@@ -3338,6 +3338,10 @@ html {
         }
     }
 
+    .excerpt-prototype-grid--mvp .excerpt-prototype-card__media {
+        aspect-ratio: 9 / 5;
+    }
+
     code {
         display: inline-block;
         padding: 0 6px;
