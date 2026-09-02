@@ -157,6 +157,10 @@ html {
 
     .main-container {
         gap: var(--spacing-xl);
+
+        @include respond(lg) {
+            --left-sidebar-max-width: clamp(256px, 22vw, 320px);
+        }
     }
 
     main.main {
@@ -220,7 +224,7 @@ html {
         --portfolio-nav-index-width: 30px;
         --portfolio-nav-label-width: 104px;
         --portfolio-nav-column-gap: 8px;
-        --portfolio-nav-row-width: 198px;
+        --portfolio-nav-row-width: 256px;
         --portfolio-nav-content-offset: calc(50% - 58px);
         --portfolio-nav-label-start: calc(50% - 20px);
 
