@@ -125,7 +125,6 @@
     --portfolio-panel: #ffffff;
     --portfolio-placeholder: #e9e7ef;
     --portfolio-canvas: #f7f4f0;
-    --portfolio-canvas-glow: rgba(108, 92, 231, 0.045);
 
     &[data-scheme="dark"] {
         --portfolio-accent: #a99cff;
@@ -148,9 +147,13 @@ html {
 }
 
 .portfolio-home {
-    background:
-        radial-gradient(circle at 78% 4%, var(--portfolio-canvas-glow), transparent 28%),
-        var(--portfolio-canvas);
+    background: var(--portfolio-canvas);
+
+    [data-scheme="dark"] & {
+        background:
+            radial-gradient(circle at 78% 4%, var(--portfolio-canvas-glow), transparent 28%),
+            var(--portfolio-canvas);
+    }
 
     .main-container {
         gap: var(--spacing-xl);
