@@ -564,8 +564,13 @@ html {
     gap: var(--spacing-lg);
     align-items: start;
 
+    > * {
+        min-width: 0;
+    }
+
     @include respond(lg) {
-        grid-template-columns: 1.08fr 0.92fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: stretch;
     }
 }
 
@@ -644,13 +649,12 @@ html {
 
 .ability-groups {
     display: grid;
-    gap: 12px;
+    gap: 16px;
 
     article {
-        padding: 18px;
-        background: color-mix(in srgb, var(--portfolio-ink) 3%, var(--portfolio-panel));
-        border: 1px solid var(--portfolio-border);
-        border-radius: 10px;
+        padding: 0;
+        background: transparent;
+        border: 0;
     }
 
     header {
@@ -677,14 +681,15 @@ html {
 .ability-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 7px;
+    gap: 8px;
 
     span {
-        padding: 7px 10px;
-        color: var(--portfolio-muted);
-        font-size: 1rem;
-        background: var(--portfolio-panel);
-        border: 1px solid var(--portfolio-border);
+        padding: 8px 12px;
+        color: var(--portfolio-accent-strong);
+        font-size: 1.05rem;
+        font-weight: 700;
+        background: color-mix(in srgb, var(--portfolio-accent) 8%, var(--portfolio-panel));
+        border: 1px solid color-mix(in srgb, var(--portfolio-accent) 18%, var(--portfolio-border));
         border-radius: 999px;
     }
 }
@@ -785,6 +790,37 @@ html {
     a {
         color: var(--portfolio-accent-strong);
         font-weight: 700;
+    }
+}
+
+@include respond(lg) {
+    .resume-card {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .resume-card > .portfolio-card__heading,
+    .resume-pdf__toolbar {
+        flex: 0 0 auto;
+    }
+
+    .resume-pdf {
+        display: flex;
+        flex: 1 1 0;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .resume-pdf__viewer {
+        flex: 1 1 0;
+        min-height: 0;
+        height: 0;
+    }
+
+    .resume-pdf__fallback {
+        min-height: 0;
+        height: 100%;
     }
 }
 
