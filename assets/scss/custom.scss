@@ -119,6 +119,7 @@
     --portfolio-accent-soft: #efedff;
     --portfolio-green: #0f9d7a;
     --portfolio-ink: #191820;
+    --portfolio-document-ink: #202329;
     --portfolio-muted: #77737f;
     --portfolio-border: rgba(36, 31, 56, 0.1);
     --portfolio-panel: #ffffff;
@@ -130,6 +131,7 @@
         --portfolio-accent-soft: rgba(108, 92, 231, 0.16);
         --portfolio-green: #65d9b9;
         --portfolio-ink: rgba(255, 255, 255, 0.92);
+        --portfolio-document-ink: rgba(255, 255, 255, 0.92);
         --portfolio-muted: rgba(255, 255, 255, 0.6);
         --portfolio-border: rgba(255, 255, 255, 0.1);
         --portfolio-panel: #3b3b3b;
@@ -933,6 +935,14 @@ html {
             text-align: right;
         }
     }
+
+    h3 {
+        color: var(--portfolio-document-ink);
+        font-size: 2rem;
+        font-weight: 650;
+        line-height: 1.45;
+        letter-spacing: -0.015em;
+    }
 }
 
 .timeline-card__content {
@@ -947,8 +957,10 @@ html {
     gap: 14px;
     min-width: 0;
     color: var(--portfolio-muted);
-    font-size: 1.1rem;
-    line-height: 1.75;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.625;
 
     > p {
         margin: 0;
@@ -956,9 +968,11 @@ html {
 
     h5 {
         margin: 8px 0 0;
-        color: var(--portfolio-ink);
-        font-size: 1.18rem;
-        font-weight: 700;
+        color: var(--portfolio-document-ink);
+        font-size: 2rem;
+        font-weight: 650;
+        line-height: 1.45;
+        letter-spacing: -0.015em;
     }
 
     ul {
@@ -972,7 +986,29 @@ html {
         }
 
         strong {
-            color: var(--portfolio-ink);
+            display: block;
+            margin-bottom: 4px;
+            color: var(--portfolio-document-ink);
+            font-size: 2rem;
+            font-weight: 650;
+            line-height: 1.45;
+            letter-spacing: -0.015em;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .timeline-card__meta h3 {
+        font-size: 1.9rem;
+    }
+
+    .internship-copy {
+        font-size: 1.55rem;
+        line-height: 1.65;
+
+        h5,
+        ul strong {
+            font-size: 1.9rem;
         }
     }
 }
