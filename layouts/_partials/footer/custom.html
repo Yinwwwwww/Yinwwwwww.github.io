@@ -49,17 +49,73 @@
 <script>
     (() => {
         const navLinks = [...document.querySelectorAll(".portfolio-nav a")];
+        const projectGroups = [...document.querySelectorAll(".portfolio-nav__project[data-idea-project]")];
         const toggleMenu = document.querySelector("#toggle-menu");
         const mainMenu = document.querySelector("#main-menu");
         const targets = navLinks
-            .map((link) => ({ link, hash: new URL(link.href).hash }))
-            .filter(({ hash }) => hash && document.querySelector(hash));
+            .map((link) => {
+                const hash = new URL(link.href).hash;
+                return { link, hash, element: hash ? document.querySelector(hash) : null };
+            })
+            .filter(({ hash, element }) => hash && element);
 
         if (!targets.length) return;
 
-        const setActive = (activeLink) => {
-            navLinks.forEach((link) => link.classList.toggle("is-active", link === activeLink));
+        const setExpandedProject = (activeGroup) => {
+            projectGroups.forEach((group) => {
+                const isExpanded = group === activeGroup;
+                const projectLink = group.querySelector("[data-idea-project-link]");
+                const topic = group.querySelector(".portfolio-nav__topic");
+
+                group.classList.toggle("is-expanded", isExpanded);
+                projectLink?.setAttribute("aria-expanded", String(isExpanded));
+                if (topic) topic.hidden = !isExpanded;
+            });
+
+            if (activeGroup) {
+                const ideaGroup = activeGroup.closest("details");
+                if (ideaGroup) ideaGroup.open = true;
+            }
         };
+
+        let activeNavLink = null;
+
+        const keepActiveLinkVisible = (activeLink) => {
+            if (!activeLink || !mainMenu) return;
+
+            window.requestAnimationFrame(() => {
+                const menuRect = mainMenu.getBoundingClientRect();
+                const linkRect = activeLink.getBoundingClientRect();
+
+                if (linkRect.top < menuRect.top + 8) {
+                    mainMenu.scrollTop += linkRect.top - menuRect.top - 8;
+                } else if (linkRect.bottom > menuRect.bottom - 8) {
+                    mainMenu.scrollTop += linkRect.bottom - menuRect.bottom + 8;
+                }
+            });
+        };
+
+        const setActive = (activeLink) => {
+            navLinks.forEach((link) => {
+                const isActive = link === activeLink;
+                link.classList.toggle("is-active", isActive);
+                if (isActive) {
+                    link.setAttribute("aria-current", "location");
+                } else {
+                    link.removeAttribute("aria-current");
+                }
+            });
+
+            setExpandedProject(activeLink?.closest(".portfolio-nav__project") ?? null);
+            if (activeLink !== activeNavLink) keepActiveLinkVisible(activeLink);
+            activeNavLink = activeLink;
+        };
+
+        toggleMenu?.addEventListener("click", () => {
+            window.setTimeout(() => {
+                if (mainMenu?.classList.contains("show")) keepActiveLinkVisible(activeNavLink);
+            }, 340);
+        });
 
         targets.forEach(({ link, hash }) => {
             link.addEventListener("click", (event) => {
@@ -75,18 +131,56 @@
             });
         });
 
-        if ("IntersectionObserver" in window) {
-            const observer = new IntersectionObserver((entries) => {
-                const visible = entries
-                    .filter((entry) => entry.isIntersecting)
-                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        const targetPriority = ({ link }) => {
+            if (link.closest(".portfolio-nav__topic")) return 3;
+            if (link.matches("[data-idea-project-link]")) return 2;
+            return 1;
+        };
 
-                if (!visible) return;
-                const match = targets.find(({ hash }) => hash === `#${visible.target.id}`);
-                if (match) setActive(match.link);
-            }, { rootMargin: "-20% 0px -65%", threshold: [0, 0.25, 0.5] });
+        const syncActiveFromViewport = () => {
+            const readingLine = Math.min(window.innerHeight * 0.28, 240);
+            const atReadingLine = targets
+                .filter(({ element }) => {
+                    const rect = element.getBoundingClientRect();
+                    return rect.top <= readingLine && rect.bottom >= readingLine;
+                })
+                .sort((a, b) => targetPriority(b) - targetPriority(a));
 
-            targets.forEach(({ hash }) => observer.observe(document.querySelector(hash)));
-        }
+            if (atReadingLine.length) {
+                setActive(atReadingLine[0].link);
+                return;
+            }
+
+            const nextTarget = targets
+                .map((target) => ({ target, top: target.element.getBoundingClientRect().top }))
+                .filter(({ top }) => top >= 0)
+                .sort((a, b) => a.top - b.top)[0];
+
+            setActive(nextTarget?.target.link ?? null);
+        };
+
+        let scrollFrame = 0;
+        const requestViewportSync = () => {
+            if (scrollFrame) return;
+            scrollFrame = window.requestAnimationFrame(() => {
+                scrollFrame = 0;
+                syncActiveFromViewport();
+            });
+        };
+
+        const syncActiveFromLocation = () => {
+            const match = targets.find(({ hash }) => hash === window.location.hash);
+            if (match) {
+                setActive(match.link);
+                return;
+            }
+            requestViewportSync();
+        };
+
+        window.addEventListener("scroll", requestViewportSync, { passive: true });
+        window.addEventListener("resize", requestViewportSync);
+        window.addEventListener("hashchange", syncActiveFromLocation);
+        window.addEventListener("popstate", syncActiveFromLocation);
+        syncActiveFromLocation();
     })();
 </script>

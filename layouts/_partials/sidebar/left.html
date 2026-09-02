@@ -59,8 +59,44 @@
             <details open>
                 <summary><span class="portfolio-nav__index">03</span><span>AI × idea</span></summary>
                 <div class="portfolio-nav__links">
-                    <a href="{{ .Site.Home.RelPermalink }}#idea-memo">有备忘</a>
-                    <a href="{{ .Site.Home.RelPermalink }}#idea-excerpt">摘录中转站</a>
+                    <div class="portfolio-nav__project" data-idea-project="memo">
+                        <a
+                            class="portfolio-nav__project-link"
+                            href="{{ .Site.Home.RelPermalink }}#idea-memo"
+                            data-idea-project-link
+                            aria-expanded="false"
+                            aria-controls="idea-memo-nav"
+                        >有备忘</a>
+                        <ol class="portfolio-nav__topic" id="idea-memo-nav" aria-label="有备忘专题目录" hidden>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-memo-1"><span>01</span><span>Demo 先行</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-memo-2"><span>02</span><span>用户调研与问题验证</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-memo-3"><span>03</span><span>竞品分析与空位洞察</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-memo-4"><span>04</span><span>产品定位与用户画像</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-memo-5"><span>05</span><span>产品演进与关键决策</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-memo-6"><span>06</span><span>最终产品形态</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-memo-7"><span>07</span><span>效果评测</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-memo-thinking"><span aria-hidden="true">·</span><span>思考</span></a></li>
+                        </ol>
+                    </div>
+                    <div class="portfolio-nav__project" data-idea-project="excerpt">
+                        <a
+                            class="portfolio-nav__project-link"
+                            href="{{ .Site.Home.RelPermalink }}#idea-excerpt"
+                            data-idea-project-link
+                            aria-expanded="false"
+                            aria-controls="idea-excerpt-nav"
+                        >摘录中转站</a>
+                        <ol class="portfolio-nav__topic" id="idea-excerpt-nav" aria-label="摘录中转站专题目录" hidden>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-excerpt-1"><span>01</span><span>Demo 先行</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-excerpt-2"><span>02</span><span>用户调研与问题验证</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-excerpt-3"><span>03</span><span>竞品分析</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-excerpt-4"><span>04</span><span>产品定位与用户画像</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-excerpt-5"><span>05</span><span>产品演进与关键决策</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-excerpt-6"><span>06</span><span>最终产品形态</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-excerpt-7"><span>07</span><span>产品原则与展望</span></a></li>
+                            <li><a href="{{ .Site.Home.RelPermalink }}#idea-excerpt-thinking"><span aria-hidden="true">·</span><span>思考</span></a></li>
+                        </ol>
+                    </div>
                 </div>
             </details>
 
