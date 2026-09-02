@@ -786,19 +786,13 @@ html {
 
 .resume-pdf__stage {
     width: var(--resume-zoom-size, 100%);
-    height: var(--resume-zoom-size, 100%);
     min-width: 100%;
-    min-height: 100%;
 }
 
 .resume-pdf__viewer {
     display: block;
     width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    padding: 14px;
-    object-fit: contain;
-    object-position: center top;
+    height: auto;
 }
 
 @include respond(lg) {
@@ -825,6 +819,13 @@ html {
         flex: 1 1 0;
         min-height: 0;
         height: 0;
+    }
+}
+
+@media (max-width: 1023px) {
+    .resume-pdf__viewport {
+        height: auto;
+        aspect-ratio: 1538 / 2175;
     }
 }
 

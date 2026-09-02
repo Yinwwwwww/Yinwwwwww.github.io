@@ -81,7 +81,7 @@ function setupResumeZoom() {
 
             zoomOut.disabled = zoomIndex === 0;
             zoomIn.disabled = zoomIndex === RESUME_ZOOM_STEPS.length - 1;
-            zoomLabel.textContent = zoomIndex === 0 ? '适配' : `${Math.round(zoom * 100)}%`;
+            zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
 
             requestAnimationFrame(() => {
                 if (zoomIndex === 0) {
