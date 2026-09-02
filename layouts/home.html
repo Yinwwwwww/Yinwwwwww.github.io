@@ -10,15 +10,16 @@
         </button>
     {{ end }}
 
-    <header class="portfolio-hero" id="top">
-        <div>
-            <p class="portfolio-kicker">PRODUCT · AI · PRACTICE</p>
-            <h1>lejia zhang<br><span>Portfolio</span></h1>
-        </div>
-        <div class="portfolio-hero__intro">
-            <span class="portfolio-chip">2026 COLLECTION</span>
-            <p>个人定位与作品集导语文字占位。后续可在这里补充产品理念、关注方向与个人叙事。</p>
-        </div>
+    <header class="portfolio-hero" id="top" data-hero-photo-trail>
+        <h1 class="portfolio-hero__greeting">Hi，<br><span>我是张乐佳</span></h1>
+        <div class="portfolio-hero__photo-trail" data-hero-photo-canvas aria-hidden="true"></div>
+        <template data-hero-photo-sources>
+            {{- range readDir "static/media/hero-photo-wall" -}}
+                {{- if not .IsDir -}}
+                    <span data-src="{{ printf "media/hero-photo-wall/%s" .Name | relURL }}"></span>
+                {{- end -}}
+            {{- end -}}
+        </template>
     </header>
 
     <section class="portfolio-section" id="about">

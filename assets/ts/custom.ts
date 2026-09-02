@@ -1,6 +1,149 @@
 const DIAGRAM_ZOOM_STEPS = [1, 1.5, 2, 3, 4];
 const RESUME_ZOOM_STEPS = [1, 1.25, 1.5, 2, 2.5];
 
+function shuffleItems<T>(items: T[]) {
+    const shuffled = [...items];
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+        const swapIndex = Math.floor(Math.random() * (index + 1));
+        [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+    }
+    return shuffled;
+}
+
+function setupHeroPhotoTrail() {
+    const hero = document.querySelector<HTMLElement>('[data-hero-photo-trail]');
+    const canvas = hero?.querySelector<HTMLElement>('[data-hero-photo-canvas]');
+    const sourceTemplate = hero?.querySelector<HTMLTemplateElement>('[data-hero-photo-sources]');
+    const supportsPointerTrail = window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!hero || !canvas || !sourceTemplate || !supportsPointerTrail || prefersReducedMotion) return;
+
+    const sources = Array.from(sourceTemplate.content.querySelectorAll<HTMLElement>('[data-src]'))
+        .map((item) => item.dataset.src)
+        .filter((source): source is string => Boolean(source));
+    if (sources.length === 0) return;
+
+    const warmedSources = new Map<string, HTMLImageElement>();
+    const warmSource = (source: string) => {
+        const existing = warmedSources.get(source);
+        if (existing) return existing;
+
+        const image = new Image();
+        image.decoding = 'async';
+        image.src = source;
+        void image.decode().catch(() => undefined);
+        warmedSources.set(source, image);
+        return image;
+    };
+
+    let sourceBag = shuffleItems(sources);
+    let sourceIndex = 0;
+    let lastDisplayedSource = '';
+    const nextSource = () => {
+        if (sourceIndex >= sourceBag.length) {
+            sourceBag = shuffleItems(sources);
+            sourceIndex = 0;
+            if (sourceBag.length > 1 && sourceBag[0] === lastDisplayedSource) {
+                [sourceBag[0], sourceBag[1]] = [sourceBag[1], sourceBag[0]];
+            }
+        }
+
+        const source = sourceBag[sourceIndex];
+        sourceIndex += 1;
+        return source;
+    };
+
+    const photos = Array.from({ length: 3 }, () => {
+        const photo = document.createElement('img');
+        photo.className = 'portfolio-hero__trail-photo';
+        photo.alt = '';
+        photo.draggable = false;
+        photo.decoding = 'async';
+        canvas.append(photo);
+        return photo;
+    });
+
+    let photoIndex = 0;
+    let layerIndex = 3;
+    let lastPoint: { x: number; y: number } | null = null;
+    let pendingPoint: { x: number; y: number } | null = null;
+    let moveFrame = 0;
+
+    const getReadySource = () => {
+        for (let attempt = 0; attempt < sources.length; attempt += 1) {
+            const source = nextSource();
+            const warmed = warmSource(source);
+            if (warmed.complete && warmed.naturalWidth > 0) return source;
+        }
+        return null;
+    };
+
+    const showPhoto = (x: number, y: number) => {
+        const source = getReadySource();
+        if (!source) {
+            sources.forEach(warmSource);
+            return false;
+        }
+
+        const photo = photos[photoIndex % photos.length];
+        photoIndex += 1;
+        layerIndex += 1;
+
+        photo.classList.remove('is-active');
+        photo.style.left = `${x}px`;
+        photo.style.top = `${y}px`;
+        photo.style.zIndex = `${layerIndex}`;
+        photo.style.setProperty('--hero-photo-rotation', `${(Math.random() * 14 - 7).toFixed(2)}deg`);
+        photo.src = source;
+        void photo.offsetWidth;
+        photo.classList.add('is-active');
+        lastDisplayedSource = source;
+        return true;
+    };
+
+    const renderMove = () => {
+        moveFrame = 0;
+        if (!pendingPoint || document.hidden) return;
+
+        const point = pendingPoint;
+        pendingPoint = null;
+        if (lastPoint && Math.hypot(point.x - lastPoint.x, point.y - lastPoint.y) < 80) return;
+
+        const bounds = hero.getBoundingClientRect();
+        if (showPhoto(point.x - bounds.left, point.y - bounds.top)) {
+            lastPoint = point;
+        }
+    };
+
+    const scheduleMove = (event: PointerEvent) => {
+        if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
+        pendingPoint = { x: event.clientX, y: event.clientY };
+        if (moveFrame) return;
+        moveFrame = window.requestAnimationFrame(renderMove);
+    };
+
+    const warmAll = () => sources.forEach(warmSource);
+
+    hero.addEventListener('pointerenter', warmAll, { once: true });
+    hero.addEventListener('pointermove', scheduleMove, { passive: true });
+    hero.addEventListener('pointerleave', () => {
+        lastPoint = null;
+        pendingPoint = null;
+    });
+
+    if ('IntersectionObserver' in window) {
+        const preloadObserver = new IntersectionObserver((entries, observer) => {
+            if (!entries.some((entry) => entry.isIntersecting)) return;
+            warmAll();
+            observer.disconnect();
+        }, { rootMargin: '200px 0px', threshold: 0 });
+        preloadObserver.observe(hero);
+    } else if (isElementVisible(hero)) {
+        warmAll();
+    }
+}
+
 function setupDiagramZoom() {
     document.querySelectorAll<HTMLElement>('.skill-diagram').forEach((diagram) => {
         const viewport = diagram.querySelector<HTMLElement>('.skill-diagram__viewport');
@@ -490,6 +633,7 @@ function setupExcerptDemoPairs() {
 }
 
 function setupPortfolioInteractions() {
+    setupHeroPhotoTrail();
     setupDiagramZoom();
     setupResumeZoom();
     setupMemoSceneWalls();
