@@ -715,16 +715,90 @@ html {
     }
 }
 
+.resume-pdf__zoom {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+
+    &[hidden] {
+        display: none;
+    }
+
+    button {
+        display: grid;
+        width: 26px;
+        height: 26px;
+        padding: 0;
+        color: var(--portfolio-muted);
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        border-radius: 50%;
+        place-items: center;
+
+        &:hover:not(:disabled) {
+            color: var(--portfolio-accent-strong);
+            background: color-mix(in srgb, var(--portfolio-accent) 10%, transparent);
+        }
+
+        &:focus-visible {
+            outline: 2px solid color-mix(in srgb, var(--portfolio-accent) 55%, transparent);
+            outline-offset: 1px;
+        }
+
+        &:disabled {
+            cursor: default;
+            opacity: 0.32;
+        }
+    }
+
+    svg {
+        width: 18px;
+        height: 18px;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.8;
+    }
+
+    output {
+        min-width: 34px;
+        color: var(--portfolio-muted);
+        font-size: 1rem;
+        text-align: center;
+    }
+}
+
+.resume-pdf__viewport {
+    width: 100%;
+    height: clamp(520px, 68vh, 720px);
+    overflow: auto;
+    overscroll-behavior: contain;
+    background: color-mix(in srgb, var(--portfolio-ink) 7%, var(--portfolio-panel));
+    scrollbar-width: thin;
+
+    &:focus-visible {
+        outline: 2px solid var(--portfolio-accent);
+        outline-offset: -2px;
+    }
+}
+
+.resume-pdf__stage {
+    width: var(--resume-zoom-size, 100%);
+    height: var(--resume-zoom-size, 100%);
+    min-width: 100%;
+    min-height: 100%;
+}
+
 .resume-pdf__viewer {
     display: block;
     width: 100%;
-    height: clamp(520px, 68vh, 720px);
+    height: 100%;
     box-sizing: border-box;
     padding: 14px;
     object-fit: contain;
     object-position: center top;
-    background: color-mix(in srgb, var(--portfolio-ink) 7%, var(--portfolio-panel));
-    border: 0;
 }
 
 @include respond(lg) {
@@ -747,7 +821,7 @@ html {
         min-height: 0;
     }
 
-    .resume-pdf__viewer {
+    .resume-pdf__viewport {
         flex: 1 1 0;
         min-height: 0;
         height: 0;

@@ -41,7 +41,7 @@
                         <article class="education-entry">
                             <header><h5>吉林大学 <span>· 计算机科学与技术学院 · 学士</span></h5><time datetime="2020-09/2024-06">2020.09 — 2024.06</time></header>
                             <p><span>主修课程</span><span>人工智能基础、强化学习、C / C++ / Java 程序设计等。</span></p>
-                            <p><span>学生工作</span><span>院团委副书记、宣传部负责人、新生辅导员助理、团支书；统筹各类活动组织与团队管理工作。</span></p>
+                            <p><span>学生工作</span><span>院团委副书记、宣传部负责人、新生辅导员助理、团支书；统筹各类活动组织与团队管理。</span></p>
                         </article>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                 <div class="content-block">
                     <h4>个人关键词</h4>
                     <div class="personal-keywords">
-                        <span>#ENFJ</span><span>#舞蹈</span><span>#小提琴</span><span>#吉他</span><span>#K歌</span><span>#读小说</span><span>#生产灵感</span><span>#和小猫玩</span>
+                        <span>#ENFJ</span><span>#舞蹈</span><span>#小提琴</span><span>#吉他</span><span>#K歌</span><span>#读小说</span><span>#生产灵感</span>
                     </div>
                 </div>
             </article>
@@ -68,24 +68,33 @@
                     <span class="portfolio-label">RESUME</span>
                     <h3>简历在线浏览</h3>
                 </div>
-                <div class="resume-pdf" aria-label="张乐佳的简历 PDF 在线浏览">
+                <div class="resume-pdf" role="group" aria-label="张乐佳的简历在线浏览">
                     <div class="resume-pdf__toolbar">
                         <span>张乐佳的简历.pdf</span>
                         <div>
                             <span>1 / 1</span>
+                            <div class="resume-pdf__zoom" data-resume-zoom-controls role="group" aria-label="简历缩放控制" hidden>
+                                <button type="button" data-resume-zoom="out" aria-controls="resume-preview-viewport" aria-label="缩小简历" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6"></path></svg></button>
+                                <output aria-live="polite" aria-atomic="true">适配</output>
+                                <button type="button" data-resume-zoom="in" aria-controls="resume-preview-viewport" aria-label="放大简历"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21M7.5 10.5h6M10.5 7.5v6"></path></svg></button>
+                            </div>
                             <a href="{{ $resumeURL }}" target="_blank" rel="noopener">新窗口打开</a>
                             <a href="{{ $resumeURL }}" download="张乐佳的简历.pdf">下载 PDF</a>
                         </div>
                     </div>
-                    <img
-                        class="resume-pdf__viewer"
-                        src="{{ $resumePreviewURL }}"
-                        alt="张乐佳的个人简历预览"
-                        width="1538"
-                        height="2175"
-                        decoding="async"
-                        loading="lazy"
-                    >
+                    <div id="resume-preview-viewport" class="resume-pdf__viewport" data-resume-preview role="region" tabindex="0" aria-label="简历预览，放大后可水平和垂直滚动">
+                        <div class="resume-pdf__stage" data-resume-stage>
+                            <img
+                                class="resume-pdf__viewer"
+                                src="{{ $resumePreviewURL }}"
+                                alt="张乐佳的个人简历预览"
+                                width="1538"
+                                height="2175"
+                                decoding="async"
+                                loading="lazy"
+                            >
+                        </div>
+                    </div>
                 </div>
             </article>
         </div>

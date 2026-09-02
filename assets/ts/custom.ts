@@ -1,4 +1,5 @@
 const DIAGRAM_ZOOM_STEPS = [1, 1.5, 2, 3, 4];
+const RESUME_ZOOM_STEPS = [1, 1.25, 1.5, 2, 2.5];
 
 function setupDiagramZoom() {
     document.querySelectorAll<HTMLElement>('.skill-diagram').forEach((diagram) => {
@@ -51,6 +52,53 @@ function setupDiagramZoom() {
             resizeObserver.observe(viewport);
         }
 
+        renderZoom(0);
+    });
+}
+
+function setupResumeZoom() {
+    document.querySelectorAll<HTMLElement>('[data-resume-preview]').forEach((viewport) => {
+        const resume = viewport.closest<HTMLElement>('.resume-pdf');
+        const stage = viewport.querySelector<HTMLElement>('[data-resume-stage]');
+        const controls = resume?.querySelector<HTMLElement>('[data-resume-zoom-controls]');
+        const zoomOut = controls?.querySelector<HTMLButtonElement>('[data-resume-zoom="out"]');
+        const zoomIn = controls?.querySelector<HTMLButtonElement>('[data-resume-zoom="in"]');
+        const zoomLabel = controls?.querySelector<HTMLOutputElement>('output');
+
+        if (!stage || !controls || !zoomOut || !zoomIn || !zoomLabel) return;
+
+        let zoomIndex = 0;
+
+        const renderZoom = (nextIndex: number) => {
+            const previousWidth = Math.max(viewport.scrollWidth, 1);
+            const previousHeight = Math.max(viewport.scrollHeight, 1);
+            const centerX = (viewport.scrollLeft + viewport.clientWidth / 2) / previousWidth;
+            const centerY = (viewport.scrollTop + viewport.clientHeight / 2) / previousHeight;
+
+            zoomIndex = Math.max(0, Math.min(nextIndex, RESUME_ZOOM_STEPS.length - 1));
+            const zoom = RESUME_ZOOM_STEPS[zoomIndex];
+            stage.style.setProperty('--resume-zoom-size', `${zoom * 100}%`);
+
+            zoomOut.disabled = zoomIndex === 0;
+            zoomIn.disabled = zoomIndex === RESUME_ZOOM_STEPS.length - 1;
+            zoomLabel.textContent = zoomIndex === 0 ? '适配' : `${Math.round(zoom * 100)}%`;
+
+            requestAnimationFrame(() => {
+                if (zoomIndex === 0) {
+                    viewport.scrollLeft = 0;
+                    viewport.scrollTop = 0;
+                    return;
+                }
+
+                viewport.scrollLeft = Math.max(0, centerX * viewport.scrollWidth - viewport.clientWidth / 2);
+                viewport.scrollTop = Math.max(0, centerY * viewport.scrollHeight - viewport.clientHeight / 2);
+            });
+        };
+
+        zoomOut.addEventListener('click', () => renderZoom(zoomIndex - 1));
+        zoomIn.addEventListener('click', () => renderZoom(zoomIndex + 1));
+
+        controls.hidden = false;
         renderZoom(0);
     });
 }
@@ -193,6 +241,7 @@ function setupExcerptDemoPairs() {
 
 function setupPortfolioInteractions() {
     setupDiagramZoom();
+    setupResumeZoom();
     setupMemoSceneWalls();
     setupExcerptDemoPairs();
 }
