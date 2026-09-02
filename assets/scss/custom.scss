@@ -969,7 +969,7 @@ html {
     h5 {
         margin: 8px 0 0;
         color: var(--portfolio-document-ink);
-        font-size: 2rem;
+        font-size: inherit;
         font-weight: 650;
         line-height: 1.45;
         letter-spacing: -0.015em;
@@ -989,7 +989,7 @@ html {
             display: block;
             margin-bottom: 4px;
             color: var(--portfolio-document-ink);
-            font-size: 2rem;
+            font-size: inherit;
             font-weight: 650;
             line-height: 1.45;
             letter-spacing: -0.015em;
@@ -1005,11 +1005,6 @@ html {
     .internship-copy {
         font-size: 1.55rem;
         line-height: 1.65;
-
-        h5,
-        ul strong {
-            font-size: 1.9rem;
-        }
     }
 }
 
