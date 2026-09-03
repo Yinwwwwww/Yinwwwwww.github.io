@@ -1,9 +1,9 @@
 @font-face {
-    font-family: "Kingnam Maiyuan Hero";
+    font-family: "LXGW WenKai Hero";
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     font-display: swap;
-    src: url("/fonts/kn-maiyuan-hero.woff2") format("woff2");
+    src: url("/fonts/lxgw-wenkai-hero.woff2") format("woff2");
     unicode-range: U+0048, U+0069, U+4E50, U+4F73, U+5F20, U+6211, U+662F, U+FF0C;
 }
 
@@ -587,9 +587,9 @@ html {
     z-index: 2;
     margin: 0;
     color: #302943;
-    font-family: "Kingnam Maiyuan Hero", "HanziPen SC", "Hannotate SC", "PingFang SC", sans-serif;
+    font-family: "LXGW WenKai Hero", "Kaiti SC", "STKaiti", "PingFang SC", sans-serif;
     font-size: clamp(3.4rem, 5.4vw, 6.4rem);
-    font-weight: 400;
+    font-weight: 300;
     line-height: 1.45;
     letter-spacing: 0.015em;
     text-align: center;
