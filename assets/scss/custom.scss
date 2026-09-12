@@ -2071,6 +2071,17 @@ html {
     margin-top: 30px;
 }
 
+.life-card-deck.is-rebasing {
+    .life-card-deck__viewport {
+        scroll-snap-type: none;
+    }
+
+    .life-scenario-card,
+    .life-scenario-card__inner {
+        transition: none;
+    }
+}
+
 .life-card-deck__viewport {
     position: relative;
     width: 100%;

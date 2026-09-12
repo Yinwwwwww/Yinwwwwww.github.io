@@ -323,11 +323,58 @@ function setupLifeScenarioCards() {
 
     document.querySelectorAll<HTMLElement>('[data-life-card-deck]').forEach((deck) => {
         const viewport = deck.querySelector<HTMLElement>('[data-life-card-viewport]');
+        const track = deck.querySelector<HTMLOListElement>('.life-card-deck__track');
         const cards = Array.from(deck.querySelectorAll<HTMLElement>('[data-life-card]'));
 
-        if (!viewport || cards.length === 0) return;
+        if (!viewport || !track || cards.length === 0) return;
+
+        cards.forEach((card, index) => {
+            card.dataset.lifeCardIndex = String(index);
+        });
+
+        const cloneCard = (card: HTMLElement, index: number, cycle: 'before' | 'after') => {
+            const clone = card.cloneNode(true) as HTMLElement;
+            clone.dataset.lifeCardClone = cycle;
+            clone.dataset.lifeCardIndex = String(index);
+            clone.classList.remove('is-centered', 'is-flipped');
+            clone.removeAttribute('aria-current');
+            clone.setAttribute('aria-hidden', 'true');
+            clone.setAttribute('inert', '');
+
+            clone.querySelectorAll<HTMLElement>('[id]').forEach((element) => element.removeAttribute('id'));
+            clone.querySelectorAll<HTMLElement>('[aria-controls], [aria-labelledby]').forEach((element) => {
+                element.removeAttribute('aria-controls');
+                element.removeAttribute('aria-labelledby');
+            });
+            clone.querySelectorAll<HTMLElement>('button, [tabindex]').forEach((element) => {
+                element.tabIndex = -1;
+            });
+
+            return clone;
+        };
+
+        const beforeCards = cards.map((card, index) => cloneCard(card, index, 'before'));
+        const afterCards = cards.map((card, index) => cloneCard(card, index, 'after'));
+        const beforeFragment = document.createDocumentFragment();
+        const afterFragment = document.createDocumentFragment();
+        beforeCards.forEach((card) => beforeFragment.append(card));
+        afterCards.forEach((card) => afterFragment.append(card));
+        track.prepend(beforeFragment);
+        track.append(afterFragment);
+
+        const physicalCards = [...beforeCards, ...cards, ...afterCards];
 
         let activeIndex = 0;
+        let isWrapping = false;
+        let centeredCard = cards[0];
+        let centerFrame = 0;
+        let settleTimer = 0;
+        let autoAdvanceTimer = 0;
+        let isDeckVisible = true;
+        let isPointerInside = false;
+        let pendingKeyboardFocus: number | null = null;
+
+        const normalizeIndex = (index: number) => (index + cards.length) % cards.length;
 
         const getParts = (card: HTMLElement) => ({
             trigger: card.querySelector<HTMLButtonElement>('[data-life-card-open]'),
@@ -362,32 +409,32 @@ function setupLifeScenarioCards() {
             });
         };
 
-        const setCenteredCard = (index: number) => {
-            const previousIndex = activeIndex;
-            const previousCard = cards[previousIndex];
-            const shouldMoveFocus = previousCard?.contains(document.activeElement) ?? false;
-            activeIndex = Math.max(0, Math.min(index, cards.length - 1));
-            const centeredCard = cards[activeIndex];
+        const setCenteredCard = (card: HTMLElement) => {
+            const nextIndex = normalizeIndex(Number(card.dataset.lifeCardIndex));
+            const selectedOriginal = card === cards[nextIndex] ? cards[nextIndex] : undefined;
+            centeredCard = card;
 
-            cards.forEach((card, cardIndex) => {
-                const isCentered = cardIndex === activeIndex;
-                card.classList.toggle('is-centered', isCentered);
+            physicalCards.forEach((physicalCard) => {
+                const isCentered = physicalCard === centeredCard;
+                physicalCard.classList.toggle('is-centered', isCentered);
                 if (isCentered) {
-                    card.setAttribute('aria-current', 'true');
+                    if (!physicalCard.dataset.lifeCardClone) {
+                        physicalCard.setAttribute('aria-current', 'true');
+                    }
                 } else {
-                    card.removeAttribute('aria-current');
+                    physicalCard.removeAttribute('aria-current');
                 }
             });
 
-            closeOtherCards(centeredCard);
+            if (nextIndex !== activeIndex || !selectedOriginal) closeOtherCards(selectedOriginal);
+            activeIndex = nextIndex;
             renderRovingIndex();
-
-            if (shouldMoveFocus && previousIndex !== activeIndex) {
-                getParts(centeredCard).trigger?.focus({ preventScroll: true });
-            }
         };
 
-        const scrollCardIntoView = (card: HTMLElement) => {
+        const scrollCardIntoView = (
+            card: HTMLElement,
+            behavior: ScrollBehavior = prefersReducedMotion ? 'auto' : 'smooth'
+        ) => {
             const viewportBounds = viewport.getBoundingClientRect();
             const cardBounds = card.getBoundingClientRect();
             const offset = cardBounds.left + cardBounds.width / 2
@@ -395,18 +442,22 @@ function setupLifeScenarioCards() {
 
             viewport.scrollTo({
                 left: viewport.scrollLeft + offset,
-                behavior: prefersReducedMotion ? 'auto' : 'smooth',
+                behavior
             });
         };
 
-        const focusCard = (index: number) => {
-            const targetIndex = Math.max(0, Math.min(index, cards.length - 1));
-            const target = cards[targetIndex];
-            const { trigger } = getParts(target);
-            if (!trigger) return;
+        const moveKeyboardFocus = (index: number, visualTarget?: HTMLElement) => {
+            const targetIndex = normalizeIndex(index);
+            const target = visualTarget ?? cards[targetIndex];
 
-            setCenteredCard(targetIndex);
-            trigger.focus({ preventScroll: true });
+            if (target === centeredCard) {
+                pendingKeyboardFocus = null;
+                getParts(cards[targetIndex]).trigger?.focus({ preventScroll: true });
+                return;
+            }
+
+            pendingKeyboardFocus = targetIndex;
+            closeOtherCards();
             scrollCardIntoView(target);
         };
 
@@ -434,6 +485,8 @@ function setupLifeScenarioCards() {
             });
 
             trigger.addEventListener('click', () => {
+                stopAutoAdvance();
+
                 if (!card.classList.contains('is-centered')) {
                     closeOtherCards();
                     scrollCardIntoView(card);
@@ -456,7 +509,18 @@ function setupLifeScenarioCards() {
                 if (nextIndex === null) return;
 
                 event.preventDefault();
-                focusCard(nextIndex);
+
+                if (nextIndex < 0) {
+                    moveKeyboardFocus(cards.length - 1, beforeCards[cards.length - 1]);
+                    return;
+                }
+
+                if (nextIndex >= cards.length) {
+                    moveKeyboardFocus(0, afterCards[0]);
+                    return;
+                }
+
+                moveKeyboardFocus(nextIndex);
             });
 
             getParts(card).close?.addEventListener('click', (event) => {
@@ -472,24 +536,63 @@ function setupLifeScenarioCards() {
             });
         });
 
+        const finishPendingKeyboardFocus = () => {
+            if (pendingKeyboardFocus === null) return;
+            const target = cards[pendingKeyboardFocus];
+            pendingKeyboardFocus = null;
+            getParts(target).trigger?.focus({ preventScroll: true });
+        };
+
+        const rebaseLoop = () => {
+            if (isWrapping) return;
+
+            if (!centeredCard.dataset.lifeCardClone) {
+                finishPendingKeyboardFocus();
+                return;
+            }
+
+            const index = normalizeIndex(Number(centeredCard.dataset.lifeCardIndex));
+            const target = cards[index];
+
+            const cloneBounds = centeredCard.getBoundingClientRect();
+            const targetBounds = target.getBoundingClientRect();
+            const delta = targetBounds.left + targetBounds.width / 2
+                - (cloneBounds.left + cloneBounds.width / 2);
+
+            isWrapping = true;
+            deck.classList.add('is-rebasing');
+            viewport.scrollLeft += delta;
+            setCenteredCard(target);
+
+            window.requestAnimationFrame(() => {
+                window.requestAnimationFrame(() => {
+                    deck.classList.remove('is-rebasing');
+                    isWrapping = false;
+                    finishPendingKeyboardFocus();
+                    scheduleAutoAdvance();
+                });
+            });
+        };
+
         const updateCenteredCard = () => {
+            if (isWrapping) return;
+
             const viewportBounds = viewport.getBoundingClientRect();
             const viewportCenter = viewportBounds.left + viewportBounds.width / 2;
-            let nearestIndex = 0;
+            let nearestCard = physicalCards[0];
             let nearestDistance = Number.POSITIVE_INFINITY;
 
-            cards.forEach((card, index) => {
+            physicalCards.forEach((card) => {
                 const bounds = card.getBoundingClientRect();
                 const distance = Math.abs(bounds.left + bounds.width / 2 - viewportCenter);
                 if (distance >= nearestDistance) return;
                 nearestDistance = distance;
-                nearestIndex = index;
+                nearestCard = card;
             });
 
-            setCenteredCard(nearestIndex);
+            setCenteredCard(nearestCard);
         };
 
-        let centerFrame = 0;
         const scheduleCenteredCardUpdate = () => {
             if (centerFrame) return;
             centerFrame = window.requestAnimationFrame(() => {
@@ -498,20 +601,90 @@ function setupLifeScenarioCards() {
             });
         };
 
-        viewport.addEventListener('scroll', scheduleCenteredCardUpdate, { passive: true });
+        const settleLoop = () => {
+            if (isWrapping) return;
+            updateCenteredCard();
+            rebaseLoop();
+        };
 
-        if ('ResizeObserver' in window) {
-            const resizeObserver = new ResizeObserver(scheduleCenteredCardUpdate);
-            resizeObserver.observe(viewport);
-        } else {
-            window.addEventListener('resize', scheduleCenteredCardUpdate);
+        const scheduleLoopSettle = () => {
+            window.clearTimeout(settleTimer);
+            settleTimer = window.setTimeout(settleLoop, 150);
+        };
+
+        const stopAutoAdvance = () => window.clearTimeout(autoAdvanceTimer);
+
+        const scheduleAutoAdvance = () => {
+            stopAutoAdvance();
+            if (
+                prefersReducedMotion
+                || !isDeckVisible
+                || document.hidden
+                || isPointerInside
+                || isWrapping
+                || deck.contains(document.activeElement)
+                || cards.some((card) => card.classList.contains('is-flipped'))
+            ) return;
+
+            autoAdvanceTimer = window.setTimeout(() => {
+                const nextIndex = normalizeIndex(activeIndex + 1);
+                const target = activeIndex === cards.length - 1 ? afterCards[0] : cards[nextIndex];
+                closeOtherCards();
+                scrollCardIntoView(target);
+            }, 3600);
+        };
+
+        viewport.addEventListener('scroll', () => {
+            scheduleCenteredCardUpdate();
+            scheduleLoopSettle();
+            scheduleAutoAdvance();
+        }, { passive: true });
+        viewport.addEventListener('scrollend', () => {
+            window.clearTimeout(settleTimer);
+            settleLoop();
+            scheduleAutoAdvance();
+        });
+
+        deck.addEventListener('pointerenter', () => {
+            isPointerInside = true;
+            stopAutoAdvance();
+        });
+        deck.addEventListener('pointerleave', () => {
+            isPointerInside = false;
+            scheduleAutoAdvance();
+        });
+        deck.addEventListener('focusin', stopAutoAdvance);
+        deck.addEventListener('focusout', () => {
+            window.requestAnimationFrame(scheduleAutoAdvance);
+        });
+
+        document.addEventListener('visibilitychange', scheduleAutoAdvance);
+
+        if ('IntersectionObserver' in window) {
+            const visibilityObserver = new IntersectionObserver((entries) => {
+                isDeckVisible = entries[0]?.isIntersecting ?? false;
+                scheduleAutoAdvance();
+            }, { threshold: 0.15 });
+            visibilityObserver.observe(deck);
         }
 
-        setCenteredCard(0);
-        window.requestAnimationFrame(() => {
-            viewport.scrollLeft = 0;
-            updateCenteredCard();
-        });
+        if ('ResizeObserver' in window) {
+            const resizeObserver = new ResizeObserver(() => {
+                scrollCardIntoView(cards[activeIndex], 'auto');
+                scheduleCenteredCardUpdate();
+            });
+            resizeObserver.observe(viewport);
+        } else {
+            window.addEventListener('resize', () => {
+                scrollCardIntoView(cards[activeIndex], 'auto');
+                scheduleCenteredCardUpdate();
+            });
+        }
+
+        setCenteredCard(cards[0]);
+        scrollCardIntoView(cards[0], 'auto');
+        updateCenteredCard();
+        scheduleAutoAdvance();
     });
 }
 
