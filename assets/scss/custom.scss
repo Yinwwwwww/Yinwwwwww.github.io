@@ -2039,6 +2039,477 @@ html {
     }
 }
 
+/* 知生活：Story Opening 与生活问题抽卡 */
+.life-case {
+    .skill-card__identity code {
+        max-width: 760px;
+        white-space: normal;
+
+        strong {
+            color: var(--portfolio-ink);
+            font: inherit;
+            font-weight: 700;
+        }
+    }
+
+    .skill-card__role {
+        max-width: 320px;
+        line-height: 1.28;
+        text-align: right;
+    }
+}
+
+.life-story__copy {
+    max-width: 1080px;
+}
+
+.life-story__copy--closing {
+    margin-top: 30px;
+}
+
+.life-answer-lab {
+    position: relative;
+    margin-top: 30px;
+    overflow: hidden;
+    background:
+        linear-gradient(145deg, color-mix(in srgb, var(--portfolio-accent) 4%, transparent), transparent 38%),
+        color-mix(in srgb, var(--portfolio-ink) 2%, var(--portfolio-panel));
+    border: 1px solid var(--portfolio-border);
+    border-radius: 14px;
+}
+
+.life-answer-lab__header {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid var(--portfolio-border);
+
+    > div {
+        min-width: 0;
+    }
+
+    span,
+    h4,
+    p,
+    output {
+        margin: 0;
+    }
+
+    > div > span {
+        color: var(--portfolio-accent);
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.11em;
+    }
+
+    h4 {
+        margin-top: 6px;
+        color: var(--portfolio-ink);
+        font-size: 1.36rem;
+        letter-spacing: -0.015em;
+    }
+
+    p {
+        display: flex;
+        flex-shrink: 0;
+        gap: 10px;
+        align-items: center;
+        color: var(--portfolio-muted);
+        font-size: 0.78rem;
+        white-space: nowrap;
+    }
+
+    output {
+        color: var(--portfolio-accent-strong);
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+    }
+}
+
+.life-answer-formula {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+    padding: 22px 28px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-color: var(--portfolio-border) transparent;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+
+    > b {
+        display: grid;
+        flex: 0 0 30px;
+        color: var(--portfolio-accent);
+        font-size: 1.25rem;
+        font-weight: 500;
+        place-items: center;
+        animation: lifeFormulaPulse 4.8s ease-in-out infinite;
+    }
+}
+
+.life-answer-formula__term {
+    position: relative;
+    display: flex;
+    flex: 1 0 210px;
+    min-height: 82px;
+    padding: 16px 18px;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: center;
+    background: color-mix(in srgb, var(--portfolio-panel) 92%, transparent);
+    border: 1px solid var(--portfolio-border);
+    border-radius: 11px;
+    box-shadow: 0 8px 22px color-mix(in srgb, var(--portfolio-ink) 5%, transparent);
+    animation: lifeFormulaGlow 4.8s ease-in-out infinite;
+
+    &:nth-of-type(2) {
+        animation-delay: 0.8s;
+    }
+
+    &::after {
+        position: absolute;
+        top: -65%;
+        left: -42%;
+        width: 34%;
+        height: 230%;
+        content: "";
+        background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--portfolio-panel) 80%, transparent), transparent);
+        opacity: 0;
+        transform: rotate(16deg);
+        animation: lifeFormulaSweep 4.8s ease-in-out infinite;
+    }
+
+    small,
+    strong {
+        position: relative;
+        z-index: 1;
+        display: block;
+    }
+
+    small {
+        color: var(--portfolio-accent);
+        font-size: 0.71rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+    }
+
+    strong {
+        margin-top: 5px;
+        color: var(--portfolio-ink);
+        font-size: 1rem;
+        line-height: 1.45;
+    }
+}
+
+.life-answer-formula__term--result {
+    background: color-mix(in srgb, var(--portfolio-accent) 10%, var(--portfolio-panel));
+    border-color: color-mix(in srgb, var(--portfolio-accent) 36%, var(--portfolio-border));
+    animation-delay: 1.6s;
+}
+
+.life-card-deck__viewport {
+    position: relative;
+    padding: 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-padding-inline: 28px;
+    scroll-snap-type: inline proximity;
+    scrollbar-color: color-mix(in srgb, var(--portfolio-accent) 34%, var(--portfolio-border)) transparent;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+
+    &:focus-visible {
+        outline: 2px solid color-mix(in srgb, var(--portfolio-accent) 60%, transparent);
+        outline-offset: -2px;
+    }
+}
+
+.life-card-deck__track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    padding: 4px 28px 28px;
+    margin: 0;
+    list-style: none;
+
+    > li {
+        display: block;
+        scroll-snap-align: start;
+    }
+}
+
+.life-scenario-card {
+    display: block;
+    width: clamp(340px, 28vw, 390px);
+    height: 560px;
+    border-radius: 13px;
+    perspective: 1500px;
+    -webkit-tap-highlight-color: transparent;
+
+    &.is-flipped .life-scenario-card__inner {
+        transform: rotateY(180deg);
+    }
+}
+
+.life-scenario-card__inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.62s cubic-bezier(0.22, 0.72, 0.24, 1);
+    transform-style: preserve-3d;
+}
+
+.life-scenario-card__face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    overflow: hidden;
+    background: var(--portfolio-panel);
+    border: 1px solid color-mix(in srgb, var(--portfolio-accent) 18%, var(--portfolio-border));
+    border-radius: 13px;
+    box-shadow: 0 15px 40px color-mix(in srgb, var(--portfolio-ink) 9%, transparent);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    &:focus-visible {
+        outline: 3px solid color-mix(in srgb, var(--portfolio-accent) 58%, transparent);
+        outline-offset: -3px;
+    }
+}
+
+.life-scenario-card__face--front {
+    justify-content: space-between;
+    padding: 24px;
+    cursor: pointer;
+    background:
+        radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--portfolio-accent) 14%, transparent), transparent 34%),
+        linear-gradient(155deg, var(--portfolio-panel), color-mix(in srgb, var(--portfolio-accent) 5%, var(--portfolio-panel)));
+
+    &::after {
+        position: absolute;
+        right: -54px;
+        bottom: -60px;
+        width: 190px;
+        height: 190px;
+        content: "";
+        border: 1px solid color-mix(in srgb, var(--portfolio-accent) 18%, transparent);
+        border-radius: 50%;
+        box-shadow:
+            0 0 0 22px color-mix(in srgb, var(--portfolio-accent) 4%, transparent),
+            0 0 0 46px color-mix(in srgb, var(--portfolio-accent) 3%, transparent);
+    }
+
+    > strong {
+        position: relative;
+        z-index: 1;
+        max-width: 290px;
+        margin: auto 0;
+        color: var(--portfolio-ink);
+        font-size: clamp(1.45rem, 2vw, 1.78rem);
+        font-weight: 700;
+        line-height: 1.52;
+        letter-spacing: -0.025em;
+    }
+}
+
+.life-scenario-card__eyebrow {
+    position: relative;
+    z-index: 1;
+    color: var(--portfolio-accent);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+}
+
+.life-scenario-card__number {
+    position: absolute;
+    top: 21px;
+    right: 23px;
+    color: color-mix(in srgb, var(--portfolio-accent) 44%, var(--portfolio-muted));
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.life-scenario-card__hint {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--portfolio-muted);
+    font-size: 0.78rem;
+
+    i {
+        position: relative;
+        display: block;
+        width: 19px;
+        height: 1px;
+        background: currentColor;
+
+        &::after {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 6px;
+            height: 6px;
+            content: "";
+            border-top: 1px solid currentColor;
+            border-right: 1px solid currentColor;
+            transform: translateY(-50%) rotate(45deg);
+        }
+    }
+}
+
+.life-scenario-card__face--back {
+    padding: 20px;
+    overflow-y: auto;
+    background: color-mix(in srgb, var(--portfolio-accent) 3%, var(--portfolio-panel));
+    transform: rotateY(180deg);
+    scrollbar-color: var(--portfolio-border) transparent;
+    scrollbar-width: thin;
+}
+
+.life-scenario-card__back-head {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--portfolio-border);
+
+    strong {
+        color: var(--portfolio-accent);
+        font-size: 0.92rem;
+        letter-spacing: 0.08em;
+    }
+
+    button {
+        padding: 3px 0;
+        color: var(--portfolio-muted);
+        font: inherit;
+        font-size: 0.7rem;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+    }
+
+    button:hover,
+    button:focus-visible {
+        color: var(--portfolio-accent-strong);
+    }
+
+    button:focus-visible {
+        outline: 1px solid currentColor;
+        outline-offset: 3px;
+    }
+
+    small {
+        color: var(--portfolio-muted);
+        font-size: 0.7rem;
+    }
+}
+
+.life-scenario-card__section {
+    display: block;
+    padding: 15px 0;
+    color: var(--portfolio-muted);
+    font-size: 0.86rem;
+    line-height: 1.64;
+    border-bottom: 1px solid var(--portfolio-border);
+
+    small,
+    > span {
+        display: block;
+    }
+
+    small {
+        margin-bottom: 5px;
+        color: var(--portfolio-accent);
+        font-size: 0.69rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+    }
+}
+
+.life-scenario-card__section--result {
+    padding: 15px;
+    margin-top: 14px;
+    color: var(--portfolio-ink);
+    background: color-mix(in srgb, var(--portfolio-accent) 9%, var(--portfolio-panel));
+    border: 1px solid color-mix(in srgb, var(--portfolio-accent) 24%, var(--portfolio-border));
+    border-radius: 9px;
+}
+
+.life-answer-lab.is-animation-paused {
+    .life-answer-formula > b,
+    .life-answer-formula__term,
+    .life-answer-formula__term::after {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes lifeFormulaGlow {
+    0%,
+    46%,
+    100% {
+        border-color: var(--portfolio-border);
+        box-shadow: 0 8px 22px color-mix(in srgb, var(--portfolio-ink) 5%, transparent);
+        transform: translateY(0);
+    }
+
+    16%,
+    28% {
+        border-color: color-mix(in srgb, var(--portfolio-accent) 44%, var(--portfolio-border));
+        box-shadow: 0 12px 28px color-mix(in srgb, var(--portfolio-accent) 13%, transparent);
+        transform: translateY(-2px);
+    }
+}
+
+@keyframes lifeFormulaPulse {
+    0%,
+    45%,
+    100% {
+        opacity: 0.45;
+        transform: scale(0.9);
+    }
+
+    18%,
+    28% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes lifeFormulaSweep {
+    0%,
+    10% {
+        left: -42%;
+        opacity: 0;
+    }
+
+    18% {
+        opacity: 0.7;
+    }
+
+    32%,
+    100% {
+        left: 118%;
+        opacity: 0;
+    }
+}
+
 .memo-exploration {
     padding: clamp(24px, 4vw, 42px);
     margin-bottom: 42px;
@@ -2493,6 +2964,7 @@ html {
     }
 
     .memo-case .skill-card__header,
+    .life-case .skill-card__header,
     .excerpt-case .skill-card__header {
         grid-template-columns: 1fr;
 
@@ -2502,6 +2974,56 @@ html {
             font-size: 1.05rem;
             text-align: left;
         }
+    }
+
+    .life-case .skill-card__identity code {
+        line-height: 1.55;
+    }
+
+    .life-answer-lab__header {
+        gap: 12px;
+        align-items: flex-start;
+        padding: 20px 18px 17px;
+        flex-direction: column;
+
+        p {
+            justify-content: space-between;
+            width: 100%;
+        }
+    }
+
+    .life-answer-formula {
+        gap: 8px;
+        padding: 18px;
+
+        > b {
+            flex-basis: 24px;
+        }
+    }
+
+    .life-answer-formula__term {
+        flex-basis: 172px;
+        min-height: 76px;
+        padding: 13px 14px;
+    }
+
+    .life-card-deck__viewport {
+        scroll-padding-inline: 18px;
+    }
+
+    .life-card-deck__track {
+        gap: 12px;
+        padding: 2px 18px 22px;
+    }
+
+    .life-scenario-card {
+        width: 82vw;
+        max-width: 340px;
+        height: 560px;
+    }
+
+    .life-scenario-card__face--front {
+        padding: 21px;
     }
 
     .excerpt-pain-points {
@@ -2638,8 +3160,15 @@ html {
     .diagram-edges path,
     .skill-diagram__live i::after,
     .skill-diagram__viewport svg,
-    .memo-scene-track {
+    .memo-scene-track,
+    .life-answer-formula > b,
+    .life-answer-formula__term,
+    .life-answer-formula__term::after {
         animation: none;
+        transition: none;
+    }
+
+    .life-scenario-card__inner {
         transition: none;
     }
 

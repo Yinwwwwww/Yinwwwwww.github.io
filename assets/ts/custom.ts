@@ -318,6 +318,159 @@ function setupMemoSceneWalls() {
     });
 }
 
+function setupLifeScenarioCards() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.querySelectorAll<HTMLElement>('[data-life-card-deck]').forEach((deck) => {
+        const viewport = deck.querySelector<HTMLElement>('[data-life-card-viewport]');
+        const cards = Array.from(deck.querySelectorAll<HTMLElement>('[data-life-card]'));
+        const position = deck.querySelector<HTMLOutputElement>('[data-life-card-position]');
+
+        if (!viewport || cards.length === 0) return;
+
+        let activeIndex = 0;
+
+        const renderPosition = (index: number) => {
+            if (!position) return;
+            position.textContent = `${String(index + 1).padStart(2, '0')} / ${cards.length}`;
+        };
+
+        const getParts = (card: HTMLElement) => ({
+            trigger: card.querySelector<HTMLButtonElement>('[data-life-card-open]'),
+            back: card.querySelector<HTMLElement>('[data-life-card-back]'),
+            close: card.querySelector<HTMLButtonElement>('[data-life-card-close]')
+        });
+
+        const renderRovingIndex = () => {
+            cards.forEach((card, index) => {
+                const { trigger } = getParts(card);
+                if (!trigger || card.classList.contains('is-flipped')) return;
+                trigger.tabIndex = index === activeIndex ? 0 : -1;
+            });
+        };
+
+        const renderCard = (card: HTMLElement, isFlipped: boolean) => {
+            const { trigger, back, close } = getParts(card);
+            if (!trigger || !back) return;
+
+            card.classList.toggle('is-flipped', isFlipped);
+            trigger.setAttribute('aria-expanded', isFlipped ? 'true' : 'false');
+            trigger.setAttribute('aria-hidden', isFlipped ? 'true' : 'false');
+            trigger.tabIndex = isFlipped ? -1 : cards.indexOf(card) === activeIndex ? 0 : -1;
+            back.setAttribute('aria-hidden', isFlipped ? 'false' : 'true');
+            back.tabIndex = isFlipped ? 0 : -1;
+            if (close) close.tabIndex = isFlipped ? 0 : -1;
+        };
+
+        const closeOtherCards = (selectedCard?: HTMLElement) => {
+            cards.forEach((card) => {
+                if (card !== selectedCard) renderCard(card, false);
+            });
+        };
+
+        const scrollCardIntoView = (card: HTMLElement) => {
+            card.scrollIntoView({
+                behavior: prefersReducedMotion ? 'auto' : 'smooth',
+                block: 'nearest',
+                inline: 'center'
+            });
+        };
+
+        const focusCard = (index: number) => {
+            activeIndex = Math.max(0, Math.min(index, cards.length - 1));
+            const target = cards[activeIndex];
+            const { trigger } = getParts(target);
+            if (!trigger) return;
+
+            closeOtherCards();
+            renderRovingIndex();
+            trigger.focus({ preventScroll: true });
+            scrollCardIntoView(target);
+            renderPosition(activeIndex);
+        };
+
+        const closeCard = (card: HTMLElement, restoreFocus: boolean) => {
+            const index = cards.indexOf(card);
+            if (index >= 0) activeIndex = index;
+            renderCard(card, false);
+            renderRovingIndex();
+
+            if (!restoreFocus) return;
+            const { trigger } = getParts(card);
+            trigger?.focus({ preventScroll: true });
+        };
+
+        cards.forEach((card, index) => {
+            const { trigger, back } = getParts(card);
+            if (!trigger || !back) return;
+
+            renderCard(card, false);
+
+            trigger.addEventListener('focus', () => {
+                activeIndex = index;
+                renderRovingIndex();
+                renderPosition(index);
+            });
+
+            trigger.addEventListener('click', () => {
+                activeIndex = index;
+                closeOtherCards(card);
+                renderCard(card, true);
+                scrollCardIntoView(card);
+                renderPosition(index);
+
+                window.requestAnimationFrame(() => back.focus({ preventScroll: true }));
+            });
+
+            trigger.addEventListener('keydown', (event) => {
+                let nextIndex: number | null = null;
+                if (event.key === 'ArrowRight') nextIndex = index + 1;
+                if (event.key === 'ArrowLeft') nextIndex = index - 1;
+                if (event.key === 'Home') nextIndex = 0;
+                if (event.key === 'End') nextIndex = cards.length - 1;
+                if (nextIndex === null) return;
+
+                event.preventDefault();
+                focusCard(nextIndex);
+            });
+
+            back.addEventListener('click', () => closeCard(card, true));
+            back.addEventListener('keydown', (event) => {
+                if (event.target !== back) return;
+                if (event.key !== 'Escape' && event.key !== 'Enter' && event.key !== ' ') return;
+
+                event.preventDefault();
+                closeCard(card, true);
+            });
+        });
+
+        renderRovingIndex();
+
+        let scrollFrame = 0;
+        viewport.addEventListener('scroll', () => {
+            if (scrollFrame) return;
+            scrollFrame = window.requestAnimationFrame(() => {
+                scrollFrame = 0;
+                const viewportCenter = viewport.getBoundingClientRect().left + viewport.clientWidth / 2;
+                let nearestIndex = 0;
+                let nearestDistance = Number.POSITIVE_INFINITY;
+
+                cards.forEach((card, index) => {
+                    const bounds = card.getBoundingClientRect();
+                    const distance = Math.abs(bounds.left + bounds.width / 2 - viewportCenter);
+                    if (distance >= nearestDistance) return;
+                    nearestDistance = distance;
+                    nearestIndex = index;
+                });
+
+                renderPosition(nearestIndex);
+            });
+        }, { passive: true });
+
+        renderPosition(0);
+    });
+}
+
 function prepareLazyVideo(video: HTMLVideoElement) {
     video.muted = true;
     video.defaultMuted = true;
@@ -359,7 +512,7 @@ function isElementVisible(element: HTMLElement) {
 
 function setupOffscreenAnimations() {
     const regions = Array.from(
-        document.querySelectorAll<HTMLElement>('.skill-diagram, [data-memo-scene-wall]')
+        document.querySelectorAll<HTMLElement>('.skill-diagram, [data-memo-scene-wall], [data-life-card-deck]')
     );
     if (regions.length === 0 || !('IntersectionObserver' in window)) return;
 
@@ -637,6 +790,7 @@ function setupPortfolioInteractions() {
     setupDiagramZoom();
     setupResumeZoom();
     setupMemoSceneWalls();
+    setupLifeScenarioCards();
     setupOffscreenAnimations();
     setupLazyVideos();
     setupExcerptDemoPairs();
