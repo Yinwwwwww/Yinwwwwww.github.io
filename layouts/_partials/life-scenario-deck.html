@@ -1,34 +1,9 @@
 {{- $scenarios := hugo.Data.life_scenarios -}}
-<section class="life-answer-lab" data-life-card-deck aria-labelledby="life-answer-lab-title">
-    <header class="life-answer-lab__header">
-        <div>
-            <span>PERSONALIZED ANSWER LAB</span>
-            <h4 id="life-answer-lab-title">互联网 + 个人知识库 = 最终答案</h4>
-        </div>
-        <p><output data-life-card-position>01 / {{ len $scenarios }}</output><span>左右滑动 · 点击卡片翻面</span></p>
-    </header>
-
-    <div class="life-answer-formula" aria-label="互联网通用方案加个人知识库，形成最终定制方案">
-        <span class="life-answer-formula__term">
-            <small>search results</small>
-            <strong>互联网通用方案</strong>
-        </span>
-        <b aria-hidden="true">+</b>
-        <span class="life-answer-formula__term">
-            <small>personal knowledge</small>
-            <strong>个人知识库</strong>
-        </span>
-        <b aria-hidden="true">=</b>
-        <span class="life-answer-formula__term life-answer-formula__term--result">
-            <small>i want</small>
-            <strong>最终定制方案</strong>
-        </span>
-    </div>
-
+<div class="life-card-deck" data-life-card-deck>
     <div class="life-card-deck__viewport" data-life-card-viewport role="region" aria-label="20 个生活问题场景，可左右滑动查看全部卡片">
         <ol class="life-card-deck__track">
             {{- range $scenarios -}}
-            <li class="life-scenario-card" data-life-card>
+            <li class="life-scenario-card{{ if eq .id "01" }} is-centered{{ end }}" data-life-card>
                 <div class="life-scenario-card__inner">
                     <button
                         class="life-scenario-card__face life-scenario-card__face--front"
@@ -73,4 +48,4 @@
             {{- end -}}
         </ol>
     </div>
-</section>
+</div>
